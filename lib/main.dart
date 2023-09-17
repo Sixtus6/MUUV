@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:muuv/provider/theme.dart';
 import 'package:muuv/screens/mainscreen.dart';
 
 void main() {
@@ -13,10 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: ThemeClass.mainTheme,
       home: MainScreen(),
     );
   }

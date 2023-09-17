@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/onboarding/index.dart';
@@ -14,7 +15,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   void flagSwitch() {
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 4), () {
       Navigator.pushAndRemoveUntil(context,
           MaterialPageRoute(builder: (context) {
         /*------------------------------------------------
@@ -29,14 +30,9 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     flagSwitch();
     return Scaffold(
-      backgroundColor: ColorConfig.green,
-      // body: Center(
-      //   child: Image(
-      //     image: AssetImage("assets/images/icons/Kripto.png"),
-      //     height: SizeConfig.getPercentageWidth(40),
-      //     width: SizeConfig.getPercentageWidth(40),
-      //   ),
-      // ),
+      backgroundColor: ColorConfig.white,
+      body:
+          Center(child: Lottie.asset("assets/lottie/animation_lmnnrah8.json")),
     );
   }
 }
