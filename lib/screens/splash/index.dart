@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     flagSwitch();
     return Scaffold(
-      backgroundColor: ColorConfig.white,
+      backgroundColor: ColorConfig.splash,
       body:
           Center(child: Lottie.asset("assets/lottie/animation_lmnnrah8.json")),
     );
