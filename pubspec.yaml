@@ -71,6 +71,9 @@ flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/icon/muuv.png"
+  adaptive_icon_foreground: "assets/icon/fore.png"
+  adaptive_icon_background: "#FFecf3fb"
+
  
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
