@@ -14,7 +14,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
+    SizeConfigs().init(context);
     return const SplashScreen();
   }
 }

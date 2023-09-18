@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SizeConfig {
+class SizeConfigs {
   static late MediaQueryData _mediaQueryData;
   static late double screenHeight;
   static late double screenWidth;
@@ -12,10 +12,10 @@ class SizeConfig {
   }
 
   static double getPercentageHeight(int percentage) {
-    return SizeConfig.screenHeight * percentage * 0.01;
+    return SizeConfigs.screenHeight * percentage * 0.01;
   }
 
   static double getPercentageWidth(int percentage) {
-    return SizeConfig.screenWidth * percentage * 0.01;
+    return SizeConfigs.screenWidth * percentage * 0.01;
   }
 }
