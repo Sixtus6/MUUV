@@ -41,7 +41,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               SizeConfigs.getPercentageWidth(8).toInt().height,
               GestureDetector(
                 onTap: () {
-                  const UserScreen().launch(context);
+                  const UserScreen().launch(context,
+                      pageRouteAnimation: PageRouteAnimation.Scale);
                 },
                 child: const CustomButton(
                   pbottom: 10,
@@ -51,9 +52,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
               SizeConfigs.getPercentageWidth(6).toInt().height,
+              
               GestureDetector(
                 onTap: () {
-                  const RiderScreen().launch(context);
+                  RiderScreen().launch(context,
+                      pageRouteAnimation: PageRouteAnimation.Scale);
                 },
                 child: const CustomButton(
                   img: 'assets/icon/driver.png',
