@@ -30,7 +30,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               SizeConfigs.getPercentageWidth(10).toInt().height,
               Lottie.asset("assets/lottie/animation_lmpc2y4t.json"),
               Text(
-                "Select how you'd like to continue with our service.",
+                "Select who you'd like to continue as.",
                 style: TextStyle(
                   color: ColorConfig.secondary,
                   fontSize: 16,
@@ -39,30 +39,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 textAlign: TextAlign.center,
               ),
               SizeConfigs.getPercentageWidth(8).toInt().height,
-              GestureDetector(
-                onTap: () {
-                  const UserScreen().launch(context,
-                      pageRouteAnimation: PageRouteAnimation.Scale);
-                },
-                child: const CustomButton(
+              CustomButton(
                   pbottom: 10,
                   ptop: 10,
                   img: 'assets/icon/passenger1.png',
                   text: 'User',
-                ),
-              ),
+                  ontap: () {
+                    UserScreen().launch(context,
+                        pageRouteAnimation: PageRouteAnimation.Fade);
+                  }),
               SizeConfigs.getPercentageWidth(6).toInt().height,
-              
-              GestureDetector(
-                onTap: () {
-                  RiderScreen().launch(context,
-                      pageRouteAnimation: PageRouteAnimation.Scale);
-                },
-                child: const CustomButton(
+              CustomButton(
                   img: 'assets/icon/driver.png',
                   text: 'Driver',
-                ),
-              ),
+                  ontap: () {
+                    UserScreen().launch(context,
+                        pageRouteAnimation: PageRouteAnimation.Fade);
+                  }),
             ],
           ).center(),
         ),
@@ -78,35 +71,41 @@ class CustomButton extends StatelessWidget {
     required this.text,
     this.ptop = 12,
     this.pbottom = 12,
+    required this.ontap,
   });
   final String img;
   final String text;
   final double? ptop;
   final double? pbottom;
+  final Function ontap;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: ColorConfig.white),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            text,
-            style: TextStyle(
-                color: ColorConfig.secondary,
-                fontSize: 17,
-                fontWeight: FontWeight.bold),
-          ),
-          Image.asset(
-            img,
-            color: ColorConfig.primary,
-          ).paddingOnly(top: ptop!, bottom: pbottom!, left: 7),
-        ],
-      ),
-    )
-        .withSize(
-            width: SizeConfigs.getPercentageWidth(30),
-            height: SizeConfigs.getPercentageWidth(12))
-        .cornerRadiusWithClipRRect(50);
+    return Material(
+      child: InkWell(
+          onTap: () {
+            ontap();
+          },
+          child: Ink(
+            decoration: BoxDecoration(color: ColorConfig.white),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  text,
+                  style: TextStyle(
+                      color: ColorConfig.secondary,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold),
+                ),
+                Image.asset(
+                  img,
+                  color: ColorConfig.primary,
+                ).paddingOnly(top: ptop!, bottom: pbottom!, left: 7),
+              ],
+            ),
+          ).withSize(
+              width: SizeConfigs.getPercentageWidth(30),
+              height: SizeConfigs.getPercentageWidth(12))),
+    ).cornerRadiusWithClipRRect(70);
   }
 }
