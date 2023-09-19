@@ -30,6 +30,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             children: [
               SizeConfigs.getPercentageWidth(10).toInt().height,
               Lottie.asset("assets/lottie/animation_lmpc2y4t.json"),
+              RichText(
+                text: TextSpan(
+                  style: TextStyle(
+                    color: ColorConfig.secondary,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: "Welcome To",
+                      //  style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                    ),
+                    TextSpan(
+                      text: " MUUV.",
+                      style: TextStyle(color: ColorConfig.primary),
+                    ),
+                  ],
+                ),
+              ),
+              SizeConfigs.getPercentageWidth(5).toInt().height,
               Text(
                 "Select who you'd like to continue as.",
                 style: TextStyle(
