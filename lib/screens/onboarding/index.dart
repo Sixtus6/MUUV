@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:lottie/lottie.dart';
 import 'package:muuv/config/color.dart';
+import 'package:muuv/screens/rider/index.dart';
+import 'package:muuv/screens/user/index.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:muuv/config/size.dart';
 
@@ -9,6 +12,7 @@ class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
+  //animation_lmpc1c60.json
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
@@ -23,17 +27,38 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizeConfigs.getPercentageWidth(100).toInt().height,
-              CustomButton(
-                pbottom: 10,
-                ptop: 10,
-                img: 'assets/icon/passenger1.png',
-                text: 'User',
+              SizeConfigs.getPercentageWidth(10).toInt().height,
+              Lottie.asset("assets/lottie/animation_lmpc2y4t.json"),
+              Text(
+                "Select how you'd like to continue with our service.",
+                style: TextStyle(
+                  color: ColorConfig.secondary,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
-              SizeConfigs.getPercentageWidth(4).toInt().height,
-              CustomButton(
-                img: 'assets/icon/driver.png',
-                text: 'Driver',
+              SizeConfigs.getPercentageWidth(8).toInt().height,
+              GestureDetector(
+                onTap: () {
+                  const UserScreen().launch(context);
+                },
+                child: const CustomButton(
+                  pbottom: 10,
+                  ptop: 10,
+                  img: 'assets/icon/passenger1.png',
+                  text: 'User',
+                ),
+              ),
+              SizeConfigs.getPercentageWidth(6).toInt().height,
+              GestureDetector(
+                onTap: () {
+                  const RiderScreen().launch(context);
+                },
+                child: const CustomButton(
+                  img: 'assets/icon/driver.png',
+                  text: 'Driver',
+                ),
               ),
             ],
           ).center(),
@@ -69,7 +94,10 @@ class CustomButton extends StatelessWidget {
                 fontSize: 17,
                 fontWeight: FontWeight.bold),
           ),
-          Image.asset(img).paddingOnly(top: ptop!, bottom: pbottom!, left: 7),
+          Image.asset(
+            img,
+            color: ColorConfig.primary,
+          ).paddingOnly(top: ptop!, bottom: pbottom!, left: 7),
         ],
       ),
     )
