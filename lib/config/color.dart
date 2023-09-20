@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class ColorConfig {
   static Color scaffold = const Color(0xFFecf3fb);
   static Color secondary = const Color(0xFF4a4d80);
-  static Color primary = Color(0xFF8572e8);
-  static Color white = const Color(0xffffffff);
+  static Color primary = const Color(0xFF8572e8);
+  static Color white = Color.fromRGBO(255, 255, 255, 1);
   static Color carbackground = Color(0xFFd0dfee);
   static Color red = const Color(0xFFFF0523);
   static Color facebook = const Color(0xFF3E74BA);
