@@ -21,6 +21,49 @@ class _UserScreenState extends State<UserScreen> {
   Widget build(BuildContext context) {
     final screenState = Provider.of<UserScreenProvider>(context);
 
+    var loginWidget = [
+      CustomTextField(
+        icon: Icons.mail,
+        isEmail: true,
+        text: 'Email',
+      ),
+      CustomTextField(
+        icon: Icons.lock,
+        isEmail: true,
+        obscure: screenState.isPasswordVisible,
+        text: 'Password',
+        enableSuffixIcon: true,
+        visible: screenState.isPasswordVisible,
+        onTap: () {
+          screenState.setPasswordVisible(!screenState.isPasswordVisible);
+        },
+      ),
+
+      Row(
+        children: [
+          Checkbox(
+              activeColor: ColorConfig.primary,
+              checkColor: ColorConfig.scaffold,
+              value: screenState.rememberMe,
+              side: BorderSide(color: ColorConfig.primary, width: 1),
+              onChanged: (value) {
+                screenState.setRememberMe(!screenState.rememberMe);
+              }),
+          Text("Remember Me",
+              style: TextStyle(color: ColorConfig.secondary, fontSize: 13)),
+          Expanded(child: Container()),
+          Text("Forgot Password?",
+              style: TextStyle(color: ColorConfig.primary, fontSize: 13))
+        ],
+      )
+      //    CustomTextField(
+      //   icon: Icons.mail,
+      //   isEmail: true,
+      //   text: 'Email',
+      // ),
+    ];
+
+    var signinWidget = [];
     return Scaffold(
         body: Stack(
       alignment: Alignment.center,
@@ -85,52 +128,7 @@ class _UserScreenState extends State<UserScreen> {
                 Container(
                   margin:
                       EdgeInsets.only(top: SizeConfigs.getPercentageWidth(6)),
-                  child: Column(children: [
-                    CustomTextField(
-                      icon: Icons.mail,
-                      isEmail: true,
-                      text: 'Email',
-                    ),
-                    CustomTextField(
-                      icon: Icons.lock,
-                      isEmail: true,
-                      obscure: screenState.isPasswordVisible,
-                      text: 'Password',
-                      enableSuffixIcon: true,
-                      visible: screenState.isPasswordVisible,
-                      onTap: () {
-                        screenState
-                            .setPasswordVisible(!screenState.isPasswordVisible);
-                      },
-                    ),
-
-                    Row(
-                      children: [
-                        Checkbox(
-                            activeColor: ColorConfig.primary,
-                            checkColor: ColorConfig.scaffold,
-                            value: screenState.rememberMe,
-                            side: BorderSide(
-                                color: ColorConfig.primary, width: 1),
-                            onChanged: (value) {
-                              screenState
-                                  .setRememberMe(!screenState.rememberMe);
-                            }),
-                        Text("Remember Me",
-                            style: TextStyle(
-                                color: ColorConfig.secondary, fontSize: 13)),
-                        Expanded(child: Container()),
-                        Text("Forgot Password?",
-                            style: TextStyle(
-                                color: ColorConfig.primary, fontSize: 13))
-                      ],
-                    )
-                    //    CustomTextField(
-                    //   icon: Icons.mail,
-                    //   isEmail: true,
-                    //   text: 'Email',
-                    // ),
-                  ]),
+                  child: Column(children: loginWidget),
                 )
               ]),
             )
@@ -154,24 +152,24 @@ class _UserScreenState extends State<UserScreen> {
                   borderRadius: BorderRadius.circular(80),
                   color: ColorConfig.white,
                 ),
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(9),
                 child: Container(
-                    padding: EdgeInsets.all(13),
+                    padding: EdgeInsets.all(11),
                     child: Container(
                       child: Center(
                         child: Icon(
                           Icons.arrow_forward,
                           color: Colors
                               .white, // Adjust icon color to match the background
-                          size: 30.0,
+                          size: 31.0,
                         ),
                       ),
                       // width: 50.0,
                       // height: 50.0,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: ColorConfig.primary
-                            .withOpacity(0.9), // Background color
+                        color: ColorConfig.primary,
+                        // Background color
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.shade300, // Top shadow color
