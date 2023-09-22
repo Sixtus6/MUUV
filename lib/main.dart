@@ -33,6 +33,24 @@ class MyApp extends StatelessWidget {
 
 
 
+            // Positioned(
+            //     top: SizeConfigs.getPercentageWidth(0),
+            //     left: SizeConfigs.getPercentageWidth(0),
+            //     right: SizeConfigs.getPercentageWidth(0),
+            //     child: Container(
+            //         //   decoration: BoxDecoration(color: Colors.red),
+            //         height: SizeConfigs.getPercentageWidth(63),
+            //         child: Lottie.asset(
+            //           "assets/lottie/animation_lmnnodqr.json",
+            //         )
+            //         //width: 1,
+            //         //  Lottie.asset(
+
+            //         //   "assets/lottie/animation_lmu4pcj2.json",
+            //         // )
+            //         )),
+
+
 // import 'package:lottie/lottie.dart';
 // import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 // import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';

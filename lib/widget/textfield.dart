@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:muuv/config/color.dart';
 
@@ -12,11 +11,13 @@ class CustomTextField extends StatelessWidget {
     this.enableSuffixIcon = false,
     this.visible = false,
     this.onTap,
+    this.isphone = false,
   });
   final IconData icon;
   final String text;
   late bool? obscure;
   final bool isEmail;
+  final bool? isphone;
   final bool? enableSuffixIcon;
   late bool? visible;
   final VoidCallback? onTap;
@@ -28,7 +29,11 @@ class CustomTextField extends StatelessWidget {
       child: TextField(
         style: TextStyle(color: ColorConfig.secondary),
         obscureText: obscure!,
-        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
+        keyboardType: isEmail
+            ? isphone!
+                ? TextInputType.phone
+                : TextInputType.emailAddress
+            : TextInputType.text,
         cursorColor: ColorConfig.primary,
         decoration: InputDecoration(
             prefixIcon: Icon(
