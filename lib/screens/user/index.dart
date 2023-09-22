@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/screens/user/provider.dart';
@@ -30,16 +31,20 @@ class _UserScreenState extends State<UserScreen> {
             right: SizeConfigs.getPercentageWidth(0),
             child: Container(
                 //   decoration: BoxDecoration(color: Colors.red),
-                height: SizeConfigs.getPercentageWidth(40),
+                height: SizeConfigs.getPercentageWidth(63),
                 child: Lottie.asset(
                   "assets/lottie/animation_lmnnodqr.json",
                 )
                 //width: 1,
+                //  Lottie.asset(
+
+                //   "assets/lottie/animation_lmu4pcj2.json",
+                // )
                 )),
         Positioned(
           top: screenState.hasClickedLogin
-              ? SizeConfigs.getPercentageWidth(45)
-              : SizeConfigs.getPercentageWidth(38),
+              ? SizeConfigs.getPercentageWidth(60)
+              : SizeConfigs.getPercentageWidth(60),
           // left: SizeConfigs.getPercentageWidth(9),
           // right: SizeConfigs.getPercentageWidth(9),
           child: SingleChildScrollView(
@@ -135,6 +140,78 @@ class _UserScreenState extends State<UserScreen> {
                         ? SizeConfigs.getPercentageWidth(75)
                         : SizeConfigs.getPercentageWidth(100))
                 .cornerRadiusWithClipRRect(15),
+          ),
+        ),
+        Positioned(
+          top: screenState.hasClickedLogin
+              ? SizeConfigs.getPercentageWidth(122)
+              : SizeConfigs.getPercentageWidth(147),
+          // right: 0,
+          // left: 0,white
+          child: SingleChildScrollView(
+            child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(80),
+                  color: ColorConfig.white,
+                ),
+                padding: EdgeInsets.all(10),
+                child: Container(
+                    padding: EdgeInsets.all(13),
+                    child: Container(
+                      child: Center(
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: Colors
+                              .white, // Adjust icon color to match the background
+                          size: 30.0,
+                        ),
+                      ),
+                      // width: 50.0,
+                      // height: 50.0,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: ColorConfig.primary
+                            .withOpacity(0.9), // Background color
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.shade300, // Top shadow color
+                            offset: Offset(-4, -4),
+                            blurRadius: 8.0,
+                            spreadRadius: 1.0,
+                          ),
+                          BoxShadow(
+                            color: Colors.grey.shade100, // Bottom shadow color
+                            offset: Offset(4, 4),
+                            blurRadius: 8.0,
+                            spreadRadius: 1.0,
+                          ),
+                        ],
+                      ),
+                    ),
+                    // child: Lottie.asset(
+                    //   "assets/lottie/animation_lmu4pcj2.json",
+                    // ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(80),
+                      color: ColorConfig.scaffold,
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(-28, -28),
+                          blurRadius: 30,
+                          color: ColorConfig.white,
+                          inset: true,
+                        ),
+                        BoxShadow(
+                          offset: Offset(28, 28),
+                          blurRadius: 50,
+                          color: ColorConfig.scaffold,
+                          // inset: true,
+                        ),
+                      ],
+                    ))).withSize(
+              height: SizeConfigs.getPercentageWidth(23),
+              width: SizeConfigs.getPercentageWidth(23),
+            ),
           ),
         )
       ],
