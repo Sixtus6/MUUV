@@ -7,9 +7,11 @@ class CustomTabBar extends StatelessWidget {
     super.key,
     required this.text,
     this.color = const Color(0xFF8572e8),
+    this.tcolor = const Color(0xFF4a4d80),
   });
   final String text;
   final Color? color;
+  final Color? tcolor;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -17,9 +19,7 @@ class CustomTabBar extends StatelessWidget {
         Text(
           text,
           style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: ColorConfig.secondary,
-              fontSize: 15),
+              fontWeight: FontWeight.bold, color: tcolor, fontSize: 15),
         ),
         Container(
           decoration: BoxDecoration(

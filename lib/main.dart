@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:muuv/provider/theme.dart';
 import 'package:muuv/screens/mainscreen.dart';
+import 'package:muuv/screens/user/provider.dart';
+import 'package:provider/provider.dart';
+//ChangeNotifierProvider<UserScreenStateProvider>(
+//     create: (_) => UserScreenStateProvider())import 'provider/userscreen.provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<UserScreenProvider>(
+            create: (_) => UserScreenProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,3 +30,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+   // ChangeNotifierProvider<UserScreenStateProvider>(
+        //     create: (_) => UserScreenStateProvider())
+        //    ChangeNotifierProvider<SecondProvider>(create: (_) => SecondProvider()),
