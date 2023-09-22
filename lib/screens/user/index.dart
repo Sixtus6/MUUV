@@ -87,8 +87,15 @@ class _UserScreenState extends State<UserScreen> {
       ),
       CustomTextField(
         icon: Icons.phone,
-        isEmail: false,
+        isphone: true,
         text: 'Phone',
+        isEmail: false,
+      ),
+      CustomTextField(
+        icon: Icons.home,
+        //isphone: true,
+        text: 'Address',
+        isEmail: false,
       ),
     ];
     return Scaffold(
@@ -98,11 +105,10 @@ class _UserScreenState extends State<UserScreen> {
             children: [
               Center(
                 child: Container(
-                    //   decoration: BoxDecoration(color: Colors.red),
-                    height: SizeConfigs.getPercentageWidth(63),
-                    child: Lottie.asset(
-                      "assets/lottie/animation_lmnnodqr.json",
-                    )
+                    //  decoration: BoxDecoration(color: Colors.red),
+                    height: SizeConfigs.getPercentageWidth(55),
+                    child: Lottie.asset("assets/lottie/animation_lmnnodqr.json",
+                        fit: BoxFit.cover)
 
                     //width: 1,
                     //  Lottie.asset(
@@ -112,63 +118,67 @@ class _UserScreenState extends State<UserScreen> {
                     ),
               ),
               Stack(
+                alignment: AlignmentDirectional.center,
                 children: [
+                  Container().withHeight(screenState.hasClickedLogin
+                      ? SizeConfigs.getPercentageHeight(45)
+                      : SizeConfigs.getPercentageHeight(52)),
+                  //  .withWidth(SizeConfigs.getPercentageWidth(100)),
                   Container(
+                    // alignment: Alignment.center,
                     padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(3)),
                     decoration: BoxDecoration(color: ColorConfig.white),
-                    child: SingleChildScrollView(
-                      child: Column(children: [
-                        SizeConfigs.getPercentageWidth(2).toInt().height,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            CustomTabBar(
-                              text: 'LOGIN',
-                              color: screenState.hasClickedLogin
-                                  ? ColorConfig.primary
-                                  : ColorConfig.primary.withOpacity(0.3),
-                              tcolor: screenState.hasClickedLogin
-                                  ? ColorConfig.secondary
-                                  : ColorConfig.secondary.withOpacity(0.3),
-                            ).onTap(() {
-                              screenState.sethasClickedLogin(true);
-                              screenState.sethasClickedSignup(false);
-                            }),
-                            CustomTabBar(
-                              text: 'SIGNUP',
-                              color: screenState.hasClickedSignup
-                                  ? ColorConfig.primary
-                                  : ColorConfig.primary.withOpacity(0.3),
-                              tcolor: screenState.hasClickedSignup
-                                  ? ColorConfig.secondary
-                                  : ColorConfig.secondary.withOpacity(0.3),
-                            ).onTap(() {
-                              screenState.sethasClickedLogin(false);
-                              screenState.sethasClickedSignup(true);
-                            }),
-                          ],
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(
-                              top: SizeConfigs.getPercentageWidth(6)),
-                          child: Column(
-                              children: screenState.hasClickedLogin
-                                  ? loginWidget
-                                  : signinWidget),
-                        )
-                      ]),
-                    ),
+                    child: Column(children: [
+                      SizeConfigs.getPercentageWidth(2).toInt().height,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          CustomTabBar(
+                            text: 'LOGIN',
+                            color: screenState.hasClickedLogin
+                                ? ColorConfig.primary
+                                : ColorConfig.primary.withOpacity(0.3),
+                            tcolor: screenState.hasClickedLogin
+                                ? ColorConfig.secondary
+                                : ColorConfig.secondary.withOpacity(0.3),
+                          ).onTap(() {
+                            screenState.sethasClickedLogin(true);
+                            screenState.sethasClickedSignup(false);
+                          }),
+                          CustomTabBar(
+                            text: 'SIGNUP',
+                            color: screenState.hasClickedSignup
+                                ? ColorConfig.primary
+                                : ColorConfig.primary.withOpacity(0.3),
+                            tcolor: screenState.hasClickedSignup
+                                ? ColorConfig.secondary
+                                : ColorConfig.secondary.withOpacity(0.3),
+                          ).onTap(() {
+                            screenState.sethasClickedLogin(false);
+                            screenState.sethasClickedSignup(true);
+                          }),
+                        ],
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: SizeConfigs.getPercentageWidth(6)),
+                        child: Column(
+                            children: screenState.hasClickedLogin
+                                ? loginWidget
+                                : signinWidget),
+                      )
+                    ]),
                   )
                       .withSize(
                           width: SizeConfigs.getPercentageWidth(85),
                           height: screenState.hasClickedLogin
-                              ? SizeConfigs.getPercentageWidth(75)
+                              ? SizeConfigs.getPercentageWidth(77)
                               : SizeConfigs.getPercentageWidth(95))
                       .cornerRadiusWithClipRRect(15),
                   Positioned(
                     top: screenState.hasClickedLogin
-                        ? SizeConfigs.getPercentageWidth(12)
-                        : SizeConfigs.getPercentageWidth(85),
+                        ? SizeConfigs.getPercentageWidth(75)
+                        : SizeConfigs.getPercentageWidth(90),
                     // right: 0,
                     // left: 0,white
                     child: SingleChildScrollView(
@@ -180,39 +190,6 @@ class _UserScreenState extends State<UserScreen> {
                           padding: EdgeInsets.all(9),
                           child: Container(
                               padding: EdgeInsets.all(11),
-                              child: Container(
-                                child: Center(
-                                  child: Icon(
-                                    Icons.arrow_forward,
-                                    color: Colors
-                                        .white, // Adjust icon color to match the background
-                                    size: 31.0,
-                                  ),
-                                ),
-                                // width: 50.0,
-                                // height: 50.0,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: ColorConfig.primary,
-                                  // Background color
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors
-                                          .grey.shade300, // Top shadow color
-                                      offset: Offset(-4, -4),
-                                      blurRadius: 8.0,
-                                      spreadRadius: 1.0,
-                                    ),
-                                    BoxShadow(
-                                      color: Colors
-                                          .grey.shade100, // Bottom shadow color
-                                      offset: Offset(4, 4),
-                                      blurRadius: 8.0,
-                                      spreadRadius: 1.0,
-                                    ),
-                                  ],
-                                ),
-                              ),
                               // child: Lottie.asset(
                               //   "assets/lottie/animation_lmu4pcj2.json",
                               // ),
@@ -233,6 +210,37 @@ class _UserScreenState extends State<UserScreen> {
                                     // inset: true,
                                   ),
                                 ],
+                              ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: ColorConfig.primary,
+                                  // Background color
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors
+                                          .grey.shade300, // Top shadow color
+                                      offset: const Offset(-4, -4),
+                                      blurRadius: 8.0,
+                                      spreadRadius: 1.0,
+                                    ),
+                                    BoxShadow(
+                                      color: Colors
+                                          .grey.shade100, // Bottom shadow color
+                                      offset: const Offset(4, 4),
+                                      blurRadius: 8.0,
+                                      spreadRadius: 1.0,
+                                    ),
+                                  ],
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.arrow_forward,
+                                    color: Colors
+                                        .white, // Adjust icon color to match the background
+                                    size: 31.0,
+                                  ),
+                                ),
                               ))).withSize(
                         height: SizeConfigs.getPercentageWidth(23),
                         width: SizeConfigs.getPercentageWidth(23),
