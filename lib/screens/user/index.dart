@@ -79,20 +79,18 @@ class _UserScreenState extends State<UserScreen> {
                   CustomTextField(
                     icon: Icons.mail,
                     isEmail: true,
-                    obscure: false,
                     text: 'Email',
                   ),
                   CustomTextField(
                     icon: Icons.lock,
                     isEmail: true,
-                    obscure: false,
+                    obscure: screenState.isPasswordVisible,
                     text: 'Password',
                     enableSuffixIcon: true,
                     visible: screenState.isPasswordVisible,
                     onTap: () {
                       screenState
                           .setPasswordVisible(!screenState.isPasswordVisible);
-                      print("object");
                     },
                   )
                 ]),
@@ -114,7 +112,7 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.icon,
     required this.text,
-    required this.obscure,
+    this.obscure = false,
     required this.isEmail,
     this.enableSuffixIcon = false,
     this.visible = false,
@@ -122,7 +120,7 @@ class CustomTextField extends StatelessWidget {
   });
   final IconData icon;
   final String text;
-  late bool obscure;
+  late bool? obscure;
   final bool isEmail;
   final bool? enableSuffixIcon;
   late bool? visible;
@@ -134,7 +132,7 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 14.0),
       child: TextField(
         style: TextStyle(color: ColorConfig.secondary),
-        obscureText: obscure,
+        obscureText: obscure!,
         keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
         cursorColor: ColorConfig.primary,
         decoration: InputDecoration(
@@ -150,7 +148,7 @@ class CustomTextField extends StatelessWidget {
               },
               child: Icon(
                 enableSuffixIcon!
-                    ? visible!
+                    ? !visible!
                         ? Icons.visibility
                         : Icons.visibility_off
                     : null,
