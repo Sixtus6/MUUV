@@ -5,6 +5,7 @@ import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/screens/rider/provider.dart';
 import 'package:muuv/screens/user/provider.dart';
+import 'package:muuv/widget/arrow.dart';
 import 'package:muuv/widget/tab.dart';
 import 'package:muuv/widget/textfield.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -98,7 +99,44 @@ class _RiderScreenState extends State<RiderScreen> {
         isEmail: false,
       ),
     ];
-
+    var carWidget = [
+      Row(
+        children: [
+          SizeConfigs.getPercentageWidth(1).toInt().width,
+          GestureDetector(
+            onTap: () {
+              screenState.setFilledSignupForm(false);
+            },
+            child: Icon(
+              Icons.arrow_circle_left_sharp,
+              color: ColorConfig
+                  .primary, // Adjust icon color to match the background
+              size: 25,
+            ),
+          ),
+          SizeConfigs.getPercentageWidth(19).toInt().width,
+          Text("Add Car Details",
+              style: TextStyle(
+                  color: ColorConfig.secondary, fontWeight: FontWeight.bold)),
+        ],
+      ),
+      SizeConfigs.getPercentageWidth(2).toInt().height,
+      CustomTextField(
+        icon: Icons.car_rental,
+        isEmail: false,
+        text: 'Model',
+      ),
+      CustomTextField(
+        icon: Icons.car_rental,
+        isEmail: false,
+        text: 'Color',
+      ),
+      CustomTextField(
+        icon: Icons.car_rental,
+        isEmail: false,
+        text: 'Plate Number',
+      ),
+    ];
     return SafeArea(
       child: Scaffold(
           resizeToAvoidBottomInset: true,
@@ -171,7 +209,9 @@ class _RiderScreenState extends State<RiderScreen> {
                           child: Column(
                               children: screenState.hasClickedLogin
                                   ? loginWidget
-                                  : signinWidget),
+                                  : screenState.filledSignupForm
+                                      ? carWidget
+                                      : signinWidget),
                         )
                       ]),
                     )
@@ -188,70 +228,18 @@ class _RiderScreenState extends State<RiderScreen> {
                       // right: 0,
                       // left: 0,white
                       child: SingleChildScrollView(
-                        child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(80),
-                              color: ColorConfig.white,
-                            ),
-                            padding: EdgeInsets.all(9),
-                            child: Container(
-                                padding: EdgeInsets.all(11),
-                                // child: Lottie.asset(
-                                //   "assets/lottie/animation_lmu4pcj2.json",
-                                // ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(80),
-                                  color: ColorConfig.scaffold,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(-28, -28),
-                                      blurRadius: 30,
-                                      color: ColorConfig.white,
-                                      inset: true,
-                                    ),
-                                    BoxShadow(
-                                      offset: Offset(28, 28),
-                                      blurRadius: 50,
-                                      color: ColorConfig.scaffold,
-                                      // inset: true,
-                                    ),
-                                  ],
-                                ),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: ColorConfig.primary,
-                                    // Background color
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors
-                                            .grey.shade300, // Top shadow color
-                                        offset: const Offset(-4, -4),
-                                        blurRadius: 8.0,
-                                        spreadRadius: 1.0,
-                                      ),
-                                      BoxShadow(
-                                        color: Colors.grey
-                                            .shade100, // Bottom shadow color
-                                        offset: const Offset(4, 4),
-                                        blurRadius: 8.0,
-                                        spreadRadius: 1.0,
-                                      ),
-                                    ],
-                                  ),
-                                  child: const Center(
-                                    child: Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors
-                                          .white, // Adjust icon color to match the background
-                                      size: 31.0,
-                                    ),
-                                  ),
-                                ))).withSize(
-                          height: SizeConfigs.getPercentageWidth(23),
-                          width: SizeConfigs.getPercentageWidth(23),
-                        ),
-                      ),
+                          child: ArrowButton(
+                        color: ColorConfig.primary,
+                      ).onTap(() {
+                        if (screenState.hasClickedSignup &&
+                            screenState.filledSignupForm) {
+                          print("1st blockt");
+                        } else if (screenState.hasClickedSignup) {
+                          screenState.setFilledSignupForm(true);
+                          print("2nd block");
+                        } else {}
+                        print("else");
+                      })),
                     )
                   ],
                 )
