@@ -98,6 +98,7 @@ class _UserScreenState extends State<UserScreen> {
         isEmail: false,
       ),
     ];
+
     return Scaffold(
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(

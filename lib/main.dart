@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:muuv/provider/theme.dart';
 import 'package:muuv/screens/mainscreen.dart';
+import 'package:muuv/screens/rider/index.dart';
+import 'package:muuv/screens/rider/provider.dart';
 import 'package:muuv/screens/user/provider.dart';
 import 'package:provider/provider.dart';
 //ChangeNotifierProvider<UserScreenStateProvider>(
@@ -12,6 +14,8 @@ void main() {
       providers: [
         ChangeNotifierProvider<UserScreenProvider>(
             create: (_) => UserScreenProvider()),
+        ChangeNotifierProvider<RiderScreenProvider>(
+            create: (_) => RiderScreenProvider()),
       ],
       child: MyApp(),
     ),
