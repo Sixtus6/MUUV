@@ -76,7 +76,7 @@ class _UserScreenState extends State<UserScreen> {
       ),
       CustomTextField(
         icon: Icons.lock,
-        isEmail: true,
+        isEmail: false,
         obscure: screenState.isPasswordVisible,
         text: 'Password',
         enableSuffixIcon: true,
@@ -106,9 +106,10 @@ class _UserScreenState extends State<UserScreen> {
               Center(
                 child: Container(
                     //  decoration: BoxDecoration(color: Colors.red),
-                    height: SizeConfigs.getPercentageWidth(55),
-                    child: Lottie.asset("assets/lottie/animation_lmnnodqr.json",
-                        fit: BoxFit.cover)
+                    height: SizeConfigs.getPercentageWidth(50),
+                    child: Lottie.asset(
+                      "assets/lottie/animation_lmnnodqr.json",
+                    )
 
                     //width: 1,
                     //  Lottie.asset(
@@ -122,7 +123,7 @@ class _UserScreenState extends State<UserScreen> {
                 children: [
                   Container().withHeight(screenState.hasClickedLogin
                       ? SizeConfigs.getPercentageHeight(45)
-                      : SizeConfigs.getPercentageHeight(52)),
+                      : SizeConfigs.getPercentageHeight(60)),
                   //  .withWidth(SizeConfigs.getPercentageWidth(100)),
                   Container(
                     // alignment: Alignment.center,
@@ -173,12 +174,12 @@ class _UserScreenState extends State<UserScreen> {
                           width: SizeConfigs.getPercentageWidth(85),
                           height: screenState.hasClickedLogin
                               ? SizeConfigs.getPercentageWidth(77)
-                              : SizeConfigs.getPercentageWidth(95))
+                              : SizeConfigs.getPercentageWidth(110))
                       .cornerRadiusWithClipRRect(15),
                   Positioned(
                     top: screenState.hasClickedLogin
                         ? SizeConfigs.getPercentageWidth(75)
-                        : SizeConfigs.getPercentageWidth(90),
+                        : SizeConfigs.getPercentageWidth(108),
                     // right: 0,
                     // left: 0,white
                     child: SingleChildScrollView(

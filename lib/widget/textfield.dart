@@ -12,12 +12,14 @@ class CustomTextField extends StatelessWidget {
     this.visible = false,
     this.onTap,
     this.isphone = false,
+    this.isAddress = false,
   });
   final IconData icon;
   final String text;
   late bool? obscure;
   final bool isEmail;
-  final bool? isphone;
+  final bool isphone;
+  final bool isAddress;
   final bool? enableSuffixIcon;
   late bool? visible;
   final VoidCallback? onTap;
@@ -30,10 +32,12 @@ class CustomTextField extends StatelessWidget {
         style: TextStyle(color: ColorConfig.secondary),
         obscureText: obscure!,
         keyboardType: isEmail
-            ? isphone!
+            ? TextInputType.emailAddress
+            : isphone
                 ? TextInputType.phone
-                : TextInputType.emailAddress
-            : TextInputType.text,
+                : isAddress
+                    ? TextInputType.streetAddress
+                    : TextInputType.text,
         cursorColor: ColorConfig.primary,
         decoration: InputDecoration(
             prefixIcon: Icon(
