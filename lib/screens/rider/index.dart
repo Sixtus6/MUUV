@@ -165,7 +165,9 @@ class _RiderScreenState extends State<RiderScreen> {
                   children: [
                     Container().withHeight(screenState.hasClickedLogin
                         ? SizeConfigs.getPercentageHeight(45)
-                        : SizeConfigs.getPercentageHeight(60)),
+                        : screenState.filledSignupForm
+                            ? SizeConfigs.getPercentageHeight(51)
+                            : SizeConfigs.getPercentageHeight(60)),
                     //  .withWidth(SizeConfigs.getPercentageWidth(100)),
                     Container(
                       // alignment: Alignment.center,
@@ -219,12 +221,16 @@ class _RiderScreenState extends State<RiderScreen> {
                             width: SizeConfigs.getPercentageWidth(85),
                             height: screenState.hasClickedLogin
                                 ? SizeConfigs.getPercentageWidth(77)
-                                : SizeConfigs.getPercentageWidth(110))
+                                : screenState.filledSignupForm
+                                    ? SizeConfigs.getPercentageWidth(90)
+                                    : SizeConfigs.getPercentageWidth(110))
                         .cornerRadiusWithClipRRect(15),
                     Positioned(
                       top: screenState.hasClickedLogin
                           ? SizeConfigs.getPercentageWidth(75)
-                          : SizeConfigs.getPercentageWidth(108),
+                          : screenState.filledSignupForm
+                              ? SizeConfigs.getPercentageWidth(88)
+                              : SizeConfigs.getPercentageWidth(108),
                       // right: 0,
                       // left: 0,white
                       child: SingleChildScrollView(
