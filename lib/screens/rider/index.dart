@@ -169,62 +169,109 @@ class _RiderScreenState extends State<RiderScreen> {
                             ? SizeConfigs.getPercentageHeight(51)
                             : SizeConfigs.getPercentageHeight(60)),
                     //  .withWidth(SizeConfigs.getPercentageWidth(100)),
-                    Container(
-                      // alignment: Alignment.center,
-                      padding:
-                          EdgeInsets.all(SizeConfigs.getPercentageWidth(3)),
-                      decoration: BoxDecoration(color: ColorConfig.white),
-                      child: Column(children: [
-                        SizeConfigs.getPercentageWidth(2).toInt().height,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            CustomTabBar(
-                              text: 'LOGIN',
-                              color: screenState.hasClickedLogin
-                                  ? ColorConfig.primary
-                                  : ColorConfig.primary.withOpacity(0.3),
-                              tcolor: screenState.hasClickedLogin
-                                  ? ColorConfig.secondary
-                                  : ColorConfig.secondary.withOpacity(0.3),
-                            ).onTap(() {
-                              screenState.sethasClickedLogin(true);
-                              screenState.sethasClickedSignup(false);
-                            }),
-                            CustomTabBar(
-                              text: 'SIGNUP',
-                              color: screenState.hasClickedSignup
-                                  ? ColorConfig.primary
-                                  : ColorConfig.primary.withOpacity(0.3),
-                              tcolor: screenState.hasClickedSignup
-                                  ? ColorConfig.secondary
-                                  : ColorConfig.secondary.withOpacity(0.3),
-                            ).onTap(() {
-                              screenState.sethasClickedLogin(false);
-                              screenState.sethasClickedSignup(true);
-                            }),
+                            SizeConfigs.getPercentageWidth(11).toInt().width,
+                            // 18.width,
+                            Text(
+                              screenState.hasClickedLogin
+                                  ? "Welcome Back"
+                                  : "Create an account and become a rider",
+                              style: TextStyle(
+                                  color: ColorConfig.secondary,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
+                            ),
+
+                            SizeConfigs.getPercentageWidth(2).toInt().width,
+
+                            screenState.hasClickedLogin
+                                ? Container(
+                                    height: 20,
+                                    width: 20,
+                                    // padding: EdgeInsets.all(10),
+                                    child: Image.asset(
+                                      "assets/icon/driver.png",
+                                      color: ColorConfig.primary,
+                                    ),
+                                  )
+                                : Icon(
+                                    Icons.directions_car,
+                                    color: ColorConfig.primary,
+                                  )
+                            // Text(
+                            //   screenState.hasClickedLogin
+                            //       ? "Welcome Back"
+                            //       : "Create an account and enjoy your ride",
+                            //   style: TextStyle(
+                            //       color: ColorConfig.secondary,
+                            //       fontSize: 14,
+                            //       fontWeight: FontWeight.bold),
+                            // )
                           ],
                         ),
+                        SizeConfigs.getPercentageWidth(2).toInt().height,
                         Container(
-                          margin: EdgeInsets.only(
-                              top: SizeConfigs.getPercentageWidth(6)),
-                          child: Column(
-                              children: screenState.hasClickedLogin
-                                  ? loginWidget
-                                  : screenState.filledSignupForm
-                                      ? carWidget
-                                      : signinWidget),
+                          // alignment: Alignment.center,
+                          padding:
+                              EdgeInsets.all(SizeConfigs.getPercentageWidth(3)),
+                          decoration: BoxDecoration(color: ColorConfig.white),
+                          child: Column(children: [
+                            SizeConfigs.getPercentageWidth(2).toInt().height,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                CustomTabBar(
+                                  text: 'LOGIN',
+                                  color: screenState.hasClickedLogin
+                                      ? ColorConfig.primary
+                                      : ColorConfig.primary.withOpacity(0.3),
+                                  tcolor: screenState.hasClickedLogin
+                                      ? ColorConfig.secondary
+                                      : ColorConfig.secondary.withOpacity(0.3),
+                                ).onTap(() {
+                                  screenState.sethasClickedLogin(true);
+                                  screenState.sethasClickedSignup(false);
+                                }),
+                                CustomTabBar(
+                                  text: 'SIGNUP',
+                                  color: screenState.hasClickedSignup
+                                      ? ColorConfig.primary
+                                      : ColorConfig.primary.withOpacity(0.3),
+                                  tcolor: screenState.hasClickedSignup
+                                      ? ColorConfig.secondary
+                                      : ColorConfig.secondary.withOpacity(0.3),
+                                ).onTap(() {
+                                  screenState.sethasClickedLogin(false);
+                                  screenState.sethasClickedSignup(true);
+                                }),
+                              ],
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  top: SizeConfigs.getPercentageWidth(6)),
+                              child: Column(
+                                  children: screenState.hasClickedLogin
+                                      ? loginWidget
+                                      : screenState.filledSignupForm
+                                          ? carWidget
+                                          : signinWidget),
+                            )
+                          ]),
                         )
-                      ]),
-                    )
-                        .withSize(
-                            width: SizeConfigs.getPercentageWidth(85),
-                            height: screenState.hasClickedLogin
-                                ? SizeConfigs.getPercentageWidth(77)
-                                : screenState.filledSignupForm
-                                    ? SizeConfigs.getPercentageWidth(90)
-                                    : SizeConfigs.getPercentageWidth(110))
-                        .cornerRadiusWithClipRRect(15),
+                            .withSize(
+                                width: SizeConfigs.getPercentageWidth(85),
+                                height: screenState.hasClickedLogin
+                                    ? SizeConfigs.getPercentageWidth(77)
+                                    : screenState.filledSignupForm
+                                        ? SizeConfigs.getPercentageWidth(90)
+                                        : SizeConfigs.getPercentageWidth(110))
+                            .cornerRadiusWithClipRRect(15),
+                      ],
+                    ),
                     Positioned(
                       top: screenState.hasClickedLogin
                           ? SizeConfigs.getPercentageWidth(75)

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1097095890706",
+    "project_id": "muuv-d6cc1",
+    "storage_bucket": "muuv-d6cc1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1097095890706:android:a9c3560a75964fe24315cb",
+        "android_client_info": {
+          "package_name": "com.example.muuv"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbF9VuL8v6Mk6Qi3to4oDBXBlMv5QJsEI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

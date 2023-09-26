@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:muuv/provider/theme.dart';
 import 'package:muuv/screens/mainscreen.dart';
-import 'package:muuv/screens/rider/index.dart';
+//import 'package:muuv/screens/rider/index.dart';
 import 'package:muuv/screens/rider/provider.dart';
 import 'package:muuv/screens/user/provider.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 //ChangeNotifierProvider<UserScreenStateProvider>(
 //     create: (_) => UserScreenStateProvider())import 'provider/userscreen.provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MultiProvider(
       providers: [

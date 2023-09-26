@@ -42,6 +42,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       text: "Welcome To",
                       //  style: TextStyle(color: Colors.black.withOpacity(0.6)),
                     ),
+                    
                     TextSpan(
                       text: " MUUV.",
                       style: TextStyle(color: ColorConfig.primary),
