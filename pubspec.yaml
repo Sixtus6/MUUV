@@ -41,6 +41,7 @@ dependencies:
   flutter_inset_box_shadow: ^1.0.8
   firebase_core: ^2.16.0
   firebase_auth: ^4.10.0
+  cloud_firestore: ^4.9.2
 
 dev_dependencies:
   flutter_test:

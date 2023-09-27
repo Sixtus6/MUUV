@@ -1,4 +1,4 @@
-class User {
+class UserModel {
   final String uid;
   final String name;
   final String emailAddress;
@@ -6,12 +6,12 @@ class User {
   final String phone;
   final String address;
 
-  User(
-    this.password,
-    this.phone,
-    this.address, {
+  UserModel({
     required this.uid,
     required this.name,
     required this.emailAddress,
+    required this.password,
+    required this.phone,
+    required this.address,
   });
 }
