@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
@@ -6,6 +7,7 @@ import 'package:muuv/config/size.dart';
 import 'package:muuv/controllers/user/auth.dart';
 import 'package:muuv/screens/user/provider.dart';
 import 'package:muuv/widget/arrow.dart';
+import 'package:muuv/widget/constant.dart';
 import 'package:muuv/widget/tab.dart';
 import 'package:muuv/widget/textfield.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -25,34 +27,39 @@ class _UserScreenState extends State<UserScreen> {
     final userState = Provider.of<UserAuthProvider>(context);
     final userInstance = userState.user;
 /* ----------------------------------- KEY ---------------------------------- */
-    final loginFormKey = GlobalKey<FormState>();
-    final signuPFormKey = GlobalKey<FormState>();
+    // final loginFormKey = GlobalKey<FormState>();
+    // final signuPFormKey = GlobalKey<FormState>();
     /* ----------------------------- TextController ----------------------------- */
-    TextEditingController loginEmailController = TextEditingController();
-    TextEditingController loginPasswordController = TextEditingController();
 
     var loginWidget = [
       CustomTextField(
         icon: Icons.mail,
         isEmail: true,
-        text: 'Email',
-        controller: loginPasswordController,
-        validator: (value) {
-          if (value!.isEmpty) {
-            return 'Email filed cant be empty';
-          }
-          return null;
-        },
+        text: 'Email', myController: loginEmailController,
+        //  controller: loginEmailController,
+        // validator: (value) {
+        //   if (value!.isEmpty || !EmailValidator.validate(value)) {
+        //     return 'Enter a valid email ';
+        //   }
+        //   return null;
+        // },
       ),
+
       CustomTextField(
+        myController: loginPasswordController,
         icon: Icons.lock,
-        isEmail: true,
+        isEmail: false,
         obscure: screenState.isPasswordVisible,
         text: 'Password',
         enableSuffixIcon: true,
         visible: screenState.isPasswordVisible,
-        controller: loginPasswordController,
-        validator: (p0) {},
+        //     controller: loginPasswordController,
+        // validator: (value) {
+        //   if (value!.isEmpty || value.length < 8) {
+        //     return 'Minimum password length is 8';
+        //   }
+        //   return null;
+        // },
         onTap: () {
           screenState.setPasswordVisible(!screenState.isPasswordVisible);
         },
@@ -87,11 +94,13 @@ class _UserScreenState extends State<UserScreen> {
         icon: Icons.person,
         isEmail: false,
         text: 'Name',
+        myController: signupNameController,
       ),
       CustomTextField(
         icon: Icons.mail,
         isEmail: true,
         text: 'Email',
+        myController: signupEmailController,
       ),
       CustomTextField(
         icon: Icons.lock,
@@ -103,18 +112,20 @@ class _UserScreenState extends State<UserScreen> {
         onTap: () {
           screenState.setPasswordVisible(!screenState.isPasswordVisible);
         },
+        myController: signupPasswordController,
       ),
       CustomTextField(
         icon: Icons.phone,
         isphone: true,
         text: 'Phone',
         isEmail: false,
+        myController: signupPhoneController,
       ),
       CustomTextField(
         icon: Icons.home,
         //isphone: true,
         text: 'Address',
-        isEmail: false,
+        isEmail: false, myController: signupAddressController,
       ),
     ];
 
@@ -229,17 +240,10 @@ class _UserScreenState extends State<UserScreen> {
                             Container(
                               margin: EdgeInsets.only(
                                   top: SizeConfigs.getPercentageWidth(6)),
-                              child: Form(
-                                key: screenState.hasClickedLogin
-                                    ? loginFormKey
-                                    : signuPFormKey,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                child: Column(
-                                    children: screenState.hasClickedLogin
-                                        ? loginWidget
-                                        : signinWidget),
-                              ),
+                              child: Column(
+                                  children: screenState.hasClickedLogin
+                                      ? loginWidget
+                                      : signinWidget),
                             )
                           ]),
                         )
@@ -262,10 +266,10 @@ class _UserScreenState extends State<UserScreen> {
                           color: ColorConfig.primary,
                         ).onTap(() {
                           if (screenState.hasClickedLogin) {
-                            final isformValid =
-                                loginFormKey.currentState!.validate();
+                            // final isformValid =
+                            //     loginFormKey.currentState!.validate();
 
-                            print(isformValid);
+                            // print(isformValid);
                           }
 
                           print("object");

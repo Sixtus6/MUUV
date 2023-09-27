@@ -42,7 +42,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       text: "Welcome To",
                       //  style: TextStyle(color: Colors.black.withOpacity(0.6)),
                     ),
-                    
                     TextSpan(
                       text: " MUUV.",
                       style: TextStyle(color: ColorConfig.primary),
@@ -75,8 +74,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   img: 'assets/icon/driver.png',
                   text: 'Driver',
                   ontap: () {
-                    RiderScreen().launch(context,
-                        pageRouteAnimation: PageRouteAnimation.Fade);
+                    // RiderScreen().launch(context,
+                    //     pageRouteAnimation: PageRouteAnimation.Fade);
                   }),
             ],
           ).center(),
