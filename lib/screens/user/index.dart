@@ -5,6 +5,7 @@ import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/controllers/user/auth.dart';
 import 'package:muuv/screens/user/provider.dart';
+import 'package:muuv/widget/arrow.dart';
 import 'package:muuv/widget/tab.dart';
 import 'package:muuv/widget/textfield.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -125,8 +126,8 @@ class _UserScreenState extends State<UserScreen> {
                   alignment: AlignmentDirectional.center,
                   children: [
                     Container().withHeight(screenState.hasClickedLogin
-                        ? SizeConfigs.getPercentageHeight(45)
-                        : SizeConfigs.getPercentageHeight(60)),
+                        ? SizeConfigs.getPercentageHeight(48)
+                        : SizeConfigs.getPercentageHeight(63)),
                     //  .withWidth(SizeConfigs.getPercentageWidth(100)),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -230,73 +231,13 @@ class _UserScreenState extends State<UserScreen> {
                     ),
                     Positioned(
                       top: screenState.hasClickedLogin
-                          ? SizeConfigs.getPercentageWidth(75)
-                          : SizeConfigs.getPercentageWidth(108),
+                          ? SizeConfigs.getPercentageWidth(82)
+                          : SizeConfigs.getPercentageWidth(114),
                       // right: 0,
                       // left: 0,white
                       child: SingleChildScrollView(
-                        child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(80),
-                              color: ColorConfig.white,
-                            ),
-                            padding: EdgeInsets.all(9),
-                            child: Container(
-                                padding: EdgeInsets.all(11),
-                                // child: Lottie.asset(
-                                //   "assets/lottie/animation_lmu4pcj2.json",
-                                // ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(80),
-                                  color: ColorConfig.scaffold,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      offset: Offset(-28, -28),
-                                      blurRadius: 30,
-                                      color: ColorConfig.white,
-                                      inset: true,
-                                    ),
-                                    BoxShadow(
-                                      offset: Offset(28, 28),
-                                      blurRadius: 50,
-                                      color: ColorConfig.scaffold,
-                                      // inset: true,
-                                    ),
-                                  ],
-                                ),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: ColorConfig.primary,
-                                    // Background color
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors
-                                            .grey.shade300, // Top shadow color
-                                        offset: const Offset(-4, -4),
-                                        blurRadius: 8.0,
-                                        spreadRadius: 1.0,
-                                      ),
-                                      BoxShadow(
-                                        color: Colors.grey
-                                            .shade100, // Bottom shadow color
-                                        offset: const Offset(4, 4),
-                                        blurRadius: 8.0,
-                                        spreadRadius: 1.0,
-                                      ),
-                                    ],
-                                  ),
-                                  child: const Center(
-                                    child: Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors
-                                          .white, // Adjust icon color to match the background
-                                      size: 31.0,
-                                    ),
-                                  ),
-                                ))).withSize(
-                          height: SizeConfigs.getPercentageWidth(23),
-                          width: SizeConfigs.getPercentageWidth(23),
+                        child: ArrowButton(
+                          color: ColorConfig.primary,
                         ),
                       ),
                     )
