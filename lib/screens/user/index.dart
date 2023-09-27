@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
+import 'package:muuv/controllers/user/auth.dart';
 import 'package:muuv/screens/user/provider.dart';
 import 'package:muuv/widget/tab.dart';
 import 'package:muuv/widget/textfield.dart';
@@ -20,6 +21,8 @@ class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     final screenState = Provider.of<UserScreenProvider>(context);
+    final userState = Provider.of<UserAuthProvider>(context);
+    final userInstance = userState.user;
 
     var loginWidget = [
       CustomTextField(
@@ -156,7 +159,7 @@ class _UserScreenState extends State<UserScreen> {
                                     ),
                                   )
                                 : Icon(
-                                    Icons.directions_car_filled_rounded,
+                                    Icons.location_on,
                                     color: ColorConfig.primary,
                                   )
                             // Text(

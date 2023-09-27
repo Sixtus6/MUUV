@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:muuv/controllers/user/auth.dart';
 import 'package:muuv/provider/theme.dart';
 import 'package:muuv/screens/mainscreen.dart';
 //import 'package:muuv/screens/rider/index.dart';
@@ -20,6 +21,8 @@ Future<void> main() async {
             create: (_) => UserScreenProvider()),
         ChangeNotifierProvider<RiderScreenProvider>(
             create: (_) => RiderScreenProvider()),
+        ChangeNotifierProvider<UserAuthProvider>(
+            create: (_) => UserAuthProvider())
       ],
       child: MyApp(),
     ),

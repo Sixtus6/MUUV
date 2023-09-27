@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:muuv/model/user.dart';
 import 'package:muuv/widget/arrow.dart';
 
-class AuthProvider with ChangeNotifier {
+class UserAuthProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   UserModel? _user;
@@ -12,7 +12,7 @@ class AuthProvider with ChangeNotifier {
   UserModel? get user => _user;
 
   // Initialize the AuthProvider
-  AuthProvider() {
+  UserAuthProvider() {
     _auth.authStateChanges().listen((firebaseUser) {
       if (firebaseUser == null) {
         _user = null;
