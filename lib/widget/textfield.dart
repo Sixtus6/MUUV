@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:muuv/config/color.dart';
 
+// ignore: must_be_immutable
 class CustomTextField extends StatelessWidget {
   CustomTextField({
     super.key,
@@ -13,6 +14,8 @@ class CustomTextField extends StatelessWidget {
     this.onTap,
     this.isphone = false,
     this.isAddress = false,
+    this.controller,
+    this.validator,
   });
   final IconData icon;
   final String text;
@@ -23,12 +26,14 @@ class CustomTextField extends StatelessWidget {
   final bool? enableSuffixIcon;
   late bool? visible;
   final VoidCallback? onTap;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 14.0),
-      child: TextField(
+      child: TextFormField(
         style: TextStyle(color: ColorConfig.secondary),
         obscureText: obscure!,
         keyboardType: isEmail
@@ -74,6 +79,8 @@ class CustomTextField extends StatelessWidget {
             contentPadding: EdgeInsets.all(10),
             hintText: text,
             hintStyle: TextStyle(fontSize: 14, color: ColorConfig.secondary)),
+        controller: controller,
+        validator: validator,
       ),
     );
   }

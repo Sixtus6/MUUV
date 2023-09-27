@@ -25,6 +25,8 @@ class _UserScreenState extends State<UserScreen> {
     final userState = Provider.of<UserAuthProvider>(context);
     final userInstance = userState.user;
 
+    final loginFormKey = GlobalKey<FormState>();
+    final signuoFormKey = GlobalKey<FormState>();
     var loginWidget = [
       CustomTextField(
         icon: Icons.mail,
@@ -214,10 +216,17 @@ class _UserScreenState extends State<UserScreen> {
                             Container(
                               margin: EdgeInsets.only(
                                   top: SizeConfigs.getPercentageWidth(6)),
-                              child: Column(
-                                  children: screenState.hasClickedLogin
-                                      ? loginWidget
-                                      : signinWidget),
+                              child: Form(
+                                key: screenState.hasClickedLogin
+                                    ? loginFormKey
+                                    : signuoFormKey,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                child: Column(
+                                    children: screenState.hasClickedLogin
+                                        ? loginWidget
+                                        : signinWidget),
+                              ),
                             )
                           ]),
                         )
@@ -238,7 +247,15 @@ class _UserScreenState extends State<UserScreen> {
                       child: SingleChildScrollView(
                         child: ArrowButton(
                           color: ColorConfig.primary,
-                        ),
+                        ).onTap(() {
+                          print("object");
+                          userState.signUpWithEmailAndPassword(
+                              'testy@example.com',
+                              'password',
+                              'John Doe',
+                              'No 4 utange lane',
+                              '+1234567890');
+                        }),
                       ),
                     )
                   ],
