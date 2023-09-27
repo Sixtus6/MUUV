@@ -24,14 +24,25 @@ class _UserScreenState extends State<UserScreen> {
     final screenState = Provider.of<UserScreenProvider>(context);
     final userState = Provider.of<UserAuthProvider>(context);
     final userInstance = userState.user;
-
+/* ----------------------------------- KEY ---------------------------------- */
     final loginFormKey = GlobalKey<FormState>();
-    final signuoFormKey = GlobalKey<FormState>();
+    final signuPFormKey = GlobalKey<FormState>();
+    /* ----------------------------- TextController ----------------------------- */
+    TextEditingController loginEmailController = TextEditingController();
+    TextEditingController loginPasswordController = TextEditingController();
+
     var loginWidget = [
       CustomTextField(
         icon: Icons.mail,
         isEmail: true,
         text: 'Email',
+        controller: loginPasswordController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Email filed cant be empty';
+          }
+          return null;
+        },
       ),
       CustomTextField(
         icon: Icons.lock,
@@ -40,6 +51,8 @@ class _UserScreenState extends State<UserScreen> {
         text: 'Password',
         enableSuffixIcon: true,
         visible: screenState.isPasswordVisible,
+        controller: loginPasswordController,
+        validator: (p0) {},
         onTap: () {
           screenState.setPasswordVisible(!screenState.isPasswordVisible);
         },
@@ -219,7 +232,7 @@ class _UserScreenState extends State<UserScreen> {
                               child: Form(
                                 key: screenState.hasClickedLogin
                                     ? loginFormKey
-                                    : signuoFormKey,
+                                    : signuPFormKey,
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                                 child: Column(
@@ -248,13 +261,20 @@ class _UserScreenState extends State<UserScreen> {
                         child: ArrowButton(
                           color: ColorConfig.primary,
                         ).onTap(() {
+                          if (screenState.hasClickedLogin) {
+                            final isformValid =
+                                loginFormKey.currentState!.validate();
+
+                            print(isformValid);
+                          }
+
                           print("object");
-                          userState.signUpWithEmailAndPassword(
-                              'testy@example.com',
-                              'password',
-                              'John Doe',
-                              'No 4 utange lane',
-                              '+1234567890');
+                          // userState.signUpWithEmailAndPassword(
+                          //     'testy@example.com',
+                          //     'password',
+                          //     'John Doe',
+                          //     'No 4 utange lane',
+                          //     '+1234567890');
                         }),
                       ),
                     )
