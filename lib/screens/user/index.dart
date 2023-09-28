@@ -203,7 +203,7 @@ class _UserScreenState extends State<UserScreen> {
                                   fontWeight: FontWeight.bold),
                             ),
 
-                            SizeConfigs.getPercentageWidth(1).toInt().width,
+                            SizeConfigs.getPercentageWidth(2).toInt().width,
 
                             screenState.hasClickedLogin
                                 ? Container(
@@ -215,9 +215,14 @@ class _UserScreenState extends State<UserScreen> {
                                       color: ColorConfig.primary,
                                     ),
                                   )
-                                : Icon(
-                                    Icons.location_on,
-                                    color: ColorConfig.primary,
+                                : Container(
+                                    height: 30,
+                                    width: 30,
+                                    // padding: EdgeInsets.all(10),
+                                    child: Image.asset(
+                                      "assets/icon/ride.png",
+                                      color: ColorConfig.primary,
+                                    ),
                                   )
                             // Text(
                             //   screenState.hasClickedLogin
