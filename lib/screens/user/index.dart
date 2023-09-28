@@ -207,17 +207,17 @@ class _UserScreenState extends State<UserScreen> {
 
                             screenState.hasClickedLogin
                                 ? Container(
-                                    height: 20,
-                                    width: 20,
+                                    height: 40,
+                                    width: 40,
                                     // padding: EdgeInsets.all(10),
                                     child: Image.asset(
-                                      "assets/icon/passenger1.png",
+                                      "assets/icon/loginuser.png",
                                       color: ColorConfig.primary,
                                     ),
                                   )
                                 : Container(
-                                    height: 30,
-                                    width: 30,
+                                    height: 35,
+                                    width: 35,
                                     // padding: EdgeInsets.all(10),
                                     child: Image.asset(
                                       "assets/icon/ride.png",
@@ -319,9 +319,16 @@ class _UserScreenState extends State<UserScreen> {
                         child: ArrowButton(
                           color: ColorConfig.primary,
                         ).onTap(() {
+                          toast('This is a string');
                           if (screenState.hasClickedLogin) {
                             final isformValid =
                                 loginFormKey.currentState!.validate();
+                            if (isformValid) {
+                              print([
+                                loginEmailController.text,
+                                loginPasswordController.text
+                              ]);
+                            }
                             // !isformValid
                             //     ? screenState.setError(true)
                             //     : screenState.setError(false);
