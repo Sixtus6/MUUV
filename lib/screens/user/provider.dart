@@ -5,14 +5,21 @@ class UserScreenProvider with ChangeNotifier {
   bool _hasClickedSignup = false;
   bool _passwordVisible = true;
   bool _rememberMe = true;
+  bool _haserror = true;
 
   bool get hasClickedLogin => _hasClickedLogin;
   bool get hasClickedSignup => _hasClickedSignup;
   bool get isPasswordVisible => _passwordVisible;
-   bool get rememberMe => _rememberMe;
+  bool get rememberMe => _rememberMe;
+  bool get haserror => _haserror;
 
   void sethasClickedLogin(bool value) {
     _hasClickedLogin = value;
+    notifyListeners();
+  }
+
+  void setError(bool value) {
+    _haserror = value;
     notifyListeners();
   }
 

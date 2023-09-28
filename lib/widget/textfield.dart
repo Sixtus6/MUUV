@@ -31,7 +31,9 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 14.0),
-      child: TextField(
+      child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: validator,
         controller: myController,
         style: TextStyle(color: ColorConfig.secondary),
         obscureText: obscure!,
@@ -72,13 +74,13 @@ class CustomTextField extends StatelessWidget {
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(35.0)),
               borderSide: BorderSide(
-                color: ColorConfig.secondary.withOpacity(0.4),
+                color: ColorConfig.red.withOpacity(0.4),
               ),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(35.0)),
               borderSide: BorderSide(
-                color: ColorConfig.secondary.withOpacity(0.4),
+                color: ColorConfig.red.withOpacity(0.4),
               ),
             ),
             focusedBorder: OutlineInputBorder(

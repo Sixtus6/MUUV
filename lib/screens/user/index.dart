@@ -27,8 +27,8 @@ class _UserScreenState extends State<UserScreen> {
     final userState = Provider.of<UserAuthProvider>(context);
     final userInstance = userState.user;
 /* ----------------------------------- KEY ---------------------------------- */
-    // final loginFormKey = GlobalKey<FormState>();
-    // final signuPFormKey = GlobalKey<FormState>();
+    final loginFormKey = GlobalKey<FormState>();
+    final signupFormKey = GlobalKey<FormState>();
     /* ----------------------------- TextController ----------------------------- */
 
     var loginWidget = [
@@ -36,13 +36,13 @@ class _UserScreenState extends State<UserScreen> {
         icon: Icons.mail,
         isEmail: true,
         text: 'Email', myController: loginEmailController,
-        //  controller: loginEmailController,
-        // validator: (value) {
-        //   if (value!.isEmpty || !EmailValidator.validate(value)) {
-        //     return 'Enter a valid email ';
-        //   }
-        //   return null;
-        // },
+        //   controller: loginEmailController,
+        validator: (value) {
+          if (value!.isEmpty || !EmailValidator.validate(value)) {
+            return 'Enter a valid email ';
+          }
+          return null;
+        },
       ),
 
       CustomTextField(
@@ -53,13 +53,13 @@ class _UserScreenState extends State<UserScreen> {
         text: 'Password',
         enableSuffixIcon: true,
         visible: screenState.isPasswordVisible,
-        //     controller: loginPasswordController,
-        // validator: (value) {
-        //   if (value!.isEmpty || value.length < 8) {
-        //     return 'Minimum password length is 8';
-        //   }
-        //   return null;
-        // },
+        //   controller: loginPasswordController,
+        validator: (value) {
+          if (value!.isEmpty || value.length < 8) {
+            return 'Minimum password length is 8';
+          }
+          return null;
+        },
         onTap: () {
           screenState.setPasswordVisible(!screenState.isPasswordVisible);
         },
@@ -95,12 +95,24 @@ class _UserScreenState extends State<UserScreen> {
         isEmail: false,
         text: 'Name',
         myController: signupNameController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be empty';
+          }
+          return null;
+        },
       ),
       CustomTextField(
         icon: Icons.mail,
         isEmail: true,
         text: 'Email',
         myController: signupEmailController,
+        validator: (value) {
+          if (value!.isEmpty || !EmailValidator.validate(value)) {
+            return 'Enter a valid email ';
+          }
+          return null;
+        },
       ),
       CustomTextField(
         icon: Icons.lock,
@@ -109,6 +121,12 @@ class _UserScreenState extends State<UserScreen> {
         text: 'Password',
         enableSuffixIcon: true,
         visible: screenState.isPasswordVisible,
+        validator: (value) {
+          if (value!.isEmpty || value.length < 8) {
+            return 'Minimum password length is 8';
+          }
+          return null;
+        },
         onTap: () {
           screenState.setPasswordVisible(!screenState.isPasswordVisible);
         },
@@ -119,11 +137,23 @@ class _UserScreenState extends State<UserScreen> {
         isphone: true,
         text: 'Phone',
         isEmail: false,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be empty';
+          }
+          return null;
+        },
         myController: signupPhoneController,
       ),
       CustomTextField(
         icon: Icons.home,
         //isphone: true,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be empty';
+          }
+          return null;
+        },
         text: 'Address',
         isEmail: false, myController: signupAddressController,
       ),
@@ -152,7 +182,7 @@ class _UserScreenState extends State<UserScreen> {
                   alignment: AlignmentDirectional.center,
                   children: [
                     Container().withHeight(screenState.hasClickedLogin
-                        ? SizeConfigs.getPercentageHeight(48)
+                        ? SizeConfigs.getPercentageHeight(50)
                         : SizeConfigs.getPercentageHeight(63)),
                     //  .withWidth(SizeConfigs.getPercentageWidth(100)),
                     Column(
@@ -177,8 +207,8 @@ class _UserScreenState extends State<UserScreen> {
 
                             screenState.hasClickedLogin
                                 ? Container(
-                                    height: 25,
-                                    width: 25,
+                                    height: 20,
+                                    width: 20,
                                     // padding: EdgeInsets.all(10),
                                     child: Image.asset(
                                       "assets/icon/passenger1.png",
@@ -202,62 +232,81 @@ class _UserScreenState extends State<UserScreen> {
                         ),
                         SizeConfigs.getPercentageWidth(2).toInt().height,
                         Container(
+                          constraints: BoxConstraints.expand(),
                           // alignment: Alignment.center,
                           padding:
                               EdgeInsets.all(SizeConfigs.getPercentageWidth(3)),
                           decoration: BoxDecoration(color: ColorConfig.white),
-                          child: Column(children: [
-                            SizeConfigs.getPercentageWidth(2).toInt().height,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                CustomTabBar(
-                                  text: 'LOGIN',
-                                  color: screenState.hasClickedLogin
-                                      ? ColorConfig.primary
-                                      : ColorConfig.primary.withOpacity(0.3),
-                                  tcolor: screenState.hasClickedLogin
-                                      ? ColorConfig.secondary
-                                      : ColorConfig.secondary.withOpacity(0.3),
-                                ).onTap(() {
-                                  screenState.sethasClickedLogin(true);
-                                  screenState.sethasClickedSignup(false);
-                                }),
-                                CustomTabBar(
-                                  text: 'SIGNUP',
-                                  color: screenState.hasClickedSignup
-                                      ? ColorConfig.primary
-                                      : ColorConfig.primary.withOpacity(0.3),
-                                  tcolor: screenState.hasClickedSignup
-                                      ? ColorConfig.secondary
-                                      : ColorConfig.secondary.withOpacity(0.3),
-                                ).onTap(() {
-                                  screenState.sethasClickedLogin(false);
-                                  screenState.sethasClickedSignup(true);
-                                }),
-                              ],
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  top: SizeConfigs.getPercentageWidth(6)),
-                              child: Column(
-                                  children: screenState.hasClickedLogin
-                                      ? loginWidget
-                                      : signinWidget),
-                            )
-                          ]),
+                          child: SingleChildScrollView(
+                            child: Column(children: [
+                              SizeConfigs.getPercentageWidth(2).toInt().height,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  CustomTabBar(
+                                    text: 'LOGIN',
+                                    color: screenState.hasClickedLogin
+                                        ? ColorConfig.primary
+                                        : ColorConfig.primary.withOpacity(0.3),
+                                    tcolor: screenState.hasClickedLogin
+                                        ? ColorConfig.secondary
+                                        : ColorConfig.secondary
+                                            .withOpacity(0.3),
+                                  ).onTap(() {
+                                    screenState.sethasClickedLogin(true);
+                                    screenState.sethasClickedSignup(false);
+                                  }),
+                                  CustomTabBar(
+                                    text: 'SIGNUP',
+                                    color: screenState.hasClickedSignup
+                                        ? ColorConfig.primary
+                                        : ColorConfig.primary.withOpacity(0.3),
+                                    tcolor: screenState.hasClickedSignup
+                                        ? ColorConfig.secondary
+                                        : ColorConfig.secondary
+                                            .withOpacity(0.3),
+                                  ).onTap(() {
+                                    screenState.sethasClickedLogin(false);
+                                    screenState.sethasClickedSignup(true);
+                                  }),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(
+                                        top: SizeConfigs.getPercentageWidth(6)),
+                                    child: SingleChildScrollView(
+                                      child: Form(
+                                        key: screenState.hasClickedLogin
+                                            ? loginFormKey
+                                            : signupFormKey,
+                                        child: Column(
+                                            children:
+                                                screenState.hasClickedLogin
+                                                    ? loginWidget
+                                                    : signinWidget),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizeConfigs.getPercentageWidth(10).toInt().height,
+                            ]),
+                          ),
                         )
                             .withSize(
                                 width: SizeConfigs.getPercentageWidth(85),
                                 height: screenState.hasClickedLogin
-                                    ? SizeConfigs.getPercentageWidth(77)
+                                    ? SizeConfigs.getPercentageWidth(85)
                                     : SizeConfigs.getPercentageWidth(110))
                             .cornerRadiusWithClipRRect(15),
                       ],
                     ),
                     Positioned(
                       top: screenState.hasClickedLogin
-                          ? SizeConfigs.getPercentageWidth(82)
+                          ? SizeConfigs.getPercentageWidth(86)
                           : SizeConfigs.getPercentageWidth(114),
                       // right: 0,
                       // left: 0,white
@@ -266,10 +315,15 @@ class _UserScreenState extends State<UserScreen> {
                           color: ColorConfig.primary,
                         ).onTap(() {
                           if (screenState.hasClickedLogin) {
-                            // final isformValid =
-                            //     loginFormKey.currentState!.validate();
-
-                            // print(isformValid);
+                            final isformValid =
+                                loginFormKey.currentState!.validate();
+                            // !isformValid
+                            //     ? screenState.setError(true)
+                            //     : screenState.setError(false);
+                            print(isformValid);
+                          } else {
+                            final isformValid =
+                                signupFormKey.currentState!.validate();
                           }
 
                           print("object");
