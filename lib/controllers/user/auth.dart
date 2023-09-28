@@ -41,6 +41,7 @@ class UserAuthProvider with ChangeNotifier {
       // If user creation is successful, we can now update additional user details
       await _updateUserDetails(
           userCredential.user!, name, phoneNumber, address);
+      toast("Account created successfully");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         // Handle the case where email is already in use by an existing account

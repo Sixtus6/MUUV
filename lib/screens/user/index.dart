@@ -356,6 +356,22 @@ class _UserScreenState extends State<UserScreen> {
                                       signupFormKey.currentState!.validate();
                                   if (isformValid) {
                                     screenState.setLoading(true);
+                                    try {
+                                      await userState
+                                          .signUpWithEmailAndPassword(
+                                              signupEmailController.text
+                                                  .toString(),
+                                              signupPasswordController.text
+                                                  .toString(),
+                                              signupNameController.text
+                                                  .toString(),
+                                              signupAddressController.text
+                                                  .toString(),
+                                              signupPhoneController.text
+                                                  .toString());
+                                    } finally {
+                                      screenState.setLoading(false);
+                                    }
                                     // print([
                                     //   signupEmailController.text,
                                     //   signupAddressController.text,

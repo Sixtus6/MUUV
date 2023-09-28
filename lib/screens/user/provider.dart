@@ -6,14 +6,14 @@ class UserScreenProvider with ChangeNotifier {
   bool _passwordVisible = true;
   bool _rememberMe = true;
   bool _haserror = true;
-  bool _isLoadingLogin = false;
+  bool _isLoading = false;
 
   bool get hasClickedLogin => _hasClickedLogin;
   bool get hasClickedSignup => _hasClickedSignup;
   bool get isPasswordVisible => _passwordVisible;
   bool get rememberMe => _rememberMe;
   bool get haserror => _haserror;
-  bool get isLoadingLogin => _isLoadingLogin;
+  bool get isLoadingLogin => _isLoading;
   
 
   void sethasClickedLogin(bool value) {
@@ -42,7 +42,7 @@ class UserScreenProvider with ChangeNotifier {
   }
 
   void setLoading(bool loading) {
-    _isLoadingLogin = loading;
+    _isLoading = loading;
     notifyListeners();
   }
 }
