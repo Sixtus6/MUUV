@@ -207,8 +207,8 @@ class _UserScreenState extends State<UserScreen> {
 
                             screenState.hasClickedLogin
                                 ? Container(
-                                    height: 40,
-                                    width: 40,
+                                    height: 45,
+                                    width: 45,
                                     // padding: EdgeInsets.all(10),
                                     child: Image.asset(
                                       "assets/icon/loginuser.png",
@@ -216,14 +216,14 @@ class _UserScreenState extends State<UserScreen> {
                                     ),
                                   )
                                 : Container(
-                                    height: 35,
-                                    width: 35,
+                                    height: 40,
+                                    width: 40,
                                     // padding: EdgeInsets.all(10),
                                     child: Image.asset(
                                       "assets/icon/ride.png",
                                       color: ColorConfig.primary,
                                     ),
-                                  )
+                                  ),
                             // Text(
                             //   screenState.hasClickedLogin
                             //       ? "Welcome Back"
@@ -316,38 +316,65 @@ class _UserScreenState extends State<UserScreen> {
                       // right: 0,
                       // left: 0,white
                       child: SingleChildScrollView(
-                        child: ArrowButton(
-                          color: ColorConfig.primary,
-                        ).onTap(() async {
-                          toast('Login Successfully');
-                          if (screenState.hasClickedLogin) {
-                            final isformValid =
-                                loginFormKey.currentState!.validate();
-                            if (isformValid) {
-                              print([
-                                loginEmailController.text,
-                                loginPasswordController.text
-                              ]);
-                            }
-                            // !isformValid
-                            //     ? screenState.setError(true)
-                            //     : screenState.setError(false);
-                            print(isformValid);
-                          } else {
-                            final isformValid =
-                                signupFormKey.currentState!.validate();
-                          }
+                        child: screenState.isLoadingLogin
+                            ? ArrowButton(color: ColorConfig.primaryLight)
+                                .onTap(() {
+                                // screenState.setLoading(false);
+                              })
+                            : ArrowButton(
+                                color: ColorConfig.primary,
+                              ).onTap(() async {
+                                //toast('Login Successfully');
+                                if (screenState.hasClickedLogin) {
+                                  final isformValid =
+                                      loginFormKey.currentState!.validate();
+                                  if (isformValid) {
+                                    screenState.setLoading(true);
+                                    print([
+                                      loginEmailController.text,
+                                      loginPasswordController.text
+                                    ]);
+                                    try {
+                                      await userState
+                                          .signUpWithEmailAndPassword(
+                                              'testy@exampwle.com',
+                                              'password',
+                                              'John Doe',
+                                              'No 4 utange lane',
+                                              '+1234567890');
+                                    } finally {
+                                      screenState.setLoading(false);
+                                    }
+                                  }
 
-                          print("object");
-                          var response =
-                              await userState.signUpWithEmailAndPassword(
-                                  'testy@exampwle.com',
-                                  'password',
-                                  'John Doe',
-                                  'No 4 utange lane',
-                                  '+1234567890');
-                          print([response]);
-                        }),
+                                  // !isformValid
+                                  //     ? screenState.setError(true)
+                                  //     : screenState.setError(false);
+                                  print(isformValid);
+                                } else {
+                                  final isformValid =
+                                      signupFormKey.currentState!.validate();
+                                  if (isformValid) {
+                                    screenState.setLoading(true);
+                                    // print([
+                                    //   signupEmailController.text,
+                                    //   signupAddressController.text,
+                                    //   signupNameController.text,
+                                    //   signupPasswordController.text,
+                                    //   signupPhoneController.text,
+                                    //   signupAddressController.text,
+                                    // ]);
+                                  }
+                                }
+
+                                // var response =
+                                //     await userState.signUpWithEmailAndPassword(
+                                //         'testy@exampwle.com',
+                                //         'password',
+                                //         'John Doe',
+                                //         'No 4 utange lane',
+                                //         '+1234567890');
+                              }),
                       ),
                     )
                   ],

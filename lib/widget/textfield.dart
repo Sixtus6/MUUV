@@ -78,7 +78,7 @@ class CustomTextField extends StatelessWidget {
               ),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(35.0)),
+              borderRadius: const BorderRadius.all(Radius.circular(35.0)),
               borderSide: BorderSide(
                 color: ColorConfig.red.withOpacity(0.4),
               ),
@@ -89,7 +89,7 @@ class CustomTextField extends StatelessWidget {
                 color: ColorConfig.secondary.withOpacity(0.4),
               ),
             ),
-            contentPadding: EdgeInsets.all(10),
+            contentPadding: const EdgeInsets.all(10),
             hintText: text,
             hintStyle: TextStyle(fontSize: 14, color: ColorConfig.secondary)),
       ),
