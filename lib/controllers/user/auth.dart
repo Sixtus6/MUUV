@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:muuv/model/user.dart';
 import 'package:muuv/widget/arrow.dart';
+import 'package:nb_utils/nb_utils.dart';
 
 class UserAuthProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -40,8 +41,19 @@ class UserAuthProvider with ChangeNotifier {
       // If user creation is successful, we can now update additional user details
       await _updateUserDetails(
           userCredential.user!, name, phoneNumber, address);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'email-already-in-use') {
+        // Handle the case where email is already in use by an existing account
+        toast("Email already exist");
+      } else {
+        toast("Something went wrong");
+        // Handle other FirebaseAuthException
+        print('Error during sign up: ${e.message}');
+      }
     } catch (e) {
-      print('Error during sign up: $e');
+      toast("Something went wrong");
+
+      print('Unexpected error during sign up: $e');
       rethrow;
     }
   }

@@ -318,8 +318,8 @@ class _UserScreenState extends State<UserScreen> {
                       child: SingleChildScrollView(
                         child: ArrowButton(
                           color: ColorConfig.primary,
-                        ).onTap(() {
-                          toast('This is a string');
+                        ).onTap(() async {
+                          toast('Login Successfully');
                           if (screenState.hasClickedLogin) {
                             final isformValid =
                                 loginFormKey.currentState!.validate();
@@ -339,12 +339,14 @@ class _UserScreenState extends State<UserScreen> {
                           }
 
                           print("object");
-                          // userState.signUpWithEmailAndPassword(
-                          //     'testy@example.com',
-                          //     'password',
-                          //     'John Doe',
-                          //     'No 4 utange lane',
-                          //     '+1234567890');
+                          var response =
+                              await userState.signUpWithEmailAndPassword(
+                                  'testy@exampwle.com',
+                                  'password',
+                                  'John Doe',
+                                  'No 4 utange lane',
+                                  '+1234567890');
+                          print([response]);
                         }),
                       ),
                     )
