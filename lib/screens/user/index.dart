@@ -173,7 +173,9 @@ class _UserScreenState extends State<UserScreen> {
                   child: Container(
                       //  decoration: BoxDecoration(color: Colors.red),
                       height: SizeConfigs.getPercentageWidth(50),
-                      child: Lottie.asset("assets/lottie/new4.json")
+                      child: Lottie.asset("assets/lottie/new4.json").onTap(() {
+                        print(userInstance!.name);
+                      })
 
                       //width: 1,
                       //  Lottie.asset(
@@ -339,13 +341,10 @@ class _UserScreenState extends State<UserScreen> {
                                       loginPasswordController.text
                                     ]);
                                     try {
-                                      await userState
-                                          .signUpWithEmailAndPassword(
-                                              'testy@exampwle.com',
-                                              'password',
-                                              'John Doe',
-                                              'No 4 utange lane',
-                                              '+1234567890');
+                                      await userState.loginWithEmailAndPassword(
+                                        'testy@exampwle.com',
+                                        'password',
+                                      );
                                     } finally {
                                       screenState.setLoading(false);
                                     }

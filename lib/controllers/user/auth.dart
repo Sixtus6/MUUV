@@ -10,9 +10,9 @@ class UserAuthProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool _isSignUpSuccessful = false;
   bool get isSignUpSuccessful => _isSignUpSuccessful;
-
+  bool _isLoginSuccessful = false;
+  bool get isLoginSuccessful => _isLoginSuccessful;
   UserModel? _user;
-
   UserModel? get user => _user;
 
   // Initialize the AuthProvider
@@ -32,6 +32,40 @@ class UserAuthProvider with ChangeNotifier {
       notifyListeners();
     });
   }
+  Future<void> loginWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+
+      // If login is successful, set the login success flag to true
+      _isLoginSuccessful = true;
+      notifyListeners();
+      toast("Login successfully");
+      await _fetchUserDetails(userCredential.user!.uid, email);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
+        _isLoginSuccessful = false;
+        notifyListeners();
+        toast("Email or password incorrect");
+      } else {
+        // toast("Something went wrong");
+        _isLoginSuccessful = false;
+        notifyListeners();
+      }
+
+      print('Error during login: ${e.message}');
+      _isLoginSuccessful = false;
+      notifyListeners();
+
+      rethrow;
+    } catch (e) {
+      print('Unexpected error during login: $e');
+      _isLoginSuccessful = false;
+      notifyListeners();
+      rethrow;
+    }
+  }
+
   Future<void> signUpWithEmailAndPassword(String email, String password,
       String name, String address, String phoneNumber) async {
     try {
@@ -56,8 +90,8 @@ class UserAuthProvider with ChangeNotifier {
         toast("Email already exist");
       } else {
         toast("Something went wrong");
-      _isSignUpSuccessful = false;
-      notifyListeners();
+        _isSignUpSuccessful = false;
+        notifyListeners();
 
         print('Error during sign up: ${e.message}');
       }
@@ -83,6 +117,24 @@ class UserAuthProvider with ChangeNotifier {
     } catch (e) {
       print('Error updating user details: $e');
       rethrow;
+    }
+  }
+
+  Future<void> _fetchUserDetails(String uid, email) async {
+    // Fetch user details from Firestore using uid and update _userDetails
+    // Example: Fetching from a 'users' collection
+    DocumentSnapshot userSnapshot =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    print(userSnapshot.data());
+    if (userSnapshot.exists) {
+      _user = UserModel(
+        uid: uid,
+        name: userSnapshot['fullName'],
+        emailAddress: email,
+        address: userSnapshot['address'],
+        phoneNumber: userSnapshot['phoneNumber'],
+        password: "",
+      );
     }
   }
 
