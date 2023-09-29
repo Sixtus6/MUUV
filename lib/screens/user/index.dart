@@ -373,22 +373,12 @@ class _UserScreenState extends State<UserScreen> {
                                                   .toString(),
                                               signupPhoneController.text
                                                   .toString());
-                                      toast("Account created successfully");
-                                      Timer(const Duration(seconds: 2), () {
+
+                                      if (userState.isSignUpSuccessful) {
                                         UserHomePage().launch(context,
                                             pageRouteAnimation:
                                                 PageRouteAnimation.Fade,
                                             isNewTask: true);
-                                      });
-                                    } on FirebaseAuthException catch (e) {
-                                      if (e.code == 'email-already-in-use') {
-                                        // Handle the case where email is already in use by an existing account
-                                        toast("Email already exist");
-                                      } else {
-                                        toast("Something went wrong");
-                                        // Handle other FirebaseAuthException
-                                        print(
-                                            'Error during sign up: ${e.message}');
                                       }
                                     } finally {
                                       screenState.setLoading(false);
