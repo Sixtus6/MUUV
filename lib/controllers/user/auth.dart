@@ -9,7 +9,6 @@ import 'package:nb_utils/nb_utils.dart';
 class UserAuthProvider with ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   bool _isSignUpSuccessful = false;
-
   bool get isSignUpSuccessful => _isSignUpSuccessful;
 
   UserModel? _user;
@@ -50,15 +49,22 @@ class UserAuthProvider with ChangeNotifier {
       toast("Account created successfully");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
+        _isSignUpSuccessful = false;
+        notifyListeners();
+
         // Handle the case where email is already in use by an existing account
         toast("Email already exist");
       } else {
         toast("Something went wrong");
-        // Handle other FirebaseAuthException
+      _isSignUpSuccessful = false;
+      notifyListeners();
+
         print('Error during sign up: ${e.message}');
       }
     } catch (e) {
       toast("Something went wrong");
+      _isSignUpSuccessful = false;
+      notifyListeners();
 
       print('Unexpected error during sign up: $e');
       rethrow;
