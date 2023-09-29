@@ -31,7 +31,7 @@ class _UserScreenState extends State<UserScreen> {
   Widget build(BuildContext context) {
     final screenState = Provider.of<UserScreenProvider>(context);
     final userState = Provider.of<UserAuthProvider>(context);
-    final userInstance = userState.user;
+    // final userInstance = userState.user;
 /* ----------------------------------- KEY ---------------------------------- */
     final loginFormKey = GlobalKey<FormState>();
     final signupFormKey = GlobalKey<FormState>();
@@ -99,7 +99,7 @@ class _UserScreenState extends State<UserScreen> {
       CustomTextField(
         icon: Icons.person,
         isEmail: false,
-        text: 'Name',
+        text: 'Full Name',
         myController: signupNameController,
         validator: (value) {
           if (value!.isEmpty) {
@@ -341,11 +341,22 @@ class _UserScreenState extends State<UserScreen> {
                                       loginEmailController.text,
                                       loginPasswordController.text
                                     ]);
+                                    // UserModel? savedUser = await getUserFromPrefs();
+
                                     try {
                                       await userState.loginWithEmailAndPassword(
-                                        'testy@exampwle.com',
-                                        'password',
+                                        loginEmailController.text,
+                                        loginPasswordController.text,
                                       );
+
+                                      if (userState.isLoginSuccessful) {
+                                        UserHomePage().launch(
+                                          context,
+                                          pageRouteAnimation:
+                                              PageRouteAnimation.Fade,
+                                          //  isNewTask: true
+                                        );
+                                      }
                                     } finally {
                                       screenState.setLoading(false);
                                     }

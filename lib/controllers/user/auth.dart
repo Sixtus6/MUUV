@@ -45,7 +45,6 @@ class UserAuthProvider with ChangeNotifier {
       await _fetchUserDetails(userCredential.user!.uid, email);
       //saves user to shared preferences
       saveUserToPrefs(_user!);
-      print(_user);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
         _isLoginSuccessful = false;
@@ -85,6 +84,9 @@ class UserAuthProvider with ChangeNotifier {
       _isSignUpSuccessful = true;
       notifyListeners();
       toast("Account created successfully");
+      await _fetchUserDetails(userCredential.user!.uid, email);
+      //saves user to shared preferences
+      saveUserToPrefs(_user!);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         _isSignUpSuccessful = false;

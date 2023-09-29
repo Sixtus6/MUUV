@@ -4,9 +4,8 @@ import 'package:muuv/model/user.dart';
 import 'package:nb_utils/nb_utils.dart';
 
 Future<void> saveUserToPrefs(UserModel model) async {
-  print(model);
   final userJson = jsonEncode(model);
-  print([userJson.runtimeType, userJson]);
+
   await setValue("user", userJson);
   print("saved to shared preferences");
 }
