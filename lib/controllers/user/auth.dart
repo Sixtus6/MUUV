@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:muuv/model/user.dart';
 import 'package:muuv/screens/home/user/index.dart';
+import 'package:muuv/utils/helper.dart';
 import 'package:muuv/widget/arrow.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -42,6 +43,9 @@ class UserAuthProvider with ChangeNotifier {
       notifyListeners();
       toast("Login successfully");
       await _fetchUserDetails(userCredential.user!.uid, email);
+      //saves user to shared preferences
+      saveUserToPrefs(_user!);
+      print(_user);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
         _isLoginSuccessful = false;
@@ -137,7 +141,6 @@ class UserAuthProvider with ChangeNotifier {
       );
     }
   }
-  
 
   Future<void> signOut() async {
     await _auth.signOut();

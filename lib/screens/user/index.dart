@@ -10,6 +10,7 @@ import 'package:muuv/config/size.dart';
 import 'package:muuv/controllers/user/auth.dart';
 import 'package:muuv/screens/home/user/index.dart';
 import 'package:muuv/screens/user/provider.dart';
+import 'package:muuv/utils/helper.dart';
 import 'package:muuv/widget/arrow.dart';
 import 'package:muuv/widget/constant.dart';
 import 'package:muuv/widget/tab.dart';
@@ -174,7 +175,8 @@ class _UserScreenState extends State<UserScreen> {
                       //  decoration: BoxDecoration(color: Colors.red),
                       height: SizeConfigs.getPercentageWidth(50),
                       child: Lottie.asset("assets/lottie/new4.json").onTap(() {
-                        print(userInstance!.name);
+                        print(userInstance!.uid);
+                        getUserFromPrefs();
                       })
 
                       //width: 1,
