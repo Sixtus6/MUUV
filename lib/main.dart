@@ -5,6 +5,7 @@ import 'package:muuv/screens/mainscreen.dart';
 //import 'package:muuv/screens/rider/index.dart';
 import 'package:muuv/screens/rider/provider.dart';
 import 'package:muuv/screens/user/provider.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -13,6 +14,9 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await initialize();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MultiProvider(
