@@ -8,6 +8,7 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/controllers/user/auth.dart';
+import 'package:muuv/model/user.dart';
 import 'package:muuv/screens/home/user/index.dart';
 import 'package:muuv/screens/user/provider.dart';
 import 'package:muuv/utils/helper.dart';
@@ -174,10 +175,8 @@ class _UserScreenState extends State<UserScreen> {
                   child: Container(
                       //  decoration: BoxDecoration(color: Colors.red),
                       height: SizeConfigs.getPercentageWidth(50),
-                      child: Lottie.asset("assets/lottie/new4.json").onTap(() {
-                        print(userInstance!.uid);
-                        getUserFromPrefs();
-                      })
+                      child: Lottie.asset("assets/lottie/new4.json")
+                          .onTap(() async {})
 
                       //width: 1,
                       //  Lottie.asset(

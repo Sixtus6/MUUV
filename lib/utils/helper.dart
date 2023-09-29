@@ -17,10 +17,9 @@ Future<UserModel?> getUserFromPrefs() async {
     print([userJson.runtimeType, jsonDecode(userJson).runtimeType]);
     final Map<String, dynamic> userMap = jsonDecode(userJson);
     final decoded = UserModel.fromJson(userMap);
-    print(jsonEncode(decoded));
-    print([decoded.runtimeType]);
+    // print(jsonEncode(decoded));
+    // print([decoded.runtimeType]);
     return decoded;
-
   }
 
   return null;
