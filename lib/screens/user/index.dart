@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/controllers/user/auth.dart';
+import 'package:muuv/screens/home/user/index.dart';
 import 'package:muuv/screens/user/provider.dart';
 import 'package:muuv/widget/arrow.dart';
 import 'package:muuv/widget/constant.dart';
@@ -369,6 +373,23 @@ class _UserScreenState extends State<UserScreen> {
                                                   .toString(),
                                               signupPhoneController.text
                                                   .toString());
+                                      toast("Account created successfully");
+                                      Timer(const Duration(seconds: 2), () {
+                                        UserHomePage().launch(context,
+                                            pageRouteAnimation:
+                                                PageRouteAnimation.Fade,
+                                            isNewTask: true);
+                                      });
+                                    } on FirebaseAuthException catch (e) {
+                                      if (e.code == 'email-already-in-use') {
+                                        // Handle the case where email is already in use by an existing account
+                                        toast("Email already exist");
+                                      } else {
+                                        toast("Something went wrong");
+                                        // Handle other FirebaseAuthException
+                                        print(
+                                            'Error during sign up: ${e.message}');
+                                      }
                                     } finally {
                                       screenState.setLoading(false);
                                     }
