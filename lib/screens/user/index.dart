@@ -218,7 +218,7 @@ class _UserScreenState extends State<UserScreen> {
                                     width: 45,
                                     // padding: EdgeInsets.all(10),
                                     child: Image.asset(
-                                      "assets/icon/loginuser.png",
+                                      "assets/icon/ride.png",
                                       color: ColorConfig.primary,
                                     ),
                                   )
@@ -227,7 +227,7 @@ class _UserScreenState extends State<UserScreen> {
                                     width: 40,
                                     // padding: EdgeInsets.all(10),
                                     child: Image.asset(
-                                      "assets/icon/ride.png",
+                                      "assets/icon/loginuser.png",
                                       color: ColorConfig.primary,
                                     ),
                                   ),
@@ -319,7 +319,7 @@ class _UserScreenState extends State<UserScreen> {
                     Positioned(
                       top: screenState.hasClickedLogin
                           ? SizeConfigs.getPercentageWidth(86)
-                          : SizeConfigs.getPercentageWidth(114),
+                          : SizeConfigs.getPercentageWidth(114 + 1),
                       // right: 0,
                       // left: 0,white
                       child: SingleChildScrollView(
