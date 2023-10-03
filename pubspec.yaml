@@ -44,6 +44,7 @@ dependencies:
   cloud_firestore: ^4.9.2
   email_validator: ^2.1.17
   fluttertoast: ^8.2.2
+  google_maps_flutter: ^2.5.0
 
 dev_dependencies:
   flutter_test:
