@@ -16,6 +16,7 @@ class UserAuthProvider with ChangeNotifier {
   UserModel? _user;
   UserModel? get user => _user;
 
+
   // Initialize the AuthProvider
   UserAuthProvider() {
     _auth.authStateChanges().listen((firebaseUser) {
