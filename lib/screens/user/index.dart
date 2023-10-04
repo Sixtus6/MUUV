@@ -179,7 +179,9 @@ class _UserScreenState extends State<UserScreen> {
                           .onTap(() async {
                         // var data = await getUserFromPrefs;
                         UserModel? data = await getUserFromPrefs();
-                        print(data!.toJson().values.isNotEmpty);
+                        // print(data!.toJson().values.isNotEmpty);
+                        String value = getStringAsync("user");
+                        print(!value.isEmptyOrNull);
                       })
 
                       //width: 1,

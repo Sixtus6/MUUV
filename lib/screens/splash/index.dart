@@ -6,6 +6,7 @@ import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/controllers/user/auth.dart';
 import 'package:muuv/model/user.dart';
+import 'package:muuv/screens/home/user/index.dart';
 import 'package:muuv/screens/onboarding/index.dart';
 import 'package:muuv/utils/helper.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -21,13 +22,29 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   void flagSwitch(CopySelectionTextIntent) {
     Timer(const Duration(seconds: 4), () {
-      final userState = Provider.of<UserAuthProvider>(context);
-      if (userState.isLoginSuccessful) {
-      } else if (userState.isSignUpSuccessful) {
+      String user = getStringAsync("user");
+      String rider = getStringAsync("rider");
+      if (!user.isEmptyOrNull) {
+        UserHomePage().launch(context,
+            pageRouteAnimation: PageRouteAnimation.Fade, isNewTask: true);
+      } else if (!rider.isEmptyOrNull) {
+        print("rider screen");
       } else {
         OnboardingScreen().launch(context,
             pageRouteAnimation: PageRouteAnimation.Fade, isNewTask: true);
       }
+
+      // getBoolAsync(key)
+      // final userState = Provider.of<UserAuthProvider>(context, listen: false);
+      // if (userState.isLoginSuccessful) {
+      //   UserHomePage().launch(context,
+      //       pageRouteAnimation: PageRouteAnimation.Fade, isNewTask: true);
+      // } else if (userState.isSignUpSuccessful) {
+      //   print("waiting for riders screen");
+      // } else {
+      //   OnboardingScreen().launch(context,
+      //       pageRouteAnimation: PageRouteAnimation.Fade, isNewTask: true);
+      // }
       // if (data.toJson().values.isNotEmpty) {
 
       // } else {
