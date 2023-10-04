@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
+import 'package:muuv/key/key.dart';
+import 'package:muuv/utils/helper.dart';
 
 class UserGoogleMapProvider with ChangeNotifier {
   Completer<GoogleMapController> _controllerCompleter = Completer();
@@ -124,10 +126,22 @@ class UserGoogleMapProvider with ChangeNotifier {
 
       _newGoogleMapController!
           .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-          
+
       notifyListeners();
     } catch (e) {
       print('Error locating user position: $e');
+    }
+  }
+
+  Future<String> searchAddressViaCordinates(Position position, context) async {
+    String apiUrl =
+        "https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude},${position.latitude}&key=${KeyConfig.googleApiKey}";
+
+    String addressCordinate = "";
+    var responseRequest = await receiveRequest(apiUrl);
+
+    if (responseRequest != null) {
+      addressCordinate = responseRequest["results"][0]["fomatted_address"];
     }
   }
 }
