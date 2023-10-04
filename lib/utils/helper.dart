@@ -13,11 +13,12 @@ Future<void> saveUserToPrefs(UserModel model) async {
 Future<UserModel?> getUserFromPrefs() async {
   final userJson = getStringAsync("user");
   if (userJson != null) {
-    print([userJson.runtimeType, jsonDecode(userJson).runtimeType]);
+    print([userJson.runtimeType, jsonDecode(userJson)]);
     final Map<String, dynamic> userMap = jsonDecode(userJson);
     final decoded = UserModel.fromJson(userMap);
-    // print(jsonEncode(decoded));
+    // // print(jsonEncode(decoded));
     // print([decoded.runtimeType]);
+    // print([decoded]);
     return decoded;
   }
 

@@ -176,7 +176,11 @@ class _UserScreenState extends State<UserScreen> {
                       //  decoration: BoxDecoration(color: Colors.red),
                       height: SizeConfigs.getPercentageWidth(50),
                       child: Lottie.asset("assets/lottie/new4.json")
-                          .onTap(() async {})
+                          .onTap(() async {
+                        // var data = await getUserFromPrefs;
+                        UserModel? data = await getUserFromPrefs();
+                        print(data!.toJson().values.isNotEmpty);
+                      })
 
                       //width: 1,
                       //  Lottie.asset(
@@ -350,12 +354,10 @@ class _UserScreenState extends State<UserScreen> {
                                       );
 
                                       if (userState.isLoginSuccessful) {
-                                        UserHomePage().launch(
-                                          context,
-                                          pageRouteAnimation:
-                                              PageRouteAnimation.Fade,
-                                          //  isNewTask: true
-                                        );
+                                        UserHomePage().launch(context,
+                                            pageRouteAnimation:
+                                                PageRouteAnimation.Fade,
+                                            isNewTask: true);
                                       }
                                     } finally {
                                       screenState.setLoading(false);
