@@ -57,13 +57,21 @@ class _UserHomePageState extends State<UserHomePage> {
                     polylines: provider.polylineSet,
                     markers: provider.markerSet,
                     circles: provider.circleSet,
-                    
                   );
                 } else {
                   return Center(child: ShimmerLoader());
                 }
               },
             ),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.all(90),
+                child: Lottie.asset(
+                  "assets/lottie/locpin.json",
+                ),
+              ),
+            )
           ],
         ),
       )),

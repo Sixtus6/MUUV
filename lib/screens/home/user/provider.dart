@@ -134,6 +134,9 @@ class UserGoogleMapProvider with ChangeNotifier {
     }
   }
 
+
+  
+
   Future<String> searchAddressViaCordinates(Position position, context) async {
     String apiUrl =
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude},${position.latitude}&key=${KeyConfig.googleApiKey}";
