@@ -5,6 +5,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
 import 'package:muuv/key/key.dart';
+import 'package:muuv/model/direction.dart';
 import 'package:muuv/utils/helper.dart';
 
 class UserGoogleMapProvider with ChangeNotifier {
@@ -142,7 +143,12 @@ class UserGoogleMapProvider with ChangeNotifier {
 
     if (responseRequest != null) {
       addressCordinate = responseRequest["results"][0]["fomatted_address"];
+      Direction userPickupaddress = Direction();
+      userPickupaddress.locationLat = position.latitude.toString();
+      userPickupaddress.locationLat = position.latitude.toString();
+      userPickupaddress.locationName = addressCordinate.toString();
     }
+    return addressCordinate;
   }
 }
 
