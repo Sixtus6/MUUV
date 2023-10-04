@@ -36,7 +36,7 @@ Future<dynamic> receiveRequest(String url) async {
       return null;
     }
   } catch (e) {
-    return null;
     print("error on http helper: ${e})");
+    return null;
   }
 }
