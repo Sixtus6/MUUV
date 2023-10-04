@@ -61,6 +61,7 @@ class UserGoogleMapProvider with ChangeNotifier {
   UserGoogleMapProvider() {
     _location = loc.Location();
     _geolocator = Geolocator();
+    _checkAndRequestPermissions();
   }
 
   setpickLocation(LatLng? newLocation) {
@@ -76,7 +77,61 @@ class UserGoogleMapProvider with ChangeNotifier {
     _newGoogleMapController = controller;
     notifyListeners(); // Notify listeners when the controller is set
   }
+
+  bool _serviceEnabled = false;
+  loc.PermissionStatus _permissionGranted = loc.PermissionStatus.denied;
+
+  Future<void> _checkAndRequestPermissions() async {
+    _serviceEnabled = await _location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await _location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await _location.hasPermission();
+    if (_permissionGranted == loc.PermissionStatus.denied) {
+      _permissionGranted = await _location.requestPermission();
+      if (_permissionGranted != loc.PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    // locationData = await _location.getLocation();
+    // print([locationData]);
+    // notifyListeners(); // Notify listeners about the location update
+  }
+
+  //     late loc.Location _new location;
+  // bool _serviceEnabled = false;
+  // PermissionStatus _permissionGranted = PermissionStatus.denied;
+  // LocationData _locationData = LocationData.fromMap({
+  //   'latitude': 0.0,
+  //   'longitude': 0.0,
+  // });
+
+  Future<void> locateUserPosition() async {
+    try {
+      Position cPosition = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      _userCurrentPosition = cPosition;
+
+      LatLng latLngPosition = LatLng(
+          _userCurrentPosition!.latitude, _userCurrentPosition!.longitude);
+      CameraPosition cameraPosition =
+          CameraPosition(target: latLngPosition, zoom: 15);
+
+      _newGoogleMapController!
+          .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+          
+      notifyListeners();
+    } catch (e) {
+      print('Error locating user position: $e');
+    }
+  }
 }
+
   // Completer<GoogleMapController> _controllerCompleter = Completer();
   // LatLng? picklocation;
   // loc.Location location = loc.Location();
@@ -101,4 +156,3 @@ class UserGoogleMapProvider with ChangeNotifier {
   //   _controllerCompleter.complete(controller);
   //   notifyListeners();
   // }
-

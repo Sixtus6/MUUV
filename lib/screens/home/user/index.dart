@@ -37,14 +37,15 @@ class _UserHomePageState extends State<UserHomePage> {
                     onMapCreated: (controller) {
                       provider.setController(controller);
                       provider.setnewGoogleMapController(controller);
+
+                      provider.locateUserPosition();
                     },
                     onCameraMove: (CameraPosition? position) {
                       if (provider.pickLocation != position!.target) {
                         provider.setpickLocation(position.target);
                       }
                     },
-                    
-                    onCameraIdle: (){},
+                    onCameraIdle: () {},
                     initialCameraPosition: const CameraPosition(
                       target: LatLng(37.7749, -122.4194),
                       zoom: 11.0,
@@ -56,6 +57,7 @@ class _UserHomePageState extends State<UserHomePage> {
                     polylines: provider.polylineSet,
                     markers: provider.markerSet,
                     circles: provider.circleSet,
+                    
                   );
                 } else {
                   return Center(child: ShimmerLoader());
