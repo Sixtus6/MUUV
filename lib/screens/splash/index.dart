@@ -20,7 +20,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  void flagSwitch(CopySelectionTextIntent) {
+  void flagSwitch(context) {
     Timer(const Duration(seconds: 4), () {
       String user = getStringAsync("user");
       String rider = getStringAsync("rider");
@@ -33,24 +33,6 @@ class _SplashScreenState extends State<SplashScreen> {
         OnboardingScreen().launch(context,
             pageRouteAnimation: PageRouteAnimation.Fade, isNewTask: true);
       }
-
-      // getBoolAsync(key)
-      // final userState = Provider.of<UserAuthProvider>(context, listen: false);
-      // if (userState.isLoginSuccessful) {
-      //   UserHomePage().launch(context,
-      //       pageRouteAnimation: PageRouteAnimation.Fade, isNewTask: true);
-      // } else if (userState.isSignUpSuccessful) {
-      //   print("waiting for riders screen");
-      // } else {
-      //   OnboardingScreen().launch(context,
-      //       pageRouteAnimation: PageRouteAnimation.Fade, isNewTask: true);
-      // }
-      // if (data.toJson().values.isNotEmpty) {
-
-      // } else {
-      //   OnboardingScreen().launch(context,
-      //       pageRouteAnimation: PageRouteAnimation.Fade, isNewTask: true);
-      // }
     });
   }
 
