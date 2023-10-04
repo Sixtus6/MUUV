@@ -6,9 +6,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
 
 class UserGoogleMapProvider with ChangeNotifier {
-
   Completer<GoogleMapController> _controllerCompleter = Completer();
-  
+
   late loc.Location _location;
   loc.Location get location => _location;
 
@@ -47,6 +46,9 @@ class UserGoogleMapProvider with ChangeNotifier {
   LatLng? _pickLocation;
   LatLng? get pickLocation => _pickLocation;
 
+  GoogleMapController? _newGoogleMapController;
+  GoogleMapController? get newGoogleMapController => _newGoogleMapController;
+
   String? _address;
   String? get address => _address;
 
@@ -61,16 +63,24 @@ class UserGoogleMapProvider with ChangeNotifier {
     _geolocator = Geolocator();
   }
 
+  setpickLocation(LatLng? newLocation) {
+    _pickLocation = newLocation;
+  }
+
   void setController(GoogleMapController controller) {
     _controllerCompleter.complete(controller);
     notifyListeners();
   }
 
-
+  void setnewGoogleMapController(GoogleMapController? controller) {
+    _newGoogleMapController = controller;
+    notifyListeners(); // Notify listeners when the controller is set
+  }
+}
   // Completer<GoogleMapController> _controllerCompleter = Completer();
   // LatLng? picklocation;
   // loc.Location location = loc.Location();
-  
+
   // String? address;
   // Position? userCurrentPosition;
   // var geolocation = Geolocator();
@@ -92,5 +102,3 @@ class UserGoogleMapProvider with ChangeNotifier {
   //   notifyListeners();
   // }
 
-
-}

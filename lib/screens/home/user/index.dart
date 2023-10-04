@@ -36,7 +36,15 @@ class _UserHomePageState extends State<UserHomePage> {
                   return GoogleMap(
                     onMapCreated: (controller) {
                       provider.setController(controller);
+                      provider.setnewGoogleMapController(controller);
                     },
+                    onCameraMove: (CameraPosition? position) {
+                      if (provider.pickLocation != position!.target) {
+                        provider.setpickLocation(position.target);
+                      }
+                    },
+                    
+                    onCameraIdle: (){},
                     initialCameraPosition: const CameraPosition(
                       target: LatLng(37.7749, -122.4194),
                       zoom: 11.0,
