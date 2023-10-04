@@ -49,6 +49,7 @@ dependencies:
   geocoder2: ^1.4.0
   flutter_geofire: ^2.0.3
   flutter_polyline_points: ^1.0.0
+  shimmer: ^3.0.0
   # location: ^4.2.0
 
   # location: ^5.0.3

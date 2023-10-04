@@ -9,9 +9,7 @@ class UserGoogleMapProvider with ChangeNotifier {
   Future<GoogleMapController> get controller => _controllerCompleter.future;
 
   void setController(GoogleMapController controller) {
-    if (!_controllerCompleter.isCompleted) {
-      _controllerCompleter.complete(controller);
-      notifyListeners();
-    }
+    _controllerCompleter.complete(controller);
+    notifyListeners();
   }
 }
