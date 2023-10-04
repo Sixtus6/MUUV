@@ -20,26 +20,31 @@ class _UserHomePageState extends State<UserHomePage> {
     final mapProvider = Provider.of<UserGoogleMapProvider>(context);
     return SafeArea(
       child: Scaffold(
-        body: FutureBuilder<GoogleMapController>(
-          // future: mapProvider.controller,
-          builder: (context, snapshot) {
-            print(snapshot);
-            if (snapshot.connectionState == ConnectionState.done) {
+          body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Consumer<UserGoogleMapProvider>(
+          builder: (context, provider, _) {
+            print(provider);
+            // ignore: unnecessary_null_comparison
+
+            if (provider.controller != null) {
               return GoogleMap(
-                // onMapCreated: (controller) {
-                //   mapProvider.setController(controller);
-                // },
+                onMapCreated: (controller) {
+                  provider.setController(controller);
+                },
                 initialCameraPosition: CameraPosition(
                   target: LatLng(37.7749, -122.4194),
                   zoom: 11.0,
                 ),
               );
             } else {
-              return Center(child: CircularProgressIndicator());
+              return Center(child: ShimmerLoader());
             }
           },
         ),
-      ),
+      )),
     );
   }
 }
