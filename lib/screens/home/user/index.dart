@@ -84,17 +84,13 @@ class _UserHomePageState extends State<UserHomePage> {
                 child: Container(
                   child: Container(
                     //padding: edg,
-                    padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(11)),
+                    padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(10)),
                     decoration: BoxDecoration(
                       color: ColorConfig.white,
                       borderRadius: BorderRadius.all(Radius.circular(15)),
                     ),
                     child: Column(
-                      children: [
-                        Row(
-                          children: [],
-                        )
-                      ],
+                      children: [CustomModalContainer()],
                     ),
                   ),
                   padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(3)),
@@ -120,6 +116,56 @@ class _UserHomePageState extends State<UserHomePage> {
           ],
         ),
       )),
+    );
+  }
+}
+
+class CustomModalContainer extends StatelessWidget {
+  const CustomModalContainer({
+    super.key,
+    required this.image,
+    required this.address,
+    required this.header,
+  });
+
+  final String image;
+  final String address;
+  final String header;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          height: 25,
+          width: 25,
+          // padding: EdgeInsets.all(10),
+          child: Image.asset(
+            image,
+            color: ColorConfig.primary,
+          ),
+        ),
+        SizeConfigs.getPercentageWidth(2).toInt().width,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              header,
+              style: TextStyle(
+                  color: ColorConfig.primary,
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold),
+            ),
+            Text(
+              address,
+              style: TextStyle(
+                color: ColorConfig.secondary,
+                fontSize: 13,
+              ),
+            ),
+          ],
+        )
+      ],
     );
   }
 }
