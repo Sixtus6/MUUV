@@ -196,5 +196,3 @@ class UserGoogleMapProvider with ChangeNotifier {
     return addressCordinate;
   }
 }
-
-

@@ -82,21 +82,10 @@ class _UserHomePageState extends State<UserHomePage> {
                 left: 0,
                 right: 0,
                 child: Container(
-                  child: Container(
-                    //padding: edg,
-                    padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(10)),
-                    decoration: BoxDecoration(
-                      color: ColorConfig.white,
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    child: Column(
-                      children: [CustomModalContainer()],
-                    ),
-                  ),
                   padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(3)),
                   decoration: ShapeDecoration(
                     color: Colors.grey.shade100,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20.0),
                         topRight: Radius.circular(20.0),
@@ -105,12 +94,74 @@ class _UserHomePageState extends State<UserHomePage> {
                     // Background color of the container
                     shadows: [
                       BoxShadow(
-                        color: ColorConfig.primary, // Border color
+                        color: ColorConfig.secondary, // Border color
                         blurRadius: 1.0, // Border width
                         spreadRadius: 2.0, // Border width
                         offset: Offset(0, 2), // Offset of the border
                       ),
                     ],
+                  ),
+                  child: Container(
+                    //padding: edg,
+                    padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(4)),
+                    decoration: BoxDecoration(
+                      color: ColorConfig.white,
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: Column(
+                      children: [
+                        Consumer<UserGoogleMapProvider>(
+                          builder: (BuildContext context, provider, _) {
+                            print([
+                              provider.userPickUpLocation,
+                              provider.userDropOffLocation
+                            ]);
+                            if (provider.userPickUpLocation == null) {
+                              return Container();
+                            } else {
+                              return Column(
+                                children: [
+                                  CustomModalContainer(
+                                    address: provider.userPickUpLocation!
+                                                .locationName!
+                                                .toString()
+                                                .length <
+                                            40
+                                        ? "Loading......"
+                                        : provider.userPickUpLocation!
+                                                .locationName!
+                                                .substring(0, 40) +
+                                            ".....",
+                                    header: 'From',
+                                    image: "assets/icon/fromloc.png",
+                                  ),
+                                  SizeConfigs.getPercentageWidth(2)
+                                      .toInt()
+                                      .height,
+                                  Divider(
+                                    height: SizeConfigs.getPercentageWidth(1),
+                                    thickness: 2,
+                                    color: ColorConfig.primary,
+                                  ),
+                                  SizeConfigs.getPercentageWidth(2)
+                                      .toInt()
+                                      .height,
+                                  CustomModalContainer(
+                                    address:
+                                        provider.userDropOffLocation != null
+                                            ? provider.userDropOffLocation!
+                                                .locationName!
+                                            : 'What is your destination?',
+                                    header: 'To',
+                                    image: "assets/icon/toloc.png",
+                                  ),
+                                ],
+                              );
+                            }
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ))
           ],
@@ -152,8 +203,9 @@ class CustomModalContainer extends StatelessWidget {
             Text(
               header,
               style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
                   color: ColorConfig.primary,
-                  fontSize: 13,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold),
             ),
             Text(
