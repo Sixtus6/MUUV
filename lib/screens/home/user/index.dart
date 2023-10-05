@@ -4,7 +4,9 @@ import 'package:lottie/lottie.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/screens/home/user/provider.dart';
+import 'package:muuv/widget/constant.dart';
 import 'package:muuv/widget/loader.dart';
+import 'package:muuv/widget/textfield.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
@@ -152,30 +154,143 @@ class _UserHomePageState extends State<UserHomePage> {
                                         backgroundColor: Colors.grey.shade100,
                                         context: context,
                                         isDismissible: false,
-                                        isScrollControlled: false,
                                         enableDrag: false,
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.vertical(
                                             top: Radius.circular(25.0),
                                           ),
                                         ),
+                                        isScrollControlled: true,
                                         builder: (BuildContext context) {
                                           return Container(
-                                            decoration: BoxDecoration(
-                                                // borderRadius: BorderRadius.only(
-                                                //   topLeft: Radius.circular(20.0),
-                                                //   topRight: Radius.circular(20.0),
-                                                // ),
+                                            height: SizeConfigs.getPercentageWidth(
+                                                170), // Adjust height as needed
+                                            //  padding: EdgeInsets.all(1),
+                                            child: Column(
+                                              children: [
+                                                AppBar(
+                                                  centerTitle: true,
+                                                  automaticallyImplyLeading:
+                                                      false,
+                                                  title: Text(
+                                                    'Search & Set Destination',
+                                                    style: TextStyle(
+                                                        color: ColorConfig
+                                                            .secondary),
+                                                  ),
+                                                  actions: <Widget>[
+                                                    IconButton(
+                                                      icon: Icon(
+                                                        Icons.close,
+                                                        color:
+                                                            ColorConfig.primary,
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                  ],
                                                 ),
-                                            height:
-                                                SizeConfigs.getPercentageWidth(
-                                                    150),
-                                            // padding: EdgeInsets.all(
-                                            //     SizeConfigs.getPercentageWidth(
-                                            //         10)),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: SizeConfigs
+                                                          .getPercentageWidth(
+                                                              3),
+                                                      left: SizeConfigs
+                                                          .getPercentageWidth(
+                                                              3)),
+                                                  child: CustomTextField(
+                                                    icon: Icons.location_pin,
+                                                    isEmail: false,
+                                                    text:
+                                                        'Search Destination Here',
+                                                    myController:
+                                                        userSearchController,
+                                                    validator: (value) {
+                                                      if (value!.isEmpty) {
+                                                        return 'Field cannot be empty';
+                                                      }
+                                                      return null;
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                              // mainAxisSize: MainAxisSize.min,
+                                            ),
                                           );
                                         },
                                       );
+                                      // showModalBottomSheet(
+                                      // backgroundColor: Colors.grey.shade100,
+                                      // context: context,
+                                      // isDismissible: false,
+                                      // enableDrag: false,
+                                      // shape: RoundedRectangleBorder(
+                                      //   borderRadius: BorderRadius.vertical(
+                                      //     top: Radius.circular(25.0),
+                                      //   ),
+                                      // ),
+                                      //   builder: (BuildContext context) {
+                                      //     return Container(
+                                      //       height:
+                                      //           SizeConfigs.getPercentageWidth(
+                                      //               200),
+                                      //       child: Column(
+                                      //         children: [
+                                      //           AppBar(
+                                      //             centerTitle: true,
+                                      //             automaticallyImplyLeading:
+                                      //                 false,
+                                      //             title: Text(
+                                      //               'Search & Set Destination',
+                                      //               style: TextStyle(
+                                      //                   color: ColorConfig
+                                      //                       .secondary),
+                                      //             ),
+                                      //             actions: <Widget>[
+                                      //               IconButton(
+                                      //                 icon: Icon(
+                                      //                   Icons.close,
+                                      //                   color:
+                                      //                       ColorConfig.primary,
+                                      //                 ),
+                                      //                 onPressed: () {
+                                      //                   Navigator.pop(context);
+                                      //                 },
+                                      //               ),
+                                      //             ],
+                                      //           ),
+                                      //           Padding(
+                                      //             padding: EdgeInsets.only(
+                                      //                 right: SizeConfigs
+                                      //                     .getPercentageWidth(
+                                      //                         3),
+                                      //                 left: SizeConfigs
+                                      //                     .getPercentageWidth(
+                                      //                         3)),
+                                      //             child: CustomTextField(
+                                      //               icon: Icons.location_pin,
+                                      //               isEmail: false,
+                                      //               text:
+                                      //                   'Search Destination Here',
+                                      //               myController:
+                                      //                   userSearchController,
+                                      //               validator: (value) {
+                                      //                 if (value!.isEmpty) {
+                                      //                   return 'Field cannot be empty';
+                                      //                 }
+                                      //                 return null;
+                                      //               },
+                                      //             ),
+                                      //           ),
+                                      //         ],
+                                      //       ),
+                                      //       // padding: EdgeInsets.all(
+                                      //       //     SizeConfigs.getPercentageWidth(
+                                      //       //         10)),
+                                      //     );
+                                      //   },
+                                      // );
                                     },
                                     child: CustomModalContainer(
                                       address:

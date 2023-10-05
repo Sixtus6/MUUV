@@ -7,3 +7,5 @@ TextEditingController signupPasswordController = TextEditingController();
 TextEditingController signupNameController = TextEditingController();
 TextEditingController signupAddressController = TextEditingController();
 TextEditingController signupPhoneController = TextEditingController();
+TextEditingController userSearchController = TextEditingController();
+
