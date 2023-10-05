@@ -45,13 +45,16 @@ class _UserHomePageState extends State<UserHomePage> {
                         provider.setpickLocation(position.target);
                       }
                     },
-                    onCameraIdle: () {},
+                    onCameraIdle: () {
+                      provider.getAddressFromLatLng();
+                    },
                     initialCameraPosition: const CameraPosition(
                       target: LatLng(37.7749, -122.4194),
                       zoom: 11.0,
                     ),
                     mapType: MapType.normal,
                     myLocationButtonEnabled: true,
+                    myLocationEnabled: true,
                     zoomGesturesEnabled: true,
                     zoomControlsEnabled: true,
                     polylines: provider.polylineSet,
@@ -66,7 +69,7 @@ class _UserHomePageState extends State<UserHomePage> {
             Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: const EdgeInsets.all(90),
+                padding: const EdgeInsets.all(155),
                 child: Lottie.asset(
                   "assets/lottie/locpin.json",
                 ),

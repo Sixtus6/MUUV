@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geocoder2/geocoder2.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
 import 'package:muuv/key/key.dart';
 import 'package:muuv/model/direction.dart';
+import 'package:muuv/model/user.dart';
 import 'package:muuv/utils/helper.dart';
 
 class UserGoogleMapProvider with ChangeNotifier {
@@ -128,24 +130,46 @@ class UserGoogleMapProvider with ChangeNotifier {
       _newGoogleMapController!
           .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
 
+      String userAddress =
+          await searchAddressViaCordinates(_userCurrentPosition!);
+      print([userAddress]);
+      UserModel? data = await getUserFromPrefs();
+
+      _username = data!.name;
+      _email = data.emailAddress;
       notifyListeners();
     } catch (e) {
       print('Error locating user position: $e');
     }
   }
 
+  getAddressFromLatLng() async {
+    try {
+      print(_pickLocation!.latitude);
+      GeoData data = await Geocoder2.getDataFromCoordinates(
+          latitude: _pickLocation!.latitude,
+          longitude: _pickLocation!.longitude,
+          googleMapApiKey: KeyConfig.googleApiKey);
 
-  
+      _address = data.address;
+      print(_address);
+      notifyListeners();
+    } catch (e) {
+      print("error at gettin user address ${e}");
+    }
+  }
 
-  Future<String> searchAddressViaCordinates(Position position, context) async {
+  Future<String> searchAddressViaCordinates(Position position) async {
     String apiUrl =
         "https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude},${position.latitude}&key=${KeyConfig.googleApiKey}";
 
+    print(apiUrl);
     String addressCordinate = "";
     var responseRequest = await receiveRequest(apiUrl);
 
     if (responseRequest != null) {
-      addressCordinate = responseRequest["results"][0]["fomatted_address"];
+      addressCordinate = responseRequest["results"][0]["formatted_address"];
+
       Direction userPickupaddress = Direction();
       userPickupaddress.locationLat = position.latitude.toString();
       userPickupaddress.locationLat = position.latitude.toString();
@@ -153,6 +177,13 @@ class UserGoogleMapProvider with ChangeNotifier {
     }
     return addressCordinate;
   }
+}
+
+class userRideInfo with ChangeNotifier {
+  Direction? userPickUpLocation, userDropOffLocation;
+  int countTotalTrialTrip = 0;
+
+  void updatePickupl
 }
 
   // Completer<GoogleMapController> _controllerCompleter = Completer();
