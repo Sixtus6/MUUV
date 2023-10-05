@@ -9,6 +9,7 @@ import 'package:muuv/key/key.dart';
 import 'package:muuv/model/direction.dart';
 import 'package:muuv/model/user.dart';
 import 'package:muuv/utils/helper.dart';
+import 'package:provider/provider.dart';
 
 class UserGoogleMapProvider with ChangeNotifier {
   Completer<GoogleMapController> _controllerCompleter = Completer();
@@ -63,6 +64,15 @@ class UserGoogleMapProvider with ChangeNotifier {
   List<LatLng> _pLineCoordinateList = [];
   List<LatLng> get pLineCoordinateList => _pLineCoordinateList;
 
+  Direction? _userPickUpLocation, _userDropOffLocation;
+  Direction? get userPickUpLocation => _userPickUpLocation;
+  Direction? get userDropOffLocation => _userDropOffLocation;
+
+  Direction _userPickupaddress = Direction();
+  Direction get userPickupaddress => _userPickupaddress;
+
+  int _countTotalTrialTrip = 0;
+
   UserGoogleMapProvider() {
     _location = loc.Location();
     _geolocator = Geolocator();
@@ -81,6 +91,16 @@ class UserGoogleMapProvider with ChangeNotifier {
   void setnewGoogleMapController(GoogleMapController? controller) {
     _newGoogleMapController = controller;
     notifyListeners(); // Notify listeners when the controller is set
+  }
+
+  void _updatePickuplocationAddress(Direction userPickupaddress) {
+    _userPickUpLocation = userPickupaddress;
+    notifyListeners();
+  }
+
+  void _updateDropOffLocation(Direction userDropOffaddress) {
+    _userDropOffLocation = userDropOffaddress;
+    notifyListeners();
   }
 
   bool _serviceEnabled = false;
@@ -102,11 +122,7 @@ class UserGoogleMapProvider with ChangeNotifier {
         return;
       }
     }
-
-   
   }
-
-
 
   Future<void> locateUserPosition() async {
     try {
@@ -137,14 +153,21 @@ class UserGoogleMapProvider with ChangeNotifier {
 
   getAddressFromLatLng() async {
     try {
-      print(_pickLocation!.latitude);
+      //  print(_pickLocation!.latitude);
       GeoData data = await Geocoder2.getDataFromCoordinates(
           latitude: _pickLocation!.latitude,
           longitude: _pickLocation!.longitude,
           googleMapApiKey: KeyConfig.googleApiKey);
 
-      _address = data.address;
-      print(_address);
+      ///_address = data.address;
+
+      _userPickupaddress.locationLat = _pickLocation!.latitude.toString();
+      _userPickupaddress.locationLat = _pickLocation!.latitude.toString();
+      _userPickupaddress.locationName = data.address.toString();
+      print(_userPickupaddress.locationLat);
+
+      _updatePickuplocationAddress(_userPickupaddress);
+
       notifyListeners();
     } catch (e) {
       print("error at gettin user address ${e}");
@@ -166,24 +189,12 @@ class UserGoogleMapProvider with ChangeNotifier {
       userPickupaddress.locationLat = position.latitude.toString();
       userPickupaddress.locationLat = position.latitude.toString();
       userPickupaddress.locationName = addressCordinate.toString();
+      _updatePickuplocationAddress(userPickupaddress);
+
+      // final screenState = Provider.of<UserRideInfo>(context,listen: false);
     }
     return addressCordinate;
   }
 }
 
-class UserRideInfo with ChangeNotifier {
-  Direction? _userPickUpLocation, _userDropOffLocation;
-  Direction? get userPickUpLocation => _userPickUpLocation;
-  Direction? get userDropOffLocation => _userDropOffLocation;
-  int countTotalTrialTrip = 0;
 
-  void updatePickuplocationAddress(Direction userPickupaddress) {
-    _userPickUpLocation = userPickupaddress;
-    notifyListeners();
-  }
-
-  void updateDropOffLocation(Direction userDropOffaddress) {
-    _userDropOffLocation = userDropOffaddress;
-    notifyListeners();
-  }
-}

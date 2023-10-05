@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:muuv/config/color.dart';
+import 'package:muuv/config/size.dart';
 import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/widget/loader.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -74,7 +76,47 @@ class _UserHomePageState extends State<UserHomePage> {
                   "assets/lottie/locpin.json",
                 ),
               ),
-            )
+            ),
+            Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  child: Container(
+                    //padding: edg,
+                    padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(11)),
+                    decoration: BoxDecoration(
+                      color: ColorConfig.white,
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [],
+                        )
+                      ],
+                    ),
+                  ),
+                  padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(3)),
+                  decoration: ShapeDecoration(
+                    color: Colors.grey.shade100,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
+                      ),
+                    ),
+                    // Background color of the container
+                    shadows: [
+                      BoxShadow(
+                        color: ColorConfig.primary, // Border color
+                        blurRadius: 1.0, // Border width
+                        spreadRadius: 2.0, // Border width
+                        offset: Offset(0, 2), // Offset of the border
+                      ),
+                    ],
+                  ),
+                ))
           ],
         ),
       )),
