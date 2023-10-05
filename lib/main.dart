@@ -29,7 +29,8 @@ Future<void> main() async {
         ChangeNotifierProvider<UserAuthProvider>(
             create: (_) => UserAuthProvider()),
         ChangeNotifierProvider<UserGoogleMapProvider>(
-            create: (_) => UserGoogleMapProvider())
+            create: (_) => UserGoogleMapProvider()),
+        ChangeNotifierProvider<UserRideInfo>(create: (_) => UserRideInfo())
       ],
       child: MyApp(),
     ),

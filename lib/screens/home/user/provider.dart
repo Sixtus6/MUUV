@@ -103,18 +103,10 @@ class UserGoogleMapProvider with ChangeNotifier {
       }
     }
 
-    // locationData = await _location.getLocation();
-    // print([locationData]);
-    // notifyListeners(); // Notify listeners about the location update
+   
   }
 
-  //     late loc.Location _new location;
-  // bool _serviceEnabled = false;
-  // PermissionStatus _permissionGranted = PermissionStatus.denied;
-  // LocationData _locationData = LocationData.fromMap({
-  //   'latitude': 0.0,
-  //   'longitude': 0.0,
-  // });
+
 
   Future<void> locateUserPosition() async {
     try {
@@ -179,34 +171,19 @@ class UserGoogleMapProvider with ChangeNotifier {
   }
 }
 
-class userRideInfo with ChangeNotifier {
-  Direction? userPickUpLocation, userDropOffLocation;
+class UserRideInfo with ChangeNotifier {
+  Direction? _userPickUpLocation, _userDropOffLocation;
+  Direction? get userPickUpLocation => _userPickUpLocation;
+  Direction? get userDropOffLocation => _userDropOffLocation;
   int countTotalTrialTrip = 0;
 
-  void updatePickupl
+  void updatePickuplocationAddress(Direction userPickupaddress) {
+    _userPickUpLocation = userPickupaddress;
+    notifyListeners();
+  }
+
+  void updateDropOffLocation(Direction userDropOffaddress) {
+    _userDropOffLocation = userDropOffaddress;
+    notifyListeners();
+  }
 }
-
-  // Completer<GoogleMapController> _controllerCompleter = Completer();
-  // LatLng? picklocation;
-  // loc.Location location = loc.Location();
-
-  // String? address;
-  // Position? userCurrentPosition;
-  // var geolocation = Geolocator();
-  // LocationPermission? _locationPermission;
-  // List<LatLng> pLineCordinateList = [];
-  // Set<Polyline> polylineset = {};
-  // Set<Marker> markerSet = {};
-  // Set<Circle> circleset = {};
-  // String username = "";
-  // String email = "";
-  // bool openNavigationDraer = true;
-  // bool activeNearbyDriverKeysLoaded = false;
-  // BitmapDescriptor? activeNearbyIcon;
-
-  // Future<GoogleMapController> get controller => _controllerCompleter.future;
-
-  // void setController(GoogleMapController controller) {
-  //   _controllerCompleter.complete(controller);
-  //   notifyListeners();
-  // }
