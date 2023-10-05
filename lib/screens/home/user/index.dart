@@ -155,7 +155,7 @@ class _UserHomePageState extends State<UserHomePage> {
                                         context: context,
                                         isDismissible: false,
                                         enableDrag: false,
-                                        shape: RoundedRectangleBorder(
+                                        shape: const RoundedRectangleBorder(
                                           borderRadius: BorderRadius.vertical(
                                             top: Radius.circular(25.0),
                                           ),
