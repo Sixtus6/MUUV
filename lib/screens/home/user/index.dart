@@ -146,14 +146,46 @@ class _UserHomePageState extends State<UserHomePage> {
                                   SizeConfigs.getPercentageWidth(2)
                                       .toInt()
                                       .height,
-                                  CustomModalContainer(
-                                    address:
-                                        provider.userDropOffLocation != null
-                                            ? provider.userDropOffLocation!
-                                                .locationName!
-                                            : 'What is your destination?',
-                                    header: 'To',
-                                    image: "assets/icon/toloc.png",
+                                  GestureDetector(
+                                    onTap: () {
+                                      showModalBottomSheet(
+                                        backgroundColor: Colors.grey.shade100,
+                                        context: context,
+                                        isDismissible: false,
+                                        isScrollControlled: false,
+                                        enableDrag: false,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(25.0),
+                                          ),
+                                        ),
+                                        builder: (BuildContext context) {
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                                // borderRadius: BorderRadius.only(
+                                                //   topLeft: Radius.circular(20.0),
+                                                //   topRight: Radius.circular(20.0),
+                                                // ),
+                                                ),
+                                            height:
+                                                SizeConfigs.getPercentageWidth(
+                                                    150),
+                                            // padding: EdgeInsets.all(
+                                            //     SizeConfigs.getPercentageWidth(
+                                            //         10)),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: CustomModalContainer(
+                                      address:
+                                          provider.userDropOffLocation != null
+                                              ? provider.userDropOffLocation!
+                                                  .locationName!
+                                              : 'What is your destination?',
+                                      header: 'To',
+                                      image: "assets/icon/toloc.png",
+                                    ),
                                   ),
                                 ],
                               );
@@ -171,6 +203,21 @@ class _UserHomePageState extends State<UserHomePage> {
   }
 }
 
+//  Wrap(
+//                                             children: <Widget>[
+//                                               AppBar(
+//                                                 title: Text('Modal App Bar'),
+//                                                 actions: <Widget>[
+//                                                   IconButton(
+//                                                     icon: Icon(Icons.close),
+//                                                     onPressed: () {
+//                                                       Navigator.pop(context);
+//                                                     },
+//                                                   ),
+//                                                 ],
+//                                               ),
+//                                             ],
+//                                           );
 class CustomModalContainer extends StatelessWidget {
   const CustomModalContainer({
     super.key,
