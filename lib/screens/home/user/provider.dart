@@ -15,6 +15,7 @@ import 'package:muuv/model/user.dart';
 import 'package:muuv/utils/helper.dart';
 import 'package:muuv/widget/progress.dart';
 import 'package:provider/provider.dart';
+import 'dart:math' as math;
 
 class UserGoogleMapProvider with ChangeNotifier {
   Completer<GoogleMapController> _controllerCompleter = Completer();
@@ -190,12 +191,7 @@ class UserGoogleMapProvider with ChangeNotifier {
     var destinationPosition = _userDropOffLocation!;
 
     // print([originPosition, destinationPosition]);
-    print([
-      _userPickUpLocation!.locationLong,
-      _userPickUpLocation!.locationLat,
-      _userDropOffLocation!.locationLat,
-      _userDropOffLocation!.locationLong
-    ]);
+
     var originLatLng = LatLng(double.parse(originPosition.locationLat!),
         double.parse(originPosition.locationLong!));
 
@@ -203,12 +199,6 @@ class UserGoogleMapProvider with ChangeNotifier {
     var destinationLatLng = LatLng(
         double.parse(destinationPosition.locationLat!),
         double.parse(destinationPosition.locationLong!));
-
-    // showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) => ProgressDialog(
-    //           message: "Setting  up Drop-off, Please wait",
-    //         ));
 
     print([originPosition.locationLong, destinationPosition.locationLat]);
     var directionInfo =
@@ -260,7 +250,7 @@ class UserGoogleMapProvider with ChangeNotifier {
     }
 
     _newGoogleMapController!
-        .animateCamera(CameraUpdate.newLatLngBounds(boundsLatLag, 65));
+        .animateCamera(CameraUpdate.newLatLngBounds(boundsLatLag, 150));
     notifyListeners();
   }
 
