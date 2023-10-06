@@ -6,6 +6,7 @@ import 'package:muuv/config/size.dart';
 import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/widget/constant.dart';
 import 'package:muuv/widget/loader.dart';
+import 'package:muuv/widget/placetitle.dart';
 import 'package:muuv/widget/textfield.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
@@ -212,7 +213,55 @@ class _UserHomePageState extends State<UserHomePage> {
                                                       }
                                                       return null;
                                                     },
+                                                    onchange: (p0) {
+                                                      provider
+                                                          .findPlaceAutoCompleSearch(
+                                                              userSearchController
+                                                                  .text);
+                                                      return null;
+                                                    },
                                                   ),
+                                                ),
+                                                Consumer<UserGoogleMapProvider>(
+                                                  builder:
+                                                      (context, provider, _) {
+                                                    return (provider
+                                                                .placesPredictedList
+                                                                .length >
+                                                            0)
+                                                        ? ListView.separated(
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    int index) {
+                                                              return PlacePredictionTile(
+                                                                predictedPlaces:
+                                                                    provider.placesPredictedList[
+                                                                        index],
+                                                              );
+                                                            },
+                                                            itemCount: provider
+                                                                .placesPredictedList
+                                                                .length,
+                                                            physics:
+                                                                ClampingScrollPhysics(),
+                                                            separatorBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    int index) {
+                                                              return Divider(
+                                                                height: SizeConfigs
+                                                                    .getPercentageWidth(
+                                                                        1),
+                                                                thickness: 2,
+                                                                color:
+                                                                    ColorConfig
+                                                                        .primary,
+                                                              );
+                                                            },
+                                                          ).expand()
+                                                        : Container();
+                                                  },
                                                 ),
                                               ],
                                               // mainAxisSize: MainAxisSize.min,

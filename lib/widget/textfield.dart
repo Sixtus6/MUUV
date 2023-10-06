@@ -14,6 +14,7 @@ class CustomTextField extends StatelessWidget {
       this.isphone = false,
       this.isAddress = false,
       this.validator,
+       this.onchange,
       required this.myController});
   final IconData icon;
   final String text;
@@ -24,6 +25,7 @@ class CustomTextField extends StatelessWidget {
   final bool? enableSuffixIcon;
   late bool? visible;
   final String? Function(String?)? validator;
+  final String? Function(String?)? onchange;
   final VoidCallback? onTap;
   TextEditingController myController;
 
@@ -32,6 +34,7 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 14.0),
       child: TextFormField(
+        onChanged: onchange,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
         controller: myController,
@@ -95,6 +98,4 @@ class CustomTextField extends StatelessWidget {
       ),
     );
   }
-
-  
 }

@@ -7,8 +7,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
 import 'package:muuv/key/key.dart';
 import 'package:muuv/model/direction.dart';
+import 'package:muuv/model/predictedPlaces.dart';
 import 'package:muuv/model/user.dart';
 import 'package:muuv/utils/helper.dart';
+import 'package:muuv/widget/progress.dart';
 import 'package:provider/provider.dart';
 
 class UserGoogleMapProvider with ChangeNotifier {
@@ -34,6 +36,9 @@ class UserGoogleMapProvider with ChangeNotifier {
 
   String _username = "";
   String get username => _username;
+
+  String _userDropOffAddress = "";
+  String get userDropOffAddress => _userDropOffAddress;
 
   String _email = "";
   String get email => _email;
@@ -72,6 +77,27 @@ class UserGoogleMapProvider with ChangeNotifier {
   Direction get userPickupaddress => _userPickupaddress;
 
   int _countTotalTrialTrip = 0;
+
+  List<PredictedPlaces> _placesPredictedList = [];
+  List<PredictedPlaces> get placesPredictedList => _placesPredictedList;
+
+  findPlaceAutoCompleSearch(String inputText) async {
+    if (inputText.length > 1) {
+      String urlSearch =
+          "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${inputText}&key=${KeyConfig.googleApiKey}&components=country:NG";
+
+      var response = await receiveRequest(urlSearch);
+      print(["this is for auto complete search", urlSearch]);
+      if (response != null) {
+        var predictedPlaces = response["predictions"];
+        var predictedPlacesList = (predictedPlaces as List)
+            .map((jsonData) => PredictedPlaces.fromJson(jsonData))
+            .toList();
+        _placesPredictedList = predictedPlacesList;
+      }
+    }
+    notifyListeners();
+  }
 
   UserGoogleMapProvider() {
     _location = loc.Location();
@@ -194,5 +220,36 @@ class UserGoogleMapProvider with ChangeNotifier {
       // final screenState = Provider.of<UserRideInfo>(context,listen: false);
     }
     return addressCordinate;
+  }
+
+  getPlaceDirectionDetails(String? placeid, context) async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => ProgressDialog(
+              message: "Setting  up Drop-off, Please wait",
+            ));
+    String apiUrl =
+        "https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeid}&key=${KeyConfig.googleApiKey}";
+    var responseApi = await receiveRequest(apiUrl);
+    print(responseApi);
+    Navigator.pop(context);
+    if (responseApi != null) {
+      Direction direction = Direction();
+      direction.locationName = responseApi["result"]["name"];
+      direction.locationID = placeid;
+      direction.locationLat =
+          responseApi["result"]["geometry"]["location"]["lat"];
+      direction.locationLong =
+          responseApi["result"]["geometry"]["location"]["lng"];
+
+      _updateDropOffLocation(direction);
+      _userDropOffAddress = direction.locationName!;
+      Navigator.pop(context, "obatainedDropOff");
+      // final screenState = Provider.of<UserRideInfo>(context,listen: false);
+    } else {
+      print("error at titile");
+      return;
+    }
+    notifyListeners();
   }
 }
