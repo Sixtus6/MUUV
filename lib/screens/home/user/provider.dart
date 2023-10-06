@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoder2/geocoder2.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
+import 'package:muuv/config/color.dart';
 import 'package:muuv/key/key.dart';
 import 'package:muuv/model/direction.dart';
 import 'package:muuv/model/direction_info.dart';
@@ -41,6 +43,9 @@ class UserGoogleMapProvider with ChangeNotifier {
   String _userDropOffAddress = "";
   String get userDropOffAddress => _userDropOffAddress;
 
+  DirectionDetailsInfo? _tripDirectionDetails;
+  DirectionDetailsInfo? get tripDirectionDetails => _tripDirectionDetails;
+
   String _email = "";
   String get email => _email;
 
@@ -70,7 +75,9 @@ class UserGoogleMapProvider with ChangeNotifier {
   List<LatLng> _pLineCoordinateList = [];
   List<LatLng> get pLineCoordinateList => _pLineCoordinateList;
 
-  Direction? _userPickUpLocation, _userDropOffLocation;
+  Direction? _userPickUpLocation;
+
+  Direction? _userDropOffLocation;
   Direction? get userPickUpLocation => _userPickUpLocation;
   Direction? get userDropOffLocation => _userDropOffLocation;
 
@@ -178,25 +185,83 @@ class UserGoogleMapProvider with ChangeNotifier {
     }
   }
 
-  Future<void> drawerPolyLineFromOriginToDestination(bool data, context) async {
-    var originPosition = _userPickUpLocation;
-    var destinationPosition = userDropOffLocation;
-    var originLatLng = LatLng(double.parse(originPosition!.locationLat!),
-        double.parse(originPosition.locationLong!));
-    var destinationLatLng = LatLng(
-        double.parse(destinationPosition!.locationLat!),
-        double.parse(destinationPosition.locationLong!));
-    showDialog(
-        context: context,
-        builder: (BuildContext context) => ProgressDialog(
-              message: "Setting  up Drop-off, Please wait",
-            ));
+  Future<void> drawerPolyLineFromOriginToDestination(context) async {
+    var originPosition = _userPickUpLocation!;
+    var destinationPosition = _userDropOffLocation!;
 
+    // print([originPosition, destinationPosition]);
+    print([
+      _userPickUpLocation!.locationLong,
+      _userPickUpLocation!.locationLat,
+      _userDropOffLocation!.locationLat,
+      _userDropOffLocation!.locationLong
+    ]);
+    var originLatLng = LatLng(double.parse(originPosition.locationLat!),
+        double.parse(originPosition.locationLong!));
+
+    print("here");
+    var destinationLatLng = LatLng(
+        double.parse(destinationPosition.locationLat!),
+        double.parse(destinationPosition.locationLong!));
+
+    // showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) => ProgressDialog(
+    //           message: "Setting  up Drop-off, Please wait",
+    //         ));
+
+    print([originPosition.locationLong, destinationPosition.locationLat]);
     var directionInfo =
         await obtainDirectionDetails(originLatLng, destinationLatLng);
+    _tripDirectionDetails = directionInfo;
+    // Navigator.pop(context);
+    PolylinePoints pPoints = PolylinePoints();
+    List<PointLatLng> decodePolyLinePointsResultList =
+        pPoints.decodePolyline(directionInfo.e_points!);
+    _pLineCoordinateList.clear();
+    if (decodePolyLinePointsResultList.isNotEmpty) {
+      decodePolyLinePointsResultList.forEach((PointLatLng pointLatLng) {
+        _pLineCoordinateList
+            .add(LatLng(pointLatLng.latitude, pointLatLng.longitude));
+      });
+    }
 
-  Navigator.pop(context);
-        
+    _polylineSet.clear();
+    Polyline polyline = Polyline(
+        polylineId: PolylineId("PolylineID"),
+        jointType: JointType.round,
+        points: _pLineCoordinateList,
+        startCap: Cap.roundCap,
+        endCap: Cap.roundCap,
+        geodesic: true,
+        width: 5,
+        color: ColorConfig.primary);
+
+    _polylineSet.add(polyline);
+
+    LatLngBounds boundsLatLag;
+    if (originLatLng.latitude > destinationLatLng.latitude &&
+        originLatLng.longitude > destinationLatLng.longitude) {
+      boundsLatLag =
+          LatLngBounds(southwest: destinationLatLng, northeast: originLatLng);
+    } else if (originLatLng.longitude > destinationLatLng.longitude) {
+      boundsLatLag = LatLngBounds(
+          southwest: LatLng(originLatLng.latitude, destinationLatLng.longitude),
+          northeast:
+              LatLng(destinationLatLng.latitude, originLatLng.longitude));
+    } else if (originLatLng.latitude > destinationLatLng.latitude) {
+      boundsLatLag = LatLngBounds(
+          southwest: LatLng(destinationLatLng.latitude, originLatLng.longitude),
+          northeast:
+              LatLng(originLatLng.latitude, destinationLatLng.longitude));
+    } else {
+      boundsLatLag =
+          LatLngBounds(southwest: originLatLng, northeast: destinationLatLng);
+    }
+
+    _newGoogleMapController!
+        .animateCamera(CameraUpdate.newLatLngBounds(boundsLatLag, 65));
+    notifyListeners();
   }
 
   getAddressFromLatLng() async {
@@ -210,9 +275,13 @@ class UserGoogleMapProvider with ChangeNotifier {
       ///_address = data.address;
 
       _userPickupaddress.locationLat = _pickLocation!.latitude.toString();
-      _userPickupaddress.locationLat = _pickLocation!.latitude.toString();
+      _userPickupaddress.locationLong = _pickLocation!.longitude.toString();
       _userPickupaddress.locationName = data.address.toString();
-      print(_userPickupaddress.locationLat);
+      print([
+        "from getaddress",
+        _userPickupaddress.locationLat,
+        _userPickupaddress.locationLong
+      ]);
 
       _updatePickuplocationAddress(_userPickupaddress);
 
@@ -235,7 +304,7 @@ class UserGoogleMapProvider with ChangeNotifier {
 
       Direction userPickupaddress = Direction();
       userPickupaddress.locationLat = position.latitude.toString();
-      userPickupaddress.locationLat = position.latitude.toString();
+      userPickupaddress.locationLong = position.longitude.toString();
       userPickupaddress.locationName = addressCordinate.toString();
       _updatePickuplocationAddress(userPickupaddress);
 
@@ -252,18 +321,18 @@ class UserGoogleMapProvider with ChangeNotifier {
     DirectionDetailsInfo directionDetailsInfo = DirectionDetailsInfo();
     if (response != null) {
       directionDetailsInfo.e_points =
-          response["routes"][0]["overview_polyline"]["points"];
+          response["routes"][0]["overview_polyline"]["points"].toString();
 
       directionDetailsInfo.distance_text =
-          response["routes"][0]["legs"][0]["distance"]["text"];
+          response["routes"][0]["legs"][0]["distance"]["text"].toString();
 
       directionDetailsInfo.distance_value =
           response["routes"][0]["legs"][0]["distance"]["value"];
 
       directionDetailsInfo.duration_text =
-          response["routes"][0]["legs"][0]["duration"]["text"];
+          response["routes"][0]["legs"][0]["duration"]["text"].toString();
 
-      directionDetailsInfo.duration_text =
+      directionDetailsInfo.duration_value =
           response["routes"][0]["legs"][0]["duration"]["value"];
     } else {
       print("error Occured");
@@ -296,6 +365,8 @@ class UserGoogleMapProvider with ChangeNotifier {
       Navigator.pop(context, "obatainedDropOff");
       _openNavigationDrawer = false;
 //TODO: await drawerPolyLineFromOriginToDEstination()
+
+      await drawerPolyLineFromOriginToDestination(context);
       // final screenState = Provider.of<UserRideInfo>(context,listen: false);
     } else {
       print("error at titile");
