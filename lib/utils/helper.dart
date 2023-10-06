@@ -69,7 +69,7 @@ double calculatePaddingBasedOnDistance(LatLngBounds bounds) {
 
   // Adjust the padding based on the distance
   // You can adjust these values based on your requirements
-  double padding = 90; // Default padding
+  double padding = 80; // Default padding
 
   if (distance < 10000) {
     print(distance);
@@ -79,7 +79,7 @@ double calculatePaddingBasedOnDistance(LatLngBounds bounds) {
     } else if (distance > 4000) {
       padding = 65;
     } else if (distance > 2000) {
-      padding = 100;
+      padding = 90;
     }
     // padding =  ? 150 : 100;
     // // ? distance > 2500
