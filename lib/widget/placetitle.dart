@@ -19,36 +19,48 @@ class PlacePredictionTile extends StatefulWidget {
 }
 
 class _PlacePredictionTileState extends State<PlacePredictionTile> {
-  
-  
-
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: ColorConfig.scaffold),
+        style: ElevatedButton.styleFrom(primary: ColorConfig.white),
         onPressed: () {
-      Provider.of<UserGoogleMapProvider>(context, listen: false).getPlaceDirectionDetails(widget.predictedPlaces!.place_id, context);
-
+          print(widget.predictedPlaces!.main_text);
+          // Provider.of<UserGoogleMapProvider>(context, listen: false)
+          //     .getPlaceDirectionDetails(
+          //         widget.predictedPlaces!.place_id, context);
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Icon(
-                Icons.map,
-                color: ColorConfig.primary,
+              //
+              Container(
+                height: 25,
+                width: 25,
+                // padding: EdgeInsets.all(10),
+                child: Image.asset(
+                  "assets/icon/toloc.png",
+                  color: ColorConfig.primary,
+                ),
               ),
               SizeConfigs.getPercentageWidth(11).toInt().width,
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.predictedPlaces!.main_text!,
+                    widget.predictedPlaces!.main_text!.length > 30
+                        ? widget.predictedPlaces!.main_text!.substring(0, 30) +
+                            "..."
+                        : widget.predictedPlaces!.main_text!,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: ColorConfig.secondary),
                   ),
                   Text(
-                    widget.predictedPlaces!.secondary_text!,
+                    widget.predictedPlaces!.secondary_text!.length > 30
+                        ? widget.predictedPlaces!.secondary_text!
+                                .substring(0, 30) +
+                            "..."
+                        : widget.predictedPlaces!.secondary_text!,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: ColorConfig.secondary),
                   )
