@@ -59,7 +59,6 @@ class _UserHomePageState extends State<UserHomePage> {
                       zoom: 11.0,
                     ),
                     mapType: MapType.normal,
-                    //  fortyFiveDegreeImageryEnabled: true,
                     myLocationButtonEnabled: true,
                     myLocationEnabled: true,
                     zoomGesturesEnabled: true,
@@ -189,7 +188,7 @@ class _UserHomePageState extends State<UserHomePage> {
                       ],
                     ),
                   ),
-                )),
+                ))
           ],
         ),
       )),

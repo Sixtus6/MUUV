@@ -224,7 +224,7 @@ class UserGoogleMapProvider with ChangeNotifier {
         startCap: Cap.roundCap,
         endCap: Cap.roundCap,
         geodesic: true,
-        width: 5,
+        width: 4,
         color: ColorConfig.primary);
 
     _polylineSet.add(polyline);
