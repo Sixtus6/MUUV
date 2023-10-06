@@ -4,6 +4,7 @@ import "package:http/http.dart" as http;
 import 'package:muuv/model/user.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'dart:math' as math;
+
 Future<void> saveUserToPrefs(UserModel model) async {
   final userJson = jsonEncode(model);
 
@@ -57,8 +58,7 @@ double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
   return radius * c;
 }
 
-
-    double calculatePaddingBasedOnDistance(LatLngBounds bounds) {
+double calculatePaddingBasedOnDistance(LatLngBounds bounds) {
   // Calculate the distance between the northeast and southwest points of the bounds
   double distance = calculateDistance(
     bounds.northeast.latitude,
@@ -69,12 +69,25 @@ double calculateDistance(double lat1, double lon1, double lat2, double lon2) {
 
   // Adjust the padding based on the distance
   // You can adjust these values based on your requirements
-  double padding = 100; // Default padding
+  double padding = 90; // Default padding
 
   if (distance < 10000) {
-    padding = 200; // Adjust for closer distances
+    print(distance);
+
+    if (distance < 1000) {
+      padding = 150;
+    } else if (distance > 4000) {
+      padding = 65;
+    } else if (distance > 2000) {
+      padding = 100;
+    }
+    // padding =  ? 150 : 100;
+    // // ? distance > 2500
+    //     ? 70
+    //     : 80
+    // : 150; // Adjust for closer distances
   } else if (distance < 20000) {
-    padding = 300; // Adjust for mid-range distances
+    padding = 65; // Adjust for mid-range distances
   }
 
   return padding;

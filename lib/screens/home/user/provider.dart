@@ -248,9 +248,11 @@ class UserGoogleMapProvider with ChangeNotifier {
       boundsLatLag =
           LatLngBounds(southwest: originLatLng, northeast: destinationLatLng);
     }
+    double padding = calculatePaddingBasedOnDistance(boundsLatLag);
 
+    print(padding);
     _newGoogleMapController!
-        .animateCamera(CameraUpdate.newLatLngBounds(boundsLatLag, 150));
+        .animateCamera(CameraUpdate.newLatLngBounds(boundsLatLag, padding));
     notifyListeners();
   }
 
