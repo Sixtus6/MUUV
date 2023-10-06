@@ -152,7 +152,12 @@ class _UserHomePageState extends State<UserHomePage> {
                                       .height,
                                   GestureDetector(
                                     onTap: () {
-                                      BottomModal(context, provider);
+                                      provider.userPickUpLocation!.locationName!
+                                                  .toString()
+                                                  .length <
+                                              40
+                                          ? toast("Choose your from location")
+                                          : BottomModal(context, provider);
                                     },
                                     child: CustomModalContainer(
                                       address:

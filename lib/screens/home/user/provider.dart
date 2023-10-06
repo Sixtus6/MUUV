@@ -251,8 +251,44 @@ class UserGoogleMapProvider with ChangeNotifier {
     double padding = calculatePaddingBasedOnDistance(boundsLatLag);
 
     print(padding);
+
     _newGoogleMapController!
         .animateCamera(CameraUpdate.newLatLngBounds(boundsLatLag, padding));
+
+    Marker originMarker = Marker(
+        markerId: MarkerId("originID"),
+        infoWindow:
+            InfoWindow(title: originPosition.locationName, snippet: "Origin"),
+        position: originLatLng,
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen));
+
+    Marker destinationMarker = Marker(
+        markerId: MarkerId("destinationID"),
+        infoWindow: InfoWindow(
+            title: destinationPosition.locationName, snippet: "Destination"),
+        position: destinationLatLng,
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed));
+    _markerSet.add(originMarker);
+    _markerSet.add(destinationMarker);
+
+    Circle originCircle = Circle(
+        circleId: CircleId("originID"),
+        fillColor: Colors.green,
+        radius: 12,
+        strokeWidth: 3,
+        strokeColor: ColorConfig.white,
+        center: originLatLng);
+
+    Circle destinationCircle = Circle(
+        circleId: CircleId("destinationID"),
+        fillColor: Colors.red,
+        radius: 12,
+        strokeWidth: 3,
+        strokeColor: ColorConfig.white,
+        center: destinationLatLng);
+
+    _circleSet.add(originCircle);
+    _circleSet.add(destinationCircle);
     notifyListeners();
   }
 
