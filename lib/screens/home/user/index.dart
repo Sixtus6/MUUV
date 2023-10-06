@@ -158,7 +158,18 @@ class _UserHomePageState extends State<UserHomePage> {
                                       address:
                                           provider.userDropOffLocation != null
                                               ? provider.userDropOffLocation!
-                                                  .locationName!
+                                                          .locationName!
+                                                          .toString()
+                                                          .length <
+                                                      40
+                                                  ? provider
+                                                      .userDropOffLocation!
+                                                      .locationName!
+                                                  : provider
+                                                          .userDropOffLocation!
+                                                          .locationName!
+                                                          .substring(0, 40) +
+                                                      "....."
                                               : 'What is your destination?',
                                       header: 'To',
                                       image: "assets/icon/toloc.png",
@@ -180,21 +191,6 @@ class _UserHomePageState extends State<UserHomePage> {
   }
 }
 
-//  Wrap(
-//                                             children: <Widget>[
-//                                               AppBar(
-//                                                 title: Text('Modal App Bar'),
-//                                                 actions: <Widget>[
-//                                                   IconButton(
-//                                                     icon: Icon(Icons.close),
-//                                                     onPressed: () {
-//                                                       Navigator.pop(context);
-//                                                     },
-//                                                   ),
-//                                                 ],
-//                                               ),
-//                                             ],
-//                                           );
 class CustomModalContainer extends StatelessWidget {
   const CustomModalContainer({
     super.key,

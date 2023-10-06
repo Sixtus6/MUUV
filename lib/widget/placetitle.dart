@@ -25,9 +25,9 @@ class _PlacePredictionTileState extends State<PlacePredictionTile> {
         style: ElevatedButton.styleFrom(primary: ColorConfig.white),
         onPressed: () {
           print(widget.predictedPlaces!.main_text);
-          // Provider.of<UserGoogleMapProvider>(context, listen: false)
-          //     .getPlaceDirectionDetails(
-          //         widget.predictedPlaces!.place_id, context);
+          Provider.of<UserGoogleMapProvider>(context, listen: false)
+              .getPlaceDirectionDetails(
+                  widget.predictedPlaces!.place_id, context);
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),

@@ -235,16 +235,18 @@ class UserGoogleMapProvider with ChangeNotifier {
     Navigator.pop(context);
     if (responseApi != null) {
       Direction direction = Direction();
-      direction.locationName = responseApi["result"]["name"];
-      direction.locationID = placeid;
+      direction.locationName = responseApi["result"]["name"].toString();
+      direction.locationID = placeid.toString();
       direction.locationLat =
-          responseApi["result"]["geometry"]["location"]["lat"];
+          responseApi["result"]["geometry"]["location"]["lat"].toString();
       direction.locationLong =
-          responseApi["result"]["geometry"]["location"]["lng"];
+          responseApi["result"]["geometry"]["location"]["lng"].toString();
 
       _updateDropOffLocation(direction);
       _userDropOffAddress = direction.locationName!;
       Navigator.pop(context, "obatainedDropOff");
+      _openNavigationDrawer = false;
+//TODO: await drawerPolyLineFromOriginToDEstination()
       // final screenState = Provider.of<UserRideInfo>(context,listen: false);
     } else {
       print("error at titile");
