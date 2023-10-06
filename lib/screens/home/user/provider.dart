@@ -7,6 +7,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
 import 'package:muuv/key/key.dart';
 import 'package:muuv/model/direction.dart';
+import 'package:muuv/model/direction_info.dart';
 import 'package:muuv/model/predictedPlaces.dart';
 import 'package:muuv/model/user.dart';
 import 'package:muuv/utils/helper.dart';
@@ -167,14 +168,35 @@ class UserGoogleMapProvider with ChangeNotifier {
       String userAddress =
           await searchAddressViaCordinates(_userCurrentPosition!);
       print([userAddress]);
-      UserModel? data = await getUserFromPrefs();
+      UserModel? userData = await getUserFromPrefs();
 
-      _username = data!.name;
-      _email = data.emailAddress;
+      _username = userData!.name;
+      _email = userData.emailAddress;
       notifyListeners();
     } catch (e) {
       print('Error locating user position: $e');
     }
+  }
+
+  Future<void> drawerPolyLineFromOriginToDestination(bool data, context) async {
+    var originPosition = _userPickUpLocation;
+    var destinationPosition = userDropOffLocation;
+    var originLatLng = LatLng(double.parse(originPosition!.locationLat!),
+        double.parse(originPosition.locationLong!));
+    var destinationLatLng = LatLng(
+        double.parse(destinationPosition!.locationLat!),
+        double.parse(destinationPosition.locationLong!));
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => ProgressDialog(
+              message: "Setting  up Drop-off, Please wait",
+            ));
+
+    var directionInfo =
+        await obtainDirectionDetails(originLatLng, destinationLatLng);
+
+  Navigator.pop(context);
+        
   }
 
   getAddressFromLatLng() async {
@@ -220,6 +242,33 @@ class UserGoogleMapProvider with ChangeNotifier {
       // final screenState = Provider.of<UserRideInfo>(context,listen: false);
     }
     return addressCordinate;
+  }
+
+  Future<DirectionDetailsInfo> obtainDirectionDetails(
+      LatLng originPosition, LatLng destinationPosition) async {
+    var directionUrl =
+        "https://maps.googleapis.com/maps/api/directions/json?origin=${originPosition.latitude},${originPosition.longitude}&destination=${destinationPosition.latitude},${destinationPosition.longitude}&key=${KeyConfig.googleApiKey}";
+    var response = await receiveRequest(directionUrl);
+    DirectionDetailsInfo directionDetailsInfo = DirectionDetailsInfo();
+    if (response != null) {
+      directionDetailsInfo.e_points =
+          response["routes"][0]["overview_polyline"]["points"];
+
+      directionDetailsInfo.distance_text =
+          response["routes"][0]["legs"][0]["distance"]["text"];
+
+      directionDetailsInfo.distance_value =
+          response["routes"][0]["legs"][0]["distance"]["value"];
+
+      directionDetailsInfo.duration_text =
+          response["routes"][0]["legs"][0]["duration"]["text"];
+
+      directionDetailsInfo.duration_text =
+          response["routes"][0]["legs"][0]["duration"]["value"];
+    } else {
+      print("error Occured");
+    }
+    return directionDetailsInfo;
   }
 
   getPlaceDirectionDetails(String? placeid, context) async {
