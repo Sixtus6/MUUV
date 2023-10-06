@@ -35,7 +35,7 @@ class _PlacePredictionTileState extends State<PlacePredictionTile> {
           child: Row(
             children: [
               Icon(
-                Icons.add_location,
+                Icons.map,
                 color: ColorConfig.primary,
               ),
               SizeConfigs.getPercentageWidth(11).toInt().width,
