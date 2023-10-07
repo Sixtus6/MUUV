@@ -1,3 +1,4 @@
+import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lottie/lottie.dart';
@@ -188,7 +189,99 @@ class _UserHomePageState extends State<UserHomePage> {
                       ],
                     ),
                   ),
-                ))
+                )),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Center(
+                  child: Padding(
+                padding: EdgeInsets.only(
+                    top: SizeConfigs.getPercentageWidth(1),
+                    left: SizeConfigs.getPercentageWidth(20),
+                    right: SizeConfigs.getPercentageWidth(20)),
+
+                child: ActionSlider.standard(
+                  sliderBehavior: SliderBehavior.stretch,
+                  rolling: true,
+                  // width: 300.0,
+                  backgroundColor: Colors.white,
+                  toggleColor: ColorConfig.primary,
+                  reverseSlideAnimationDuration:
+                      const Duration(milliseconds: 500),
+                  iconAlignment: Alignment.centerRight,
+                  loadingIcon: SizedBox(
+                      width: 55,
+                      child: Center(
+                          child: SizedBox(
+                        width: SizeConfigs.getPercentageWidth(8),
+                        height: SizeConfigs.getPercentageWidth(8),
+                        child: CircularProgressIndicator(
+                            strokeWidth: 2.0, color: ColorConfig.white),
+                      ))),
+                  successIcon: const SizedBox(
+                      width: 55,
+                      child: Center(child: Icon(Icons.directions_car))),
+                  icon: SizedBox(
+                      width: 55,
+                      child: Center(
+                        child: Container(
+                          padding:
+                              EdgeInsets.all(SizeConfigs.getPercentageWidth(3)),
+                          child: Image.asset(
+                            'assets/icon/driver.png',
+                            color: ColorConfig.white,
+                          ),
+                        ),
+                      )),
+                  action: (controller) async {
+                    controller.loading(); //starts loading animation
+                    await Future.delayed(const Duration(seconds: 3));
+                    //print(controlle);
+                    controller.success(); //starts success animation
+                    await Future.delayed(const Duration(seconds: 1));
+                    controller.reset(); //resets the slider
+                  },
+                  child: Text(
+                    'Request a ride',
+                    style: TextStyle(
+                        color: ColorConfig.secondary,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                // child: ActionSlider.standard(
+                //   rolling: true,
+                //   width: 300.0,
+                //   backgroundColor: Colors.black,
+                //   reverseSlideAnimationCurve: Curves.easeInOut,
+                //   reverseSlideAnimationDuration:
+                //       const Duration(milliseconds: 500),
+                //   toggleColor: Colors.purpleAccent,
+                //   icon: const Icon(Icons.car_crash),
+                //   action: (controller) async {
+                //     controller.loading(); //starts loading animation
+                //     await Future.delayed(const Duration(seconds: 3));
+                //     controller.success(); //starts success animation
+                //     await Future.delayed(const Duration(seconds: 1));
+                //     controller.reset(); //resets the slider
+                //   },
+                //   child: const Text('Rolling slider',
+                //       style: TextStyle(color: Colors.white)),
+                // ),
+                // child: ActionSlider.standard(
+                //   child: const Text('Request ride'),
+                //   action: (controller) async {
+                //     print("object");
+                //     controller.loading(); //starts loading animation
+                //     await Future.delayed(const Duration(seconds: 3));
+                //     controller.success(); //starts success animation
+                //     await Future.delayed(const Duration(seconds: 1));
+
+                //     controller.reset();
+                //   },
+                // ),
+              )),
+            ),
           ],
         ),
       )),
