@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
+import 'package:muuv/model/user.dart';
 import 'package:muuv/screens/home/user/index.dart';
 import 'package:muuv/screens/home/user/provider.dart';
+import 'package:muuv/utils/helper.dart';
 import 'package:muuv/widget/constant.dart';
 import 'package:muuv/widget/placetitle.dart';
+import 'package:muuv/widget/profile.dart';
 import 'package:muuv/widget/textfield.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 Future<dynamic> BottomModal(
-    BuildContext context, UserGoogleMapProvider provider, bool search) {
+  BuildContext context,
+  UserGoogleMapProvider provider,
+  bool search,
+) {
   return showModalBottomSheet(
     backgroundColor: Colors.grey.shade100,
     context: context,
@@ -122,34 +128,42 @@ Future<dynamic> BottomModal(
                       ),
                     ],
                   ),
-                  Consumer(
-                    builder: (BuildContext context, value, _) {
+                  Consumer<UserGoogleMapProvider>(
+                    builder: (BuildContext context, provider, _) {
+                      // print(data!.toJson().values.isNotEmpty);
+                    
+
                       return Container(
-                          child: Column(
-                            children: [
-                              SizeConfigs.getPercentageWidth(3).toInt().height,
-                              ProfileContainer(
-                                data: 'sixtus',
-                                image: 'assets/icon/user.png',
-                                title: 'Name',
-                              ),
-                            ],
-                          ),
-                          // child: CustomModalContainer(
-                          //   address: 'jksdkd',
-                          //   header: 'jkskds',
-                          //   image: 'assets/icon/fromloc.png',
-                          // ),
                           decoration: BoxDecoration(
                               color: ColorConfig.white,
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               )),
                           // padding: EdgeInsets.all(
                           //     SizeConfigs.getPercentageWidth(10)),
                           margin: EdgeInsets.only(
                               left: SizeConfigs.getPercentageWidth(4),
-                              right: SizeConfigs.getPercentageWidth(4)));
+                              right: SizeConfigs.getPercentageWidth(4)),
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                //   SizeConfigs.getPercentageWidth(3).toInt().height,
+                                ProfileContainer(
+                                  data: 'sixtus',
+                                  image: 'assets/icon/user.png',
+                                  title: 'Name',
+                                ),
+                                ProfileContainer(
+                                  data: 'sixtus',
+                                  image: 'assets/icon/contact.png',
+                                  title: 'Name',
+                                ),
+                                //  SizeConfigs.getPercentageWidth(3).toInt().height,
+                              ],
+                            ),
+                          ));
+
                       // return ListView.builder(
                       //   itemCount: 1,
                       //   itemBuilder: (BuildContext context, int index) {
@@ -165,5 +179,3 @@ Future<dynamic> BottomModal(
     },
   );
 }
-
-

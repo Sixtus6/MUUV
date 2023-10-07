@@ -26,6 +26,7 @@ class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
     final mapProvider = Provider.of<UserGoogleMapProvider>(context);
+     
     // UserGoogleMapProvider userGoogleMapProvider = UserGoogleMapProvider();
     return SafeArea(
       child: Scaffold(
@@ -261,6 +262,7 @@ class _UserHomePageState extends State<UserHomePage> {
                   return GestureDetector(
                     onTap: () {
                       print("object");
+                      
                       BottomModal(context, provider, false);
                     },
                     child: Container(

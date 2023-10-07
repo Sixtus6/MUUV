@@ -85,6 +85,11 @@ class UserGoogleMapProvider with ChangeNotifier {
   Direction _userPickupaddress = Direction();
   Direction get userPickupaddress => _userPickupaddress;
 
+
+  UserModel? _user;
+  UserModel? get user => _user;
+
+
   int _countTotalTrialTrip = 0;
 
   List<PredictedPlaces> _placesPredictedList = [];

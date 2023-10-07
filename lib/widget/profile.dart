@@ -18,11 +18,11 @@ class _ProfileContainerState extends State<ProfileContainer> {
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-            color: ColorConfig.white,
+            //  color: ColorConfig.red,
             borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            )),
-        padding: EdgeInsets.only(left: SizeConfigs.getPercentageWidth(2)),
+          Radius.circular(10),
+        )),
+        //  padding: EdgeInsets.only(left: SizeConfigs.getPercentageWidth(2)),
         // margin: EdgeInsets.only(
         //     left: SizeConfigs.getPercentageWidth(4),
         //     right: SizeConfigs.getPercentageWidth(4)),
