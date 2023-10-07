@@ -85,10 +85,8 @@ class UserGoogleMapProvider with ChangeNotifier {
   Direction _userPickupaddress = Direction();
   Direction get userPickupaddress => _userPickupaddress;
 
-
   UserModel? _user;
   UserModel? get user => _user;
-
 
   int _countTotalTrialTrip = 0;
 
@@ -182,7 +180,7 @@ class UserGoogleMapProvider with ChangeNotifier {
           await searchAddressViaCordinates(_userCurrentPosition!);
       print(["this is user curren position", userAddress]);
       UserModel? userData = await getUserFromPrefs();
-
+     // _user = userData;
       _username = userData!.name;
       _email = userData.emailAddress;
       notifyListeners();
