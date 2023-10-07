@@ -249,37 +249,7 @@ class _UserHomePageState extends State<UserHomePage> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                // child: ActionSlider.standard(
-                //   rolling: true,
-                //   width: 300.0,
-                //   backgroundColor: Colors.black,
-                //   reverseSlideAnimationCurve: Curves.easeInOut,
-                //   reverseSlideAnimationDuration:
-                //       const Duration(milliseconds: 500),
-                //   toggleColor: Colors.purpleAccent,
-                //   icon: const Icon(Icons.car_crash),
-                //   action: (controller) async {
-                //     controller.loading(); //starts loading animation
-                //     await Future.delayed(const Duration(seconds: 3));
-                //     controller.success(); //starts success animation
-                //     await Future.delayed(const Duration(seconds: 1));
-                //     controller.reset(); //resets the slider
-                //   },
-                //   child: const Text('Rolling slider',
-                //       style: TextStyle(color: Colors.white)),
-                // ),
-                // child: ActionSlider.standard(
-                //   child: const Text('Request ride'),
-                //   action: (controller) async {
-                //     print("object");
-                //     controller.loading(); //starts loading animation
-                //     await Future.delayed(const Duration(seconds: 3));
-                //     controller.success(); //starts success animation
-                //     await Future.delayed(const Duration(seconds: 1));
 
-                //     controller.reset();
-                //   },
-                // ),
               )),
             ),
           ],
