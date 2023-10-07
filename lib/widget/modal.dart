@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
+import 'package:muuv/screens/home/user/index.dart';
 import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/widget/constant.dart';
 import 'package:muuv/widget/placetitle.dart';
@@ -98,7 +99,71 @@ Future<dynamic> BottomModal(
                 // mainAxisSize: MainAxisSize.min,
               ),
             )
-          : Container();
+          : Container(
+              height: SizeConfigs.getPercentageWidth(80),
+              child: Column(
+                children: [
+                  AppBar(
+                    centerTitle: true,
+                    automaticallyImplyLeading: false,
+                    title: Text(
+                      'User Profile',
+                      style: TextStyle(color: ColorConfig.secondary),
+                    ),
+                    actions: <Widget>[
+                      IconButton(
+                        icon: Icon(
+                          Icons.close,
+                          color: ColorConfig.primary,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                  Consumer(
+                    builder: (BuildContext context, value, _) {
+                      return Container(
+                          child: Column(
+                            children: [
+                              SizeConfigs.getPercentageWidth(3).toInt().height,
+                              ProfileContainer(
+                                data: 'sixtus',
+                                image: 'assets/icon/user.png',
+                                title: 'Name',
+                              ),
+                            ],
+                          ),
+                          // child: CustomModalContainer(
+                          //   address: 'jksdkd',
+                          //   header: 'jkskds',
+                          //   image: 'assets/icon/fromloc.png',
+                          // ),
+                          decoration: BoxDecoration(
+                              color: ColorConfig.white,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              )),
+                          // padding: EdgeInsets.all(
+                          //     SizeConfigs.getPercentageWidth(10)),
+                          margin: EdgeInsets.only(
+                              left: SizeConfigs.getPercentageWidth(4),
+                              right: SizeConfigs.getPercentageWidth(4)));
+                      // return ListView.builder(
+                      //   itemCount: 1,
+                      //   itemBuilder: (BuildContext context, int index) {
+                      //     return ProfileContainer();
+                      //   },
+                      //   physics: ClampingScrollPhysics(),
+                      // );
+                    },
+                  ),
+                ],
+              ),
+            );
     },
   );
 }
+
+

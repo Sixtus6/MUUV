@@ -302,7 +302,7 @@ class CustomModalContainer extends StatelessWidget {
     super.key,
     required this.image,
     required this.address,
-    required this.header,
+    required this.header, required ,
   });
 
   final String image;
