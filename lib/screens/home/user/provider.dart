@@ -180,9 +180,10 @@ class UserGoogleMapProvider with ChangeNotifier {
           await searchAddressViaCordinates(_userCurrentPosition!);
       print(["this is user curren position", userAddress]);
       UserModel? userData = await getUserFromPrefs();
-     // _user = userData;
+      // _user = userData;
       _username = userData!.name;
       _email = userData.emailAddress;
+      _user = userData;
       notifyListeners();
     } catch (e) {
       print('Error locating user position: $e');

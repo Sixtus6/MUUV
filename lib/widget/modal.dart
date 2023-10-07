@@ -131,7 +131,6 @@ Future<dynamic> BottomModal(
                   Consumer<UserGoogleMapProvider>(
                     builder: (BuildContext context, provider, _) {
                       // print(data!.toJson().values.isNotEmpty);
-                    
 
                       return Container(
                           decoration: BoxDecoration(
@@ -150,14 +149,15 @@ Future<dynamic> BottomModal(
                               children: [
                                 //   SizeConfigs.getPercentageWidth(3).toInt().height,
                                 ProfileContainer(
-                                  data: 'sixtus',
+                                  data: provider.user!.name,
                                   image: 'assets/icon/user.png',
                                   title: 'Name',
                                 ),
+
                                 ProfileContainer(
-                                  data: 'sixtus',
-                                  image: 'assets/icon/contact.png',
-                                  title: 'Name',
+                                  data: provider.user!.emailAddress,
+                                  image: 'assets/icon/mail.png',
+                                  title: 'Email',
                                 ),
                                 //  SizeConfigs.getPercentageWidth(3).toInt().height,
                               ],

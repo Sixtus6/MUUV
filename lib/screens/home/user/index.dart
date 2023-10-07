@@ -26,7 +26,7 @@ class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
     final mapProvider = Provider.of<UserGoogleMapProvider>(context);
-     
+
     // UserGoogleMapProvider userGoogleMapProvider = UserGoogleMapProvider();
     return SafeArea(
       child: Scaffold(
@@ -262,14 +262,15 @@ class _UserHomePageState extends State<UserHomePage> {
                   return GestureDetector(
                     onTap: () {
                       print("object");
-                      
-                      BottomModal(context, provider, false);
+                      provider.user != null
+                          ? BottomModal(context, provider, false)
+                          : toast("Please wait");
                     },
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.7),
                         borderRadius: BorderRadius.all(Radius.circular(3)),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Colors.black12, // Border color
                             blurRadius: 1.0, // Border width
@@ -304,7 +305,8 @@ class CustomModalContainer extends StatelessWidget {
     super.key,
     required this.image,
     required this.address,
-    required this.header, required ,
+    required this.header,
+    required,
   });
 
   final String image;
