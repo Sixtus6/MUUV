@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:muuv/config/color.dart';
 import 'package:muuv/controllers/user/auth.dart';
 import 'package:muuv/provider/theme.dart';
 import 'package:muuv/screens/home/user/provider.dart';
@@ -14,6 +16,14 @@ import 'firebase_options.dart';
 //     create: (_) => UserScreenStateProvider())import 'provider/userscreen.provider.dart';
 
 Future<void> main() async {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.black, // Change the status bar color
+    statusBarIconBrightness:
+        Brightness.light, // Change the status bar icons' color
+    systemNavigationBarColor: Colors.grey.shade100, // Change the navigation bar color
+    systemNavigationBarIconBrightness:
+        Brightness.light, // Change the navigation bar icons' color
+  ));
   WidgetsFlutterBinding.ensureInitialized();
 
   await initialize();
@@ -30,7 +40,7 @@ Future<void> main() async {
             create: (_) => UserAuthProvider()),
         ChangeNotifierProvider<UserGoogleMapProvider>(
             create: (_) => UserGoogleMapProvider()),
-    //    ChangeNotifierProvider<UserRideInfo>(create: (_) => UserRideInfo())
+        //    ChangeNotifierProvider<UserRideInfo>(create: (_) => UserRideInfo())
       ],
       child: MyApp(),
     ),

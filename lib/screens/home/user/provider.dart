@@ -175,7 +175,7 @@ class UserGoogleMapProvider with ChangeNotifier {
 
       String userAddress =
           await searchAddressViaCordinates(_userCurrentPosition!);
-      print([userAddress]);
+      print(["this is user curren position", userAddress]);
       UserModel? userData = await getUserFromPrefs();
 
       _username = userData!.name;

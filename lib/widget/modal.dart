@@ -9,7 +9,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 Future<dynamic> BottomModal(
-    BuildContext context, UserGoogleMapProvider provider) {
+    BuildContext context, UserGoogleMapProvider provider, bool search) {
   return showModalBottomSheet(
     backgroundColor: Colors.grey.shade100,
     context: context,
@@ -22,78 +22,83 @@ Future<dynamic> BottomModal(
     ),
     isScrollControlled: true,
     builder: (BuildContext context) {
-      return Container(
-        height: SizeConfigs.getPercentageWidth(170), // Adjust height as needed
-        //  padding: EdgeInsets.all(1),
-        child: Column(
-          children: [
-            AppBar(
-              centerTitle: true,
-              automaticallyImplyLeading: false,
-              title: Text(
-                'Search & Set Destination',
-                style: TextStyle(color: ColorConfig.secondary),
-              ),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(
-                    Icons.close,
-                    color: ColorConfig.primary,
+      return search
+          ? Container(
+              height: SizeConfigs.getPercentageWidth(
+                  170), // Adjust height as needed
+              //  padding: EdgeInsets.all(1),
+              child: Column(
+                children: [
+                  AppBar(
+                    centerTitle: true,
+                    automaticallyImplyLeading: false,
+                    title: Text(
+                      'Search & Set Destination',
+                      style: TextStyle(color: ColorConfig.secondary),
+                    ),
+                    actions: <Widget>[
+                      IconButton(
+                        icon: Icon(
+                          Icons.close,
+                          color: ColorConfig.primary,
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
                   ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  right: SizeConfigs.getPercentageWidth(3),
-                  left: SizeConfigs.getPercentageWidth(3)),
-              child: CustomTextField(
-                icon: Icons.location_pin,
-                isEmail: false,
-                text: 'Search Destination Here',
-                myController: userSearchController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Field cannot be empty';
-                  }
-                  return null;
-                },
-                onchange: (p0) {
-                  provider.findPlaceAutoCompleSearch(userSearchController.text);
-                  return null;
-                },
+                  Padding(
+                    padding: EdgeInsets.only(
+                        right: SizeConfigs.getPercentageWidth(3),
+                        left: SizeConfigs.getPercentageWidth(3)),
+                    child: CustomTextField(
+                      icon: Icons.location_pin,
+                      isEmail: false,
+                      text: 'Search Destination Here',
+                      myController: userSearchController,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Field cannot be empty';
+                        }
+                        return null;
+                      },
+                      onchange: (p0) {
+                        provider.findPlaceAutoCompleSearch(
+                            userSearchController.text);
+                        return null;
+                      },
+                    ),
+                  ),
+                  Consumer<UserGoogleMapProvider>(
+                    builder: (context, provider, _) {
+                      return (provider.placesPredictedList.length > 0)
+                          ? ListView.separated(
+                              itemBuilder: (BuildContext context, int index) {
+                                return PlacePredictionTile(
+                                  predictedPlaces:
+                                      provider.placesPredictedList[index],
+                                );
+                              },
+                              itemCount: provider.placesPredictedList.length,
+                              physics: ClampingScrollPhysics(),
+                              separatorBuilder:
+                                  (BuildContext context, int index) {
+                                return Divider(
+                                  height: SizeConfigs.getPercentageWidth(1),
+                                  thickness: 2,
+                                  color: ColorConfig.primary,
+                                );
+                              },
+                            ).expand()
+                          : Container();
+                    },
+                  ),
+                ],
+                // mainAxisSize: MainAxisSize.min,
               ),
-            ),
-            Consumer<UserGoogleMapProvider>(
-              builder: (context, provider, _) {
-                return (provider.placesPredictedList.length > 0)
-                    ? ListView.separated(
-                        itemBuilder: (BuildContext context, int index) {
-                          return PlacePredictionTile(
-                            predictedPlaces:
-                                provider.placesPredictedList[index],
-                          );
-                        },
-                        itemCount: provider.placesPredictedList.length,
-                        physics: ClampingScrollPhysics(),
-                        separatorBuilder: (BuildContext context, int index) {
-                          return Divider(
-                            height: SizeConfigs.getPercentageWidth(1),
-                            thickness: 2,
-                            color: ColorConfig.primary,
-                          );
-                        },
-                      ).expand()
-                    : Container();
-              },
-            ),
-          ],
-          // mainAxisSize: MainAxisSize.min,
-        ),
-      );
+            )
+          : Container();
     },
   );
 }

@@ -1,5 +1,6 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:muuv/config/color.dart';
@@ -48,6 +49,7 @@ class _UserHomePageState extends State<UserHomePage> {
                       provider.locateUserPosition();
                     },
                     onCameraMove: (CameraPosition? position) {
+                      //    print("moving ${provider.pickLocation}");
                       if (provider.pickLocation != position!.target) {
                         provider.setpickLocation(position.target);
                       }
@@ -158,7 +160,8 @@ class _UserHomePageState extends State<UserHomePage> {
                                                   .length <
                                               40
                                           ? toast("Choose your from location")
-                                          : BottomModal(context, provider);
+                                          : BottomModal(
+                                              context, provider, true);
                                     },
                                     child: CustomModalContainer(
                                       address:
@@ -253,19 +256,38 @@ class _UserHomePageState extends State<UserHomePage> {
             Positioned(
               top: 0,
               left: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: ColorConfig.white.withOpacity(0.7),
-                  borderRadius: BorderRadius.all(Radius.circular(2)),
-                ),
-                height: SizeConfigs.getPercentageWidth(11),
-                width: SizeConfigs.getPercentageWidth(11),
-                margin: EdgeInsets.only(
-                    left: SizeConfigs.getPercentageWidth(4),
-                    top: SizeConfigs.getPercentageWidth(4)),
-                padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(2)),
-                child:
-                    Image.asset('assets/icon/user.png', color: Colors.black54),
+              child: Consumer<UserGoogleMapProvider>(
+                builder: (BuildContext context, provider, _) {
+                  return GestureDetector(
+                    onTap: () {
+                      print("object");
+                      BottomModal(context, provider, false);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.7),
+                        borderRadius: BorderRadius.all(Radius.circular(3)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12, // Border color
+                            blurRadius: 1.0, // Border width
+                            spreadRadius: 1, // Border width
+                            // Offset of the border
+                          ),
+                        ],
+                      ),
+                      height: SizeConfigs.getPercentageWidth(11),
+                      width: SizeConfigs.getPercentageWidth(11),
+                      margin: EdgeInsets.only(
+                          left: SizeConfigs.getPercentageWidth(4),
+                          top: SizeConfigs.getPercentageWidth(4)),
+                      padding:
+                          EdgeInsets.all(SizeConfigs.getPercentageWidth(2)),
+                      child: Image.asset('assets/icon/user.png',
+                          color: Colors.black54),
+                    ),
+                  );
+                },
               ),
             )
           ],
