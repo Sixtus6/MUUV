@@ -200,7 +200,6 @@ class _UserHomePageState extends State<UserHomePage> {
                     top: SizeConfigs.getPercentageWidth(1),
                     left: SizeConfigs.getPercentageWidth(20),
                     right: SizeConfigs.getPercentageWidth(20)),
-
                 child: ActionSlider.standard(
                   sliderBehavior: SliderBehavior.stretch,
                   rolling: true,
@@ -249,9 +248,26 @@ class _UserHomePageState extends State<UserHomePage> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-
               )),
             ),
+            Positioned(
+              top: 0,
+              left: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: ColorConfig.white.withOpacity(0.7),
+                  borderRadius: BorderRadius.all(Radius.circular(2)),
+                ),
+                height: SizeConfigs.getPercentageWidth(11),
+                width: SizeConfigs.getPercentageWidth(11),
+                margin: EdgeInsets.only(
+                    left: SizeConfigs.getPercentageWidth(4),
+                    top: SizeConfigs.getPercentageWidth(4)),
+                padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(2)),
+                child:
+                    Image.asset('assets/icon/user.png', color: Colors.black54),
+              ),
+            )
           ],
         ),
       )),
