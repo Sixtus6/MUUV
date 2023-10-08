@@ -165,22 +165,17 @@ class _UserHomePageState extends State<UserHomePage> {
                                               context, provider, true);
                                     },
                                     child: CustomModalContainer(
-                                      address:
-                                          provider.userDropOffLocation != null
-                                              ? provider.userDropOffLocation!
-                                                          .locationName!
-                                                          .toString()
-                                                          .length <
-                                                      40
-                                                  ? provider
-                                                      .userDropOffLocation!
+                                      address: provider.userDropOffLocation !=
+                                              null
+                                          ? provider.userDropOffLocation!
                                                       .locationName!
-                                                  : provider
-                                                          .userDropOffLocation!
-                                                          .locationName!
-                                                          .substring(0, 40) +
-                                                      "....."
-                                              : 'What is your destination?',
+                                                      .toString()
+                                                      .length <
+                                                  40
+                                              ? provider.userDropOffLocation!
+                                                  .locationName!
+                                              : "${provider.userDropOffLocation!.locationName!.substring(0, 40)}....."
+                                          : 'What is your destination?',
                                       header: 'To',
                                       image: "assets/icon/toloc.png",
                                     ),
@@ -240,18 +235,46 @@ class _UserHomePageState extends State<UserHomePage> {
                             ),
                           )),
                       action: (controller) async {
-                        if (provider.userDropOffLocation == null ||
-                            provider.userPickUpLocation == null) {
-                          controller.reset();
+                        if (provider.userPickUpLocation!.locationName!.length <
+                                40 ||
+                            provider.userDropOffLocation == null) {
                           print("there are null");
-                        }
+                          if (provider.userPickUpLocation!.locationName!
+                                      .length <
+                                  40 &&
+                              provider.userDropOffLocation == null) {
+                            toast("Choose your from location and destination");
+                          } else if (provider.userDropOffLocation == null) {
+                            toast("Choose your destination");
+                          } else if (provider
+                                  .userPickUpLocation!.locationName!.length <
+                              40) {
+                            toast("Choose your from location");
+                          } else {
+                            toast("Choose your from location and To location");
+                          }
 
-                        //  controller.loading(); //starts loading animation
-                        //  await Future.delayed(const Duration(seconds: 3));
-                        //print(controlle);
-                        // controller.success(); //starts success animation
-                        //  await Future.delayed(const Duration(seconds: 1));
-                        //resets the slider
+                          controller.reset();
+
+                          print([
+                            provider.userDropOffLocation!.locationName,
+                            provider.userPickUpLocation!.locationName
+                          ]);
+                        } else {
+                          print([
+                            provider.userDropOffLocation!.locationName,
+                            provider.userPickUpLocation!.locationName
+                          ]);
+                          print("allow them");
+
+                          controller.loading(); //starts loading animation
+                          await Future.delayed(const Duration(seconds: 3));
+                          // print(controlle);
+                          controller.success(); //starts success animation
+                          await Future.delayed(const Duration(seconds: 1));
+                          controller.reset();
+                          //   resets the slider
+                        }
                       },
                       child: Text(
                         'Request a ride',
