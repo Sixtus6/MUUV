@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 //For Users
 TextEditingController loginPasswordController = TextEditingController();
 TextEditingController loginEmailController = TextEditingController();
@@ -19,5 +20,6 @@ TextEditingController driverSignupAddressController = TextEditingController();
 TextEditingController driverSignupPhoneController = TextEditingController();
 TextEditingController driverModelController = TextEditingController();
 TextEditingController driverColorController = TextEditingController();
+TextEditingController driverPlateNumberController = TextEditingController();
 ///TextEditingController userSearchController = TextEditingController();
 

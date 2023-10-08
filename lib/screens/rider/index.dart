@@ -6,6 +6,7 @@ import 'package:muuv/config/size.dart';
 import 'package:muuv/screens/rider/provider.dart';
 import 'package:muuv/screens/user/provider.dart';
 import 'package:muuv/widget/arrow.dart';
+import 'package:muuv/widget/constant.dart';
 import 'package:muuv/widget/tab.dart';
 import 'package:muuv/widget/textfield.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -26,7 +27,7 @@ class _RiderScreenState extends State<RiderScreen> {
       CustomTextField(
         icon: Icons.mail,
         isEmail: true,
-        text: 'Email',
+        text: 'Email', myController: driverLoginEmailController,
       ),
       CustomTextField(
         icon: Icons.lock,
@@ -37,7 +38,7 @@ class _RiderScreenState extends State<RiderScreen> {
         visible: screenState.isPasswordVisible,
         onTap: () {
           screenState.setPasswordVisible(!screenState.isPasswordVisible);
-        },
+        }, myController: driverLoginPasswordController,
       ),
 
       Row(
@@ -68,12 +69,12 @@ class _RiderScreenState extends State<RiderScreen> {
       CustomTextField(
         icon: Icons.person,
         isEmail: false,
-        text: 'Name',
+        text: 'Name', myController: driverSignupNameController,
       ),
       CustomTextField(
         icon: Icons.mail,
         isEmail: true,
-        text: 'Email',
+        text: 'Email', myController: driverSignupEmailController,
       ),
       CustomTextField(
         icon: Icons.lock,
@@ -84,19 +85,19 @@ class _RiderScreenState extends State<RiderScreen> {
         visible: screenState.isPasswordVisible,
         onTap: () {
           screenState.setPasswordVisible(!screenState.isPasswordVisible);
-        },
+        }, myController: driverSignupPasswordController,
       ),
       CustomTextField(
         icon: Icons.phone,
         isphone: true,
         text: 'Phone',
-        isEmail: false,
+        isEmail: false, myController: driverSignupPhoneController,
       ),
       CustomTextField(
         icon: Icons.home,
         //isphone: true,
         text: 'Address',
-        isEmail: false,
+        isEmail: false, myController: driverSignupAddressController,
       ),
     ];
     var carWidget = [
@@ -124,17 +125,20 @@ class _RiderScreenState extends State<RiderScreen> {
       CustomTextField(
         icon: Icons.car_rental,
         isEmail: false,
-        text: 'Model', myController: null,
+        text: 'Model',
+        myController: driverModelController,
       ),
       CustomTextField(
         icon: Icons.car_rental,
         isEmail: false,
-        text: 'Color', myController: ,
+        text: 'Color',
+        myController: driverColorController,
       ),
       CustomTextField(
         icon: Icons.car_rental,
         isEmail: false,
         text: 'Plate Number',
+        myController: driverPlateNumberController,
       ),
     ];
     return SafeArea(
