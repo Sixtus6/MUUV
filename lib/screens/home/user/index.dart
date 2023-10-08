@@ -204,53 +204,63 @@ class _UserHomePageState extends State<UserHomePage> {
                     top: SizeConfigs.getPercentageWidth(1),
                     left: SizeConfigs.getPercentageWidth(20),
                     right: SizeConfigs.getPercentageWidth(20)),
-                child: ActionSlider.standard(
-                  sliderBehavior: SliderBehavior.stretch,
-                  rolling: true,
-                  // width: 300.0,
-                  backgroundColor: Colors.white,
-                  toggleColor: ColorConfig.primary,
-                  reverseSlideAnimationDuration:
-                      const Duration(milliseconds: 500),
-                  iconAlignment: Alignment.centerRight,
-                  loadingIcon: SizedBox(
-                      width: 55,
-                      child: Center(
-                          child: SizedBox(
-                        width: SizeConfigs.getPercentageWidth(8),
-                        height: SizeConfigs.getPercentageWidth(8),
-                        child: CircularProgressIndicator(
-                            strokeWidth: 2.0, color: ColorConfig.white),
-                      ))),
-                  successIcon: const SizedBox(
-                      width: 55,
-                      child: Center(child: Icon(Icons.directions_car))),
-                  icon: SizedBox(
-                      width: 55,
-                      child: Center(
-                        child: Container(
-                          padding:
-                              EdgeInsets.all(SizeConfigs.getPercentageWidth(3)),
-                          child: Image.asset(
-                            'assets/icon/driver.png',
-                            color: ColorConfig.white,
-                          ),
-                        ),
-                      )),
-                  action: (controller) async {
-                    controller.loading(); //starts loading animation
-                    await Future.delayed(const Duration(seconds: 3));
-                    //print(controlle);
-                    controller.success(); //starts success animation
-                    await Future.delayed(const Duration(seconds: 1));
-                    controller.reset(); //resets the slider
+                child: Consumer<UserGoogleMapProvider>(
+                  builder: (BuildContext context, provider, _) {
+                    return ActionSlider.standard(
+                      sliderBehavior: SliderBehavior.stretch,
+                      rolling: true,
+                      // width: 300.0,
+                      backgroundColor: Colors.white,
+                      toggleColor: ColorConfig.primary,
+                      reverseSlideAnimationDuration:
+                          const Duration(milliseconds: 500),
+                      iconAlignment: Alignment.centerRight,
+                      loadingIcon: SizedBox(
+                          width: 55,
+                          child: Center(
+                              child: SizedBox(
+                            width: SizeConfigs.getPercentageWidth(8),
+                            height: SizeConfigs.getPercentageWidth(8),
+                            child: CircularProgressIndicator(
+                                strokeWidth: 2.0, color: ColorConfig.white),
+                          ))),
+                      successIcon: const SizedBox(
+                          width: 55,
+                          child: Center(child: Icon(Icons.directions_car))),
+                      icon: SizedBox(
+                          width: 55,
+                          child: Center(
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                  SizeConfigs.getPercentageWidth(3)),
+                              child: Image.asset(
+                                'assets/icon/driver.png',
+                                color: ColorConfig.white,
+                              ),
+                            ),
+                          )),
+                      action: (controller) async {
+                        if (provider.userDropOffLocation == null ||
+                            provider.userPickUpLocation == null) {
+                          controller.reset();
+                          print("there are null");
+                        }
+
+                        //  controller.loading(); //starts loading animation
+                        //  await Future.delayed(const Duration(seconds: 3));
+                        //print(controlle);
+                        // controller.success(); //starts success animation
+                        //  await Future.delayed(const Duration(seconds: 1));
+                        //resets the slider
+                      },
+                      child: Text(
+                        'Request a ride',
+                        style: TextStyle(
+                            color: ColorConfig.secondary,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    );
                   },
-                  child: Text(
-                    'Request a ride',
-                    style: TextStyle(
-                        color: ColorConfig.secondary,
-                        fontWeight: FontWeight.bold),
-                  ),
                 ),
               )),
             ),

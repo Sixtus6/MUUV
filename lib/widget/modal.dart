@@ -79,7 +79,7 @@ Future<dynamic> BottomModal(
                   ),
                   Consumer<UserGoogleMapProvider>(
                     builder: (context, provider, _) {
-                      return (provider.placesPredictedList.length > 0)
+                      return (provider.placesPredictedList.isNotEmpty)
                           ? ListView.separated(
                               itemBuilder: (BuildContext context, int index) {
                                 return PlacePredictionTile(
@@ -106,7 +106,7 @@ Future<dynamic> BottomModal(
               ),
             )
           : Container(
-              height: SizeConfigs.getPercentageWidth(80),
+              height: SizeConfigs.getPercentageWidth(75),
               child: Column(
                 children: [
                   AppBar(
@@ -171,9 +171,18 @@ Future<dynamic> BottomModal(
                                   title: 'Home Adress',
                                 ),
                                 ProfileContainer(
-                                  data: provider.user!.address,
-                                  image: 'assets/icon/house.png',
-                                  title: 'Home Adress',
+                                  data: provider
+                                              .userPickUpLocation!.locationName!
+                                              .toString()
+                                              .length <
+                                          40
+                                      ? "Loading......"
+                                      : provider
+                                              .userPickUpLocation!.locationName!
+                                              .substring(0, 40) +
+                                          ".....",
+                                  image: 'assets/icon/fromloc.png',
+                                  title: 'Current location',
                                 ),
                                 //  SizeConfigs.getPercentageWidth(3).toInt().height,
                               ],
