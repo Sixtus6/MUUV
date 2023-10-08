@@ -159,6 +159,22 @@ Future<dynamic> BottomModal(
                                   image: 'assets/icon/mail.png',
                                   title: 'Email',
                                 ),
+                                ProfileContainer(
+                                  data: provider.user!.phoneNumber,
+                                  image: 'assets/icon/contact.png',
+                                  title: 'Phone Number',
+                                ),
+
+                                ProfileContainer(
+                                  data: provider.user!.address,
+                                  image: 'assets/icon/house.png',
+                                  title: 'Home Adress',
+                                ),
+                                ProfileContainer(
+                                  data: provider.user!.address,
+                                  image: 'assets/icon/house.png',
+                                  title: 'Home Adress',
+                                ),
                                 //  SizeConfigs.getPercentageWidth(3).toInt().height,
                               ],
                             ),
