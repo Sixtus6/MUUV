@@ -74,8 +74,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   img: 'assets/icon/driver.png',
                   text: 'Driver',
                   ontap: () {
-                    // RiderScreen().launch(context,
-                    //     pageRouteAnimation: PageRouteAnimation.Fade);
+                    RiderScreen().launch(context,
+                        pageRouteAnimation: PageRouteAnimation.Fade);
                   }),
             ],
           ).center(),
