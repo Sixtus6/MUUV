@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
+import 'package:muuv/controllers/rider/auth.dart';
 import 'package:muuv/screens/rider/provider.dart';
 import 'package:muuv/screens/user/provider.dart';
 import 'package:muuv/widget/arrow.dart';
@@ -24,6 +25,7 @@ class _RiderScreenState extends State<RiderScreen> {
   @override
   Widget build(BuildContext context) {
     final screenState = Provider.of<RiderScreenProvider>(context);
+    final userState = Provider.of<RiderAuthProvider>(context);
     /* ----------------------------------- KEY ---------------------------------- */
     final loginFormKey = GlobalKey<FormState>();
     final signupFormKey = GlobalKey<FormState>();
@@ -376,7 +378,7 @@ class _RiderScreenState extends State<RiderScreen> {
                       child: SingleChildScrollView(
                           child: ArrowButton(
                         color: ColorConfig.primary,
-                      ).onTap(() {
+                      ).onTap(() async {
                         if (screenState.hasClickedSignup &&
                             screenState.filledSignupForm) {
                           final isformValid =
@@ -404,21 +406,20 @@ class _RiderScreenState extends State<RiderScreen> {
                             ]);
                             // UserModel? savedUser = await getUserFromPrefs();
 
-                            // try {
-                            //   await userState.loginWithEmailAndPassword(
-                            //     loginEmailController.text,
-                            //     loginPasswordController.text,
-                            //   );
+                            try {
+                              await userState.loginWithEmailAndPassword(
+                                loginEmailController.text,
+                                loginPasswordController.text,
+                              );
 
-                            //   if (userState.isLoginSuccessful) {
-                            //     UserHomePage().launch(context,
-                            //         pageRouteAnimation:
-                            //             PageRouteAnimation.Fade,
-                            //         isNewTask: true);
-                            //   }
-                            // } finally {
-                            //   screenState.setLoading(false);
-                            // }
+                              if (userState.isLoginSuccessful) {
+                                UserHomePage().launch(context,
+                                    pageRouteAnimation: PageRouteAnimation.Fade,
+                                    isNewTask: true);
+                              }
+                            } finally {
+                              screenState.setLoading(false);
+                            }
                           }
                           print("else");
                         }
