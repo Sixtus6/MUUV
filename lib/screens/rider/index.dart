@@ -27,6 +27,7 @@ class _RiderScreenState extends State<RiderScreen> {
     /* ----------------------------------- KEY ---------------------------------- */
     final loginFormKey = GlobalKey<FormState>();
     final signupFormKey = GlobalKey<FormState>();
+    final carmodelFormKey = GlobalKey<FormState>();
     /* ----------------------------- TextController ----------------------------- */
 
     var loginWidget = [
@@ -338,7 +339,9 @@ class _RiderScreenState extends State<RiderScreen> {
                                   child: Form(
                                     key: screenState.hasClickedLogin
                                         ? loginFormKey
-                                        : signupFormKey,
+                                        : screenState.filledSignupForm
+                                            ? carmodelFormKey
+                                            : signupFormKey,
                                     child: Column(
                                         children: screenState.hasClickedLogin
                                             ? loginWidget
@@ -366,7 +369,7 @@ class _RiderScreenState extends State<RiderScreen> {
                       top: screenState.hasClickedLogin
                           ? SizeConfigs.getPercentageWidth(75)
                           : screenState.filledSignupForm
-                              ? SizeConfigs.getPercentageWidth(88)
+                              ? SizeConfigs.getPercentageWidth(89)
                               : SizeConfigs.getPercentageWidth(115),
                       // right: 0,
                       // left: 0,white
@@ -376,6 +379,11 @@ class _RiderScreenState extends State<RiderScreen> {
                       ).onTap(() {
                         if (screenState.hasClickedSignup &&
                             screenState.filledSignupForm) {
+                          final isformValid =
+                              carmodelFormKey.currentState!.validate();
+                          if (isformValid) {
+                            print("save drivers details ");
+                          }
                           print("1st blockt");
                         } else if (screenState.hasClickedSignup) {
                           final isformValid =
@@ -385,8 +393,9 @@ class _RiderScreenState extends State<RiderScreen> {
                           }
 
                           print("2nd block");
-                        } else {}
-                        print("else");
+                        } else {
+                          print("else");
+                        }
                       })),
                     )
                   ],
