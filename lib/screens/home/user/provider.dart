@@ -104,8 +104,17 @@ class UserGoogleMapProvider with ChangeNotifier {
   List<PredictedPlaces> _placesPredictedList = [];
   List<PredictedPlaces> get placesPredictedList => _placesPredictedList;
 
-  String _driverCarDetails= "";
+  String _driverCarDetails = "";
   String get driverCarDetails => _driverCarDetails;
+
+  String _driverName = "";
+  String get driverName => _driverName;
+
+  String _driverPhone = "";
+  String get driverPhone => _driverPhone;
+
+  String _userRideRequestStatus = "";
+  String get userRideRequestStatus => _userRideRequestStatus;
 
   findPlaceAutoCompleSearch(String inputText) async {
     if (inputText.length > 1) {
@@ -455,8 +464,23 @@ class UserGoogleMapProvider with ChangeNotifier {
       if (event.snapshot.value == null) {
         return;
       }
-      if((event.snapshot.value as Map )["car_details"] != null){
-         
+      if ((event.snapshot.value as Map)["car_details"] != null) {
+        _driverCarDetails =
+            (event.snapshot.value as Map)["car_details"].toString();
+      }
+
+      if ((event.snapshot.value as Map)["driverPhone"] != null) {
+        _driverCarDetails =
+            (event.snapshot.value as Map)["driverPhone  "].toString();
+      }
+
+      if ((event.snapshot.value as Map)["driverName"] != null) {
+        _driverCarDetails =
+            (event.snapshot.value as Map)["driverName"].toString();
+      }
+
+      if ((event.snapshot.value as Map)["status"] != null) {
+        _userRideRequestStatus = (event.snapshot.value as Map)["status"].toString();
       }
     });
   }
