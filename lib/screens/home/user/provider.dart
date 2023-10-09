@@ -500,14 +500,19 @@ class UserGoogleMapProvider with ChangeNotifier {
           updateDiverArrivalTime(driverCurrentPositionLatLng);
         }
 
-         if (_userRideRequestStatus == "arrived") {
-
-          
-         // updateDiverArrivalTime(driverCurrentPositionLatLng);
+        if (_userRideRequestStatus == "arrived") {
+          _driverRideStatus = "Driver has arrived";
+          // updateDiverArrivalTime(driverCurrentPositionLatLng);
         }
 
+        if (_userRideRequestStatus == "ontrip") {
+          updateReachingTime(driverCurrentPositionLatLng);
+          // updateDiverArrivalTime(driverCurrentPositionLatLng);
+        }
 
-
+        if (_userRideRequestStatus == "ended") {
+          // updateDiverArrivalTime(driverCurrentPositionLatLng);
+        }
       }
     });
   }
