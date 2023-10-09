@@ -377,74 +377,93 @@ class _RiderScreenState extends State<RiderScreen> {
                       // right: 0,
                       // left: 0,white
                       child: SingleChildScrollView(
-                          child: ArrowButton(
-                        color: ColorConfig.primary,
-                      ).onTap(() async {
-                        if (screenState.hasClickedSignup &&
-                            screenState.filledSignupForm) {
-                          final isformValid =
-                              carmodelFormKey.currentState!.validate();
-                          if (isformValid) {
-                            try {
-                              await userState.signUpWithEmailAndPassword(
-                                  driverSignupEmailController.text.toString(),
-                                  driverSignupPasswordController.text
-                                      .toString(),
-                                  driverSignupNameController.text.toString(),
-                                  driverSignupAddressController.text.toString(),
-                                  driverSignupPhoneController.text,
-                                  driverModelController.text.toString(),
-                                  driverColorController.text.toString(),
-                                  driverPlateNumberController.text.toString());
+                          child: screenState.isLoading
+                              ? ArrowButton(color: ColorConfig.primaryLight)
+                                  .onTap(() {
+                                  // screenState.setLoading(false);
+                                })
+                              : ArrowButton(
+                                  color: ColorConfig.primary,
+                                ).onTap(() async {
+                                  if (screenState.hasClickedSignup &&
+                                      screenState.filledSignupForm) {
+                                    final isformValid = carmodelFormKey
+                                        .currentState!
+                                        .validate();
+                                    if (isformValid) {
+                                      try {
+                                        await userState
+                                            .signUpWithEmailAndPassword(
+                                                driverSignupEmailController.text
+                                                    .toString(),
+                                                driverSignupPasswordController
+                                                    .text
+                                                    .toString(),
+                                                driverSignupNameController.text
+                                                    .toString(),
+                                                driverSignupAddressController
+                                                    .text
+                                                    .toString(),
+                                                driverSignupPhoneController
+                                                    .text,
+                                                driverModelController.text
+                                                    .toString(),
+                                                driverColorController.text
+                                                    .toString(),
+                                                driverPlateNumberController.text
+                                                    .toString());
 
-                              if (userState.isSignUpSuccessful) {
-                                RiderHomePage().launch(context,
-                                    pageRouteAnimation: PageRouteAnimation.Fade,
-                                    isNewTask: true);
-                              }
-                            } finally {
-                              screenState.setLoading(false);
-                            }
-                            print("save drivers details ");
-                          }
-                          print("1st blockt");
-                        } else if (screenState.hasClickedSignup) {
-                          final isformValid =
-                              signupFormKey.currentState!.validate();
-                          if (isformValid) {
-                            screenState.setFilledSignupForm(true);
-                          }
+                                        if (userState.isSignUpSuccessful) {
+                                          RiderHomePage().launch(context,
+                                              pageRouteAnimation:
+                                                  PageRouteAnimation.Fade,
+                                              isNewTask: true);
+                                        }
+                                      } finally {
+                                        screenState.setLoading(false);
+                                      }
+                                      print("save drivers details ");
+                                    }
+                                    print("1st blockt");
+                                  } else if (screenState.hasClickedSignup) {
+                                    final isformValid =
+                                        signupFormKey.currentState!.validate();
+                                    if (isformValid) {
+                                      screenState.setFilledSignupForm(true);
+                                    }
 
-                          print("2nd block");
-                        } else {
-                          final isformValid =
-                              loginFormKey.currentState!.validate();
-                          if (isformValid) {
-                            screenState.setLoading(true);
-                            print([
-                              driverLoginEmailController.text,
-                              driverLoginPasswordController.text
-                            ]);
-                            // UserModel? savedUser = await getUserFromPrefs();
+                                    print("2nd block");
+                                  } else {
+                                    final isformValid =
+                                        loginFormKey.currentState!.validate();
+                                    if (isformValid) {
+                                      screenState.setLoading(true);
+                                      print([
+                                        driverLoginEmailController.text,
+                                        driverLoginPasswordController.text
+                                      ]);
+                                      // UserModel? savedUser = await getUserFromPrefs();
 
-                            try {
-                              await userState.loginWithEmailAndPassword(
-                                driverLoginEmailController.text,
-                                driverLoginPasswordController.text,
-                              );
+                                      try {
+                                        await userState
+                                            .loginWithEmailAndPassword(
+                                          driverLoginEmailController.text,
+                                          driverLoginPasswordController.text,
+                                        );
 
-                              if (userState.isLoginSuccessful) {
-                                RiderHomePage().launch(context,
-                                    pageRouteAnimation: PageRouteAnimation.Fade,
-                                    isNewTask: true);
-                              }
-                            } finally {
-                              screenState.setLoading(false);
-                            }
-                          }
-                          print("else");
-                        }
-                      })),
+                                        if (userState.isLoginSuccessful) {
+                                          RiderHomePage().launch(context,
+                                              pageRouteAnimation:
+                                                  PageRouteAnimation.Fade,
+                                              isNewTask: true);
+                                        }
+                                      } finally {
+                                        screenState.setLoading(false);
+                                      }
+                                    }
+                                    print("else");
+                                  }
+                                })),
                     )
                   ],
                 )
