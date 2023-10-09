@@ -480,7 +480,34 @@ class UserGoogleMapProvider with ChangeNotifier {
       }
 
       if ((event.snapshot.value as Map)["status"] != null) {
-        _userRideRequestStatus = (event.snapshot.value as Map)["status"].toString();
+        _userRideRequestStatus =
+            (event.snapshot.value as Map)["status"].toString();
+      }
+
+      if ((event.snapshot.value as Map)["driverLocation"] != null) {
+        double driverCurrentPositionLat = double.parse(
+            (event.snapshot.value as Map)["driverLocation"]["latitude"]
+                .toString());
+
+        double driverCurrentPositionLng = double.parse(
+            (event.snapshot.value as Map)["driverLocation"]["longitude"]
+                .toString());
+
+        LatLng driverCurrentPositionLatLng =
+            LatLng(driverCurrentPositionLat, driverCurrentPositionLng);
+
+        if (_userRideRequestStatus == "accepted") {
+          updateDiverArrivalTime(driverCurrentPositionLatLng);
+        }
+
+         if (_userRideRequestStatus == "arrived") {
+
+          
+         // updateDiverArrivalTime(driverCurrentPositionLatLng);
+        }
+
+
+
       }
     });
   }
