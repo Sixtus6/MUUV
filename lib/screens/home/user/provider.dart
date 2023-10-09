@@ -410,4 +410,15 @@ class UserGoogleMapProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+
+  saveRideRequest() {
+    _referenceRideRequest =
+        FirebaseDatabase.instance.ref().child("All Ride Request").push();
+    var originLocation = _userPickUpLocation;
+    var destibationLocation = _userDropOffLocation;
+    Map originLocationMap = {
+      "latitude":originLocation!.locationLat.toString(),
+      "longitude": originLocation.locationLong.toString()
+    };
+  }
 }
