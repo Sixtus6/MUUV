@@ -12,6 +12,13 @@ Future<void> saveUserToPrefs(UserModel model) async {
   print("saved to shared preferences");
 }
 
+Future<void> saveRiderToPrefs(UserModel model) async {
+  final userJson = jsonEncode(model);
+
+  await setValue("user", userJson);
+  print("saved to shared preferences");
+}
+
 Future<UserModel?> getUserFromPrefs() async {
   final userJson = getStringAsync("user");
   if (userJson != null) {
