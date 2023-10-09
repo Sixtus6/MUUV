@@ -241,7 +241,7 @@ class _RiderScreenState extends State<RiderScreen> {
                   alignment: AlignmentDirectional.center,
                   children: [
                     Container().withHeight(screenState.hasClickedLogin
-                        ? SizeConfigs.getPercentageHeight(45)
+                        ? SizeConfigs.getPercentageHeight(50)
                         : screenState.filledSignupForm
                             ? SizeConfigs.getPercentageHeight(51)
                             : SizeConfigs.getPercentageHeight(63)),
@@ -358,16 +358,16 @@ class _RiderScreenState extends State<RiderScreen> {
                             .withSize(
                                 width: SizeConfigs.getPercentageWidth(85),
                                 height: screenState.hasClickedLogin
-                                    ? SizeConfigs.getPercentageWidth(77)
+                                    ? SizeConfigs.getPercentageWidth(85)
                                     : screenState.filledSignupForm
-                                        ? SizeConfigs.getPercentageWidth(90)
+                                        ? SizeConfigs.getPercentageWidth(85)
                                         : SizeConfigs.getPercentageWidth(110))
                             .cornerRadiusWithClipRRect(15),
                       ],
                     ),
                     Positioned(
                       top: screenState.hasClickedLogin
-                          ? SizeConfigs.getPercentageWidth(75)
+                          ? SizeConfigs.getPercentageWidth(86)
                           : screenState.filledSignupForm
                               ? SizeConfigs.getPercentageWidth(89)
                               : SizeConfigs.getPercentageWidth(115),
@@ -394,6 +394,32 @@ class _RiderScreenState extends State<RiderScreen> {
 
                           print("2nd block");
                         } else {
+                          final isformValid =
+                              loginFormKey.currentState!.validate();
+                          if (isformValid) {
+                            screenState.setLoading(true);
+                            print([
+                              driverLoginEmailController.text,
+                              driverLoginPasswordController.text
+                            ]);
+                            // UserModel? savedUser = await getUserFromPrefs();
+
+                            // try {
+                            //   await userState.loginWithEmailAndPassword(
+                            //     loginEmailController.text,
+                            //     loginPasswordController.text,
+                            //   );
+
+                            //   if (userState.isLoginSuccessful) {
+                            //     UserHomePage().launch(context,
+                            //         pageRouteAnimation:
+                            //             PageRouteAnimation.Fade,
+                            //         isNewTask: true);
+                            //   }
+                            // } finally {
+                            //   screenState.setLoading(false);
+                            // }
+                          }
                           print("else");
                         }
                       })),
