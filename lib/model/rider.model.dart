@@ -41,10 +41,10 @@ class RiderModel {
       emailAddress: json['emailAddress'] as String,
       phoneNumber: json['phoneNumber'] as String,
       address: json['address'] as String,
-      carColor: '',
-      carModel: '',
-      carPlateNumber: '',
-      password: '',
+      carColor: json['carColor'] as String,
+      carModel: json['carModel'] as String,
+      carPlateNumber: json['carPlateNumber'] as String,
+      password: json['password'] as String,
     );
   }
 }
