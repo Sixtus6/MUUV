@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:muuv/model/rider.dart';
 import 'package:muuv/model/user.dart';
 import 'package:muuv/screens/home/user/index.dart';
 import 'package:muuv/utils/helper.dart';
@@ -13,22 +14,25 @@ class RiderAuthProvider with ChangeNotifier {
   bool get isSignUpSuccessful => _isSignUpSuccessful;
   bool _isLoginSuccessful = false;
   bool get isLoginSuccessful => _isLoginSuccessful;
-  UserModel? _user;
-  UserModel? get user => _user;
+  RiderModel? _rider;
+  RiderModel? get rider => _rider;
 
   // Initialize the AuthProvider
   RiderAuthProvider() {
     _auth.authStateChanges().listen((firebaseUser) {
       if (firebaseUser == null) {
-        _user = null;
+        _rider = null;
       } else {
-        _user = UserModel(
+        _rider = RiderModel(
             uid: firebaseUser.uid,
             name: "",
             emailAddress: "",
             password: "",
             phoneNumber: "",
-            address: "");
+            address: "",
+            carColor: '',
+            carModel: '',
+            carPlateNumber: '');
       }
       notifyListeners();
     });
@@ -44,7 +48,7 @@ class RiderAuthProvider with ChangeNotifier {
       toast("Login successfully");
       await _fetchUserDetails(userCredential.user!.uid, email);
       //saves user to shared preferences
-      saveUserToPrefs(_user!);
+      saveUserToPrefs(_rider!);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
         _isLoginSuccessful = false;
@@ -86,7 +90,7 @@ class RiderAuthProvider with ChangeNotifier {
       toast("Account created successfully");
       await _fetchUserDetails(userCredential.user!.uid, email);
       //saves user to shared preferences
-      saveUserToPrefs(_user!);
+      saveUserToPrefs(_rider!);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         _isSignUpSuccessful = false;
@@ -133,7 +137,7 @@ class RiderAuthProvider with ChangeNotifier {
         await FirebaseFirestore.instance.collection('users').doc(uid).get();
     print(userSnapshot.data());
     if (userSnapshot.exists) {
-      _user = UserModel(
+      _rider = UserModel(
         uid: uid,
         name: userSnapshot['fullName'],
         emailAddress: email,
