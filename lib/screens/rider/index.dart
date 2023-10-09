@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
@@ -23,11 +24,23 @@ class _RiderScreenState extends State<RiderScreen> {
   @override
   Widget build(BuildContext context) {
     final screenState = Provider.of<RiderScreenProvider>(context);
+    /* ----------------------------------- KEY ---------------------------------- */
+    final loginFormKey = GlobalKey<FormState>();
+    final signupFormKey = GlobalKey<FormState>();
+    /* ----------------------------- TextController ----------------------------- */
+
     var loginWidget = [
       CustomTextField(
         icon: Icons.mail,
         isEmail: true,
-        text: 'Email', myController: driverLoginEmailController,
+        text: 'Email',
+        myController: driverLoginEmailController,
+        validator: (value) {
+          if (value!.isEmpty || !EmailValidator.validate(value)) {
+            return 'Enter a valid email ';
+          }
+          return null;
+        },
       ),
       CustomTextField(
         icon: Icons.lock,
@@ -38,7 +51,14 @@ class _RiderScreenState extends State<RiderScreen> {
         visible: screenState.isPasswordVisible,
         onTap: () {
           screenState.setPasswordVisible(!screenState.isPasswordVisible);
-        }, myController: driverLoginPasswordController,
+        },
+        myController: driverLoginPasswordController,
+        validator: (value) {
+          if (value!.isEmpty || value.length < 8) {
+            return 'Minimum password length is 8';
+          }
+          return null;
+        },
       ),
 
       Row(
@@ -69,12 +89,26 @@ class _RiderScreenState extends State<RiderScreen> {
       CustomTextField(
         icon: Icons.person,
         isEmail: false,
-        text: 'Name', myController: driverSignupNameController,
+        text: 'Name',
+        myController: driverSignupNameController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be empty';
+          }
+          return null;
+        },
       ),
       CustomTextField(
         icon: Icons.mail,
         isEmail: true,
-        text: 'Email', myController: driverSignupEmailController,
+        text: 'Email',
+        myController: driverSignupEmailController,
+        validator: (value) {
+          if (value!.isEmpty || !EmailValidator.validate(value)) {
+            return 'Enter a valid email ';
+          }
+          return null;
+        },
       ),
       CustomTextField(
         icon: Icons.lock,
@@ -85,19 +119,39 @@ class _RiderScreenState extends State<RiderScreen> {
         visible: screenState.isPasswordVisible,
         onTap: () {
           screenState.setPasswordVisible(!screenState.isPasswordVisible);
-        }, myController: driverSignupPasswordController,
+        },
+        myController: driverSignupPasswordController,
+        validator: (value) {
+          if (value!.isEmpty || value.length < 8) {
+            return 'Minimum password length is 8';
+          }
+          return null;
+        },
       ),
       CustomTextField(
         icon: Icons.phone,
         isphone: true,
         text: 'Phone',
-        isEmail: false, myController: driverSignupPhoneController,
+        isEmail: false,
+        myController: driverSignupPhoneController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be empty';
+          }
+          return null;
+        },
       ),
       CustomTextField(
         icon: Icons.home,
         //isphone: true,
         text: 'Address',
         isEmail: false, myController: driverSignupAddressController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be empty';
+          }
+          return null;
+        },
       ),
     ];
     var carWidget = [
@@ -127,18 +181,36 @@ class _RiderScreenState extends State<RiderScreen> {
         isEmail: false,
         text: 'Model',
         myController: driverModelController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be empty';
+          }
+          return null;
+        },
       ),
       CustomTextField(
         icon: Icons.car_rental,
         isEmail: false,
         text: 'Color',
         myController: driverColorController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be empty';
+          }
+          return null;
+        },
       ),
       CustomTextField(
         icon: Icons.car_rental,
         isEmail: false,
         text: 'Plate Number',
         myController: driverPlateNumberController,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Field cannot be empty';
+          }
+          return null;
+        },
       ),
     ];
     return SafeArea(
@@ -171,7 +243,7 @@ class _RiderScreenState extends State<RiderScreen> {
                         ? SizeConfigs.getPercentageHeight(45)
                         : screenState.filledSignupForm
                             ? SizeConfigs.getPercentageHeight(51)
-                            : SizeConfigs.getPercentageHeight(60)),
+                            : SizeConfigs.getPercentageHeight(63)),
                     //  .withWidth(SizeConfigs.getPercentageWidth(100)),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -194,8 +266,8 @@ class _RiderScreenState extends State<RiderScreen> {
 
                             screenState.hasClickedLogin
                                 ? Container(
-                                    height: 20,
-                                    width: 20,
+                                    height: 28,
+                                    width: 28,
                                     // padding: EdgeInsets.all(10),
                                     child: Image.asset(
                                       "assets/icon/driver.png",
@@ -205,6 +277,7 @@ class _RiderScreenState extends State<RiderScreen> {
                                 : Icon(
                                     Icons.directions_car,
                                     color: ColorConfig.primary,
+                                    size: 30,
                                   )
                             // Text(
                             //   screenState.hasClickedLogin
@@ -223,48 +296,61 @@ class _RiderScreenState extends State<RiderScreen> {
                           padding:
                               EdgeInsets.all(SizeConfigs.getPercentageWidth(3)),
                           decoration: BoxDecoration(color: ColorConfig.white),
-                          child: Column(children: [
-                            SizeConfigs.getPercentageWidth(2).toInt().height,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                CustomTabBar(
-                                  text: 'LOGIN',
-                                  color: screenState.hasClickedLogin
-                                      ? ColorConfig.primary
-                                      : ColorConfig.primary.withOpacity(0.3),
-                                  tcolor: screenState.hasClickedLogin
-                                      ? ColorConfig.secondary
-                                      : ColorConfig.secondary.withOpacity(0.3),
-                                ).onTap(() {
-                                  screenState.sethasClickedLogin(true);
-                                  screenState.sethasClickedSignup(false);
-                                }),
-                                CustomTabBar(
-                                  text: 'SIGNUP',
-                                  color: screenState.hasClickedSignup
-                                      ? ColorConfig.primary
-                                      : ColorConfig.primary.withOpacity(0.3),
-                                  tcolor: screenState.hasClickedSignup
-                                      ? ColorConfig.secondary
-                                      : ColorConfig.secondary.withOpacity(0.3),
-                                ).onTap(() {
-                                  screenState.sethasClickedLogin(false);
-                                  screenState.sethasClickedSignup(true);
-                                }),
-                              ],
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  top: SizeConfigs.getPercentageWidth(6)),
-                              child: Column(
-                                  children: screenState.hasClickedLogin
-                                      ? loginWidget
-                                      : screenState.filledSignupForm
-                                          ? carWidget
-                                          : signinWidget),
-                            )
-                          ]),
+                          child: SingleChildScrollView(
+                            child: Column(children: [
+                              SizeConfigs.getPercentageWidth(2).toInt().height,
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  CustomTabBar(
+                                    text: 'LOGIN',
+                                    color: screenState.hasClickedLogin
+                                        ? ColorConfig.primary
+                                        : ColorConfig.primary.withOpacity(0.3),
+                                    tcolor: screenState.hasClickedLogin
+                                        ? ColorConfig.secondary
+                                        : ColorConfig.secondary
+                                            .withOpacity(0.3),
+                                  ).onTap(() {
+                                    screenState.sethasClickedLogin(true);
+                                    screenState.sethasClickedSignup(false);
+                                  }),
+                                  CustomTabBar(
+                                    text: 'SIGNUP',
+                                    color: screenState.hasClickedSignup
+                                        ? ColorConfig.primary
+                                        : ColorConfig.primary.withOpacity(0.3),
+                                    tcolor: screenState.hasClickedSignup
+                                        ? ColorConfig.secondary
+                                        : ColorConfig.secondary
+                                            .withOpacity(0.3),
+                                  ).onTap(() {
+                                    screenState.sethasClickedLogin(false);
+                                    screenState.sethasClickedSignup(true);
+                                  }),
+                                ],
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(
+                                    top: SizeConfigs.getPercentageWidth(6)),
+                                child: SingleChildScrollView(
+                                  child: Form(
+                                    key: screenState.hasClickedLogin
+                                        ? loginFormKey
+                                        : signupFormKey,
+                                    child: Column(
+                                        children: screenState.hasClickedLogin
+                                            ? loginWidget
+                                            : screenState.filledSignupForm
+                                                ? carWidget
+                                                : signinWidget),
+                                  ),
+                                ),
+                              ),
+                              SizeConfigs.getPercentageWidth(10).toInt().height,
+                            ]),
+                          ),
                         )
                             .withSize(
                                 width: SizeConfigs.getPercentageWidth(85),
@@ -281,7 +367,7 @@ class _RiderScreenState extends State<RiderScreen> {
                           ? SizeConfigs.getPercentageWidth(75)
                           : screenState.filledSignupForm
                               ? SizeConfigs.getPercentageWidth(88)
-                              : SizeConfigs.getPercentageWidth(108),
+                              : SizeConfigs.getPercentageWidth(115),
                       // right: 0,
                       // left: 0,white
                       child: SingleChildScrollView(
@@ -292,7 +378,12 @@ class _RiderScreenState extends State<RiderScreen> {
                             screenState.filledSignupForm) {
                           print("1st blockt");
                         } else if (screenState.hasClickedSignup) {
-                          screenState.setFilledSignupForm(true);
+                          final isformValid =
+                              signupFormKey.currentState!.validate();
+                          if (isformValid) {
+                            screenState.setFilledSignupForm(true);
+                          }
+
                           print("2nd block");
                         } else {}
                         print("else");
