@@ -5,6 +5,7 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/controllers/rider/auth.dart';
+import 'package:muuv/screens/home/rider/index.dart';
 import 'package:muuv/screens/rider/provider.dart';
 import 'package:muuv/screens/user/provider.dart';
 import 'package:muuv/widget/arrow.dart';
@@ -384,6 +385,26 @@ class _RiderScreenState extends State<RiderScreen> {
                           final isformValid =
                               carmodelFormKey.currentState!.validate();
                           if (isformValid) {
+                            try {
+                              await userState.signUpWithEmailAndPassword(
+                                  driverSignupEmailController.text.toString(),
+                                  driverSignupPasswordController.text
+                                      .toString(),
+                                  driverSignupNameController.text.toString(),
+                                  driverSignupAddressController.text.toString(),
+                                  driverSignupPhoneController.text,
+                                  driverModelController.text.toString(),
+                                  driverColorController.text.toString(),
+                                  driverPlateNumberController.text.toString());
+
+                              if (userState.isSignUpSuccessful) {
+                                RiderHomePage().launch(context,
+                                    pageRouteAnimation: PageRouteAnimation.Fade,
+                                    isNewTask: true);
+                              }
+                            } finally {
+                              screenState.setLoading(false);
+                            }
                             print("save drivers details ");
                           }
                           print("1st blockt");
@@ -408,12 +429,12 @@ class _RiderScreenState extends State<RiderScreen> {
 
                             try {
                               await userState.loginWithEmailAndPassword(
-                                loginEmailController.text,
-                                loginPasswordController.text,
+                                driverLoginEmailController.text,
+                                driverLoginPasswordController.text,
                               );
 
                               if (userState.isLoginSuccessful) {
-                                UserHomePage().launch(context,
+                                RiderHomePage().launch(context,
                                     pageRouteAnimation: PageRouteAnimation.Fade,
                                     isNewTask: true);
                               }
