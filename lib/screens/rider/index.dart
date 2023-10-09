@@ -415,6 +415,7 @@ class _RiderScreenState extends State<RiderScreen> {
                                                     .toString());
 
                                         if (userState.isSignUpSuccessful) {
+                                          // ignore: use_build_context_synchronously
                                           RiderHomePage().launch(context,
                                               pageRouteAnimation:
                                                   PageRouteAnimation.Fade,
@@ -453,7 +454,8 @@ class _RiderScreenState extends State<RiderScreen> {
                                         );
 
                                         if (userState.isLoginSuccessful) {
-                                          RiderHomePage().launch(context,
+                                          // ignore: use_build_context_synchronously
+                                          const RiderHomePage().launch(context,
                                               pageRouteAnimation:
                                                   PageRouteAnimation.Fade,
                                               isNewTask: true);
