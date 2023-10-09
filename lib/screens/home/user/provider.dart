@@ -16,6 +16,7 @@ import 'package:muuv/utils/helper.dart';
 import 'package:muuv/widget/progress.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
+import 'package:firebase_database/firebase_database.dart';
 
 class UserGoogleMapProvider with ChangeNotifier {
   Completer<GoogleMapController> _controllerCompleter = Completer();
@@ -87,6 +88,9 @@ class UserGoogleMapProvider with ChangeNotifier {
 
   UserModel? _user;
   UserModel? get user => _user;
+
+  DatabaseReference? _referenceRideRequest;
+  DatabaseReference? get referenceRideRequest => _referenceRideRequest;
 
   int _countTotalTrialTrip = 0;
 

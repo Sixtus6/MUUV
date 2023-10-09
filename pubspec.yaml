@@ -52,6 +52,7 @@ dependencies:
   shimmer: ^3.0.0
   location: ^5.0.3
   action_slider: ^0.7.0
+  firebase_database: ^10.2.7
 
   # location: ^5.0.3
 
