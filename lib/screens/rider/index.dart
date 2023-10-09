@@ -391,6 +391,7 @@ class _RiderScreenState extends State<RiderScreen> {
                                         .currentState!
                                         .validate();
                                     if (isformValid) {
+                                      screenState.setLoading(true);
                                       try {
                                         await userState
                                             .signUpWithEmailAndPassword(
