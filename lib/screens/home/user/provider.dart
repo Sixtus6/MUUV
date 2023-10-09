@@ -89,6 +89,13 @@ class UserGoogleMapProvider with ChangeNotifier {
   UserModel? _user;
   UserModel? get user => _user;
 
+  String _driverRideStatus = "Driver is coming";
+  String get driverRideStatus => _driverRideStatus;
+
+  StreamSubscription<DatabaseEvent>? _tripRidesRequestStream;
+  StreamSubscription<DatabaseEvent>? get tripRidesRequestStream =>
+      _tripRidesRequestStream;
+
   DatabaseReference? _referenceRideRequest;
   DatabaseReference? get referenceRideRequest => _referenceRideRequest;
 
@@ -96,6 +103,9 @@ class UserGoogleMapProvider with ChangeNotifier {
 
   List<PredictedPlaces> _placesPredictedList = [];
   List<PredictedPlaces> get placesPredictedList => _placesPredictedList;
+
+  String _driverCarDetails= "";
+  String get driverCarDetails => _driverCarDetails;
 
   findPlaceAutoCompleSearch(String inputText) async {
     if (inputText.length > 1) {
@@ -415,10 +425,39 @@ class UserGoogleMapProvider with ChangeNotifier {
     _referenceRideRequest =
         FirebaseDatabase.instance.ref().child("All Ride Request").push();
     var originLocation = _userPickUpLocation;
-    var destibationLocation = _userDropOffLocation;
+    var destinationLocation = _userDropOffLocation;
+
     Map originLocationMap = {
-      "latitude":originLocation!.locationLat.toString(),
+      "latitude": originLocation!.locationLat.toString(),
       "longitude": originLocation.locationLong.toString()
     };
+
+    Map destibationLocationMap = {
+      "latitude": destinationLocation!.locationLat.toString(),
+      "longitude": destinationLocation.locationLong.toString()
+    };
+
+    Map userInfomationMap = {
+      "origin": originLocationMap,
+      "destination": destibationLocationMap,
+      "time": DateTime.now().toString(),
+      "userName": _user!.name,
+      "userPhone": _user!.phoneNumber,
+      "originAddress": originLocation.locationName,
+      "destinationAddress": destinationLocation.locationName,
+      "driverID": "waiting"
+    };
+
+    _referenceRideRequest!.set(userInfomationMap);
+
+    _tripRidesRequestStream =
+        _referenceRideRequest!.onValue.listen((event) async {
+      if (event.snapshot.value == null) {
+        return;
+      }
+      if((event.snapshot.value as Map )["car_details"] != null){
+         
+      }
+    });
   }
 }
