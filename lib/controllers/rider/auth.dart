@@ -48,7 +48,7 @@ class RiderAuthProvider with ChangeNotifier {
       toast("Login successfully");
       await _fetchUserDetails(userCredential.user!.uid, email);
       //saves user to shared preferences
-      saveUserToPrefs(_rider!);
+      saveRiderToPrefs(_rider!);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'INVALID_LOGIN_CREDENTIALS') {
         _isLoginSuccessful = false;
@@ -73,8 +73,15 @@ class RiderAuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> signUpWithEmailAndPassword(String email, String password,
-      String name, String address, String phoneNumber) async {
+  Future<void> signUpWithEmailAndPassword(
+      String email,
+      String password,
+      String name,
+      String address,
+      String phoneNumber,
+      String model,
+      String color,
+      String platenumber) async {
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
@@ -83,14 +90,14 @@ class RiderAuthProvider with ChangeNotifier {
       );
 
       // If user creation is successful, we can now update additional user details
-      await _updateUserDetails(
-          userCredential.user!, name, phoneNumber, address);
+      await _updateUserDetails(userCredential.user!, name, phoneNumber, address,
+          model, color, platenumber);
       _isSignUpSuccessful = true;
       notifyListeners();
       toast("Account created successfully");
       await _fetchUserDetails(userCredential.user!.uid, email);
       //saves user to shared preferences
-      saveUserToPrefs(_rider!);
+      saveRiderToPrefs(_rider!);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         _isSignUpSuccessful = false;
@@ -115,13 +122,16 @@ class RiderAuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> _updateUserDetails(
-      User user, String name, String phoneNumber, String address) async {
+  Future<void> _updateUserDetails(User user, String name, String phoneNumber,
+      String address, String model, String color, String platenumber) async {
     try {
-      await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+      await FirebaseFirestore.instance.collection('riders').doc(user.uid).set({
         'fullName': name,
         'phoneNumber': phoneNumber,
-        'address': address
+        'address': address,
+        'carModel': model,
+        'carColor': color,
+        'carPlateNum': platenumber,
         // Add other details as needed
       });
     } catch (e) {
@@ -134,16 +144,19 @@ class RiderAuthProvider with ChangeNotifier {
     // Fetch user details from Firestore using uid and update _userDetails
     // Example: Fetching from a 'users' collection
     DocumentSnapshot userSnapshot =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+        await FirebaseFirestore.instance.collection('riders').doc(uid).get();
     print(userSnapshot.data());
     if (userSnapshot.exists) {
-      _rider = UserModel(
+      _rider = RiderModel(
         uid: uid,
         name: userSnapshot['fullName'],
         emailAddress: email,
         address: userSnapshot['address'],
         phoneNumber: userSnapshot['phoneNumber'],
         password: "",
+        carColor: '',
+        carPlateNumber: '',
+        carModel: '',
       );
     }
   }

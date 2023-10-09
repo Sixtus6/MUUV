@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import "package:http/http.dart" as http;
+import 'package:muuv/model/rider.dart';
 import 'package:muuv/model/user.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'dart:math' as math;
@@ -12,10 +13,10 @@ Future<void> saveUserToPrefs(UserModel model) async {
   print("saved to shared preferences");
 }
 
-Future<void> saveRiderToPrefs(UserModel model) async {
+Future<void> saveRiderToPrefs(RiderModel model) async {
   final userJson = jsonEncode(model);
 
-  await setValue("user", userJson);
+  await setValue("rider", userJson);
   print("saved to shared preferences");
 }
 
