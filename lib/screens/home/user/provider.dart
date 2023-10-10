@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoder2/geocoder2.dart';
 import 'package:geolocator/geolocator.dart';
@@ -8,10 +9,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as loc;
 import 'package:muuv/config/color.dart';
 import 'package:muuv/key/key.dart';
+import 'package:muuv/model/activeNearByDrivers.dart';
 import 'package:muuv/model/direction.dart';
 import 'package:muuv/model/direction_info.dart';
 import 'package:muuv/model/predictedPlaces.dart';
 import 'package:muuv/model/user.dart';
+import 'package:muuv/utils/geo_assistant.dart';
 import 'package:muuv/utils/helper.dart';
 import 'package:muuv/widget/progress.dart';
 import 'package:provider/provider.dart';
@@ -116,6 +119,10 @@ class UserGoogleMapProvider with ChangeNotifier {
   String _userRideRequestStatus = "";
   String get userRideRequestStatus => _userRideRequestStatus;
 
+  List<dynamic> _onlineNearbyAvailableDriverList = [];
+  List<dynamic>? get onlineNearbyAvailableDriverList =>
+      _onlineNearbyAvailableDriverList;
+
   findPlaceAutoCompleSearch(String inputText) async {
     if (inputText.length > 1) {
       String urlSearch =
@@ -210,6 +217,80 @@ class UserGoogleMapProvider with ChangeNotifier {
       notifyListeners();
     } catch (e) {
       print('Error locating user position: $e');
+    }
+  }
+
+  initializeGeofireListiner() {
+    Geofire.initialize("activeDrivers");
+    Geofire.queryAtLocation(
+            _userCurrentPosition!.latitude, userCurrentPosition!.longitude, 10)!
+        .listen((event) {
+      if (event != null) {
+        var callback = event["callBack"];
+        switch (callback) {
+          case Geofire.onKeyEntered:
+            ActiveNearByDrivers activeNearByDrivers = ActiveNearByDrivers();
+            activeNearByDrivers.locationLat = event["latitude"];
+            activeNearByDrivers.locationLong = event["longitude"];
+            activeNearByDrivers.driverID = event["key"];
+            GeoFireAssistant.activeNearDriversList.add(activeNearByDrivers);
+            if (_activeNearbyDriverKeysLoaded == true) {
+              displayActiveDriversOnUserMap();
+            }
+            break;
+
+          case Geofire.onKeyEntered:
+            GeoFireAssistant.deleteOfflineDriverFromList(event["key"]);
+            displayActiveDriversOnUserMap();
+            break;
+
+          case Geofire.onKeyMoved:
+            ActiveNearByDrivers activeNearByDrivers = ActiveNearByDrivers();
+            activeNearByDrivers.locationLat = event["latitude"];
+            activeNearByDrivers.locationLong = event["longitude"];
+            activeNearByDrivers.driverID = event["key"];
+            GeoFireAssistant.updateActiveNearByDiver(activeNearByDrivers);
+            displayActiveDriversOnUserMap();
+            break;
+
+          case Geofire.onGeoQueryReady:
+            _activeNearbyDriverKeysLoaded = true;
+            displayActiveDriversOnUserMap();
+            break;
+        }
+      }
+
+      notifyListeners();
+    });
+  }
+
+  displayActiveDriversOnUserMap() {
+    _markerSet.clear();
+    _circleSet.clear();
+    Set<Marker> driversMarkerSet = Set<Marker>();
+    for (ActiveNearByDrivers eachDriver
+        in GeoFireAssistant.activeNearDriversList) {
+      LatLng eachDriverActivePosition = LatLng(
+          double.parse(eachDriver.locationLat!),
+          double.parse(eachDriver.locationLong!));
+
+      Marker marker = Marker(
+          markerId: MarkerId(eachDriver.driverID!),
+          position: eachDriverActivePosition,
+          icon: _activeNearbyIcon!,
+          rotation: 300);
+
+      driversMarkerSet.add(marker);
+    }
+
+    _markerSet = driversMarkerSet;
+    notifyListeners();
+  }
+
+  createActiveNearbyIconMarker(context) {
+    if (_activeNearbyIcon == null) {
+      ImageConfiguration imageConfiguration =
+          createLocalImageConfiguration(context, size: Size(2, 2));
     }
   }
 
@@ -497,7 +578,7 @@ class UserGoogleMapProvider with ChangeNotifier {
             LatLng(driverCurrentPositionLat, driverCurrentPositionLng);
 
         if (_userRideRequestStatus == "accepted") {
-          updateDiverArrivalTime(driverCurrentPositionLatLng);
+          //  updateDiverArrivalTime(driverCurrentPositionLatLng);
         }
 
         if (_userRideRequestStatus == "arrived") {
@@ -506,14 +587,23 @@ class UserGoogleMapProvider with ChangeNotifier {
         }
 
         if (_userRideRequestStatus == "ontrip") {
-          updateReachingTime(driverCurrentPositionLatLng);
+          ///  updateReachingTime(driverCurrentPositionLatLng);
           // updateDiverArrivalTime(driverCurrentPositionLatLng);
         }
 
         if (_userRideRequestStatus == "ended") {
+          _referenceRideRequest!.onDisconnect();
+          tripRidesRequestStream!.cancel();
+          //Tode: for payment system
+          // if ((event.snapshot.value as Map)["fareAmount"] != null) {
+          //   double fareAmount = double.parse(
+          //       (event.snapshot.value as Map)['fareAmount'].toString());
+          // }
           // updateDiverArrivalTime(driverCurrentPositionLatLng);
         }
       }
     });
+
+    //   _onlineNearbyAvailableDriverList = Geofire
   }
 }

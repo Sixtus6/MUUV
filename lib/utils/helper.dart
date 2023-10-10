@@ -100,3 +100,5 @@ double calculatePaddingBasedOnDistance(LatLngBounds bounds) {
 
   return padding;
 }
+
+
