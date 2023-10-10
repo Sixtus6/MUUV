@@ -621,13 +621,17 @@ class UserGoogleMapProvider with ChangeNotifier {
     if (_requestPositionInfo == true) {
       _requestPositionInfo = false;
       var dropOffLocation = _userDropOffLocation;
+
       LatLng userDestinationPosition = LatLng(
           double.parse(dropOffLocation!.locationLat!),
           double.parse(dropOffLocation.locationLong!));
 
-
       var directionDetailsInfo = await await obtainDirectionDetails(
           driverCurrentPositionLatLng, userDestinationPosition);
+
+      if (directionDetailsInfo == null) {
+        return; 
+      }
     }
   }
 
