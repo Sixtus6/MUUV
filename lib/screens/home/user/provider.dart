@@ -292,8 +292,10 @@ class UserGoogleMapProvider with ChangeNotifier {
     if (_activeNearbyIcon == null) {
       ImageConfiguration imageConfiguration =
           createLocalImageConfiguration(context, size: Size(2, 2));
-          BitmapDescriptor.fromAssetImage(imageConfiguration, "assetName")
-
+      BitmapDescriptor.fromAssetImage(imageConfiguration, "assets/icon/driver.png")
+          .then((value) {
+        _activeNearbyIcon = value;
+      });
     }
   }
 
