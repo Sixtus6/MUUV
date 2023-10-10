@@ -119,8 +119,8 @@ class UserGoogleMapProvider with ChangeNotifier {
   String _userRideRequestStatus = "";
   String get userRideRequestStatus => _userRideRequestStatus;
 
-  List<dynamic> _onlineNearbyAvailableDriverList = [];
-  List<dynamic>? get onlineNearbyAvailableDriverList =>
+  List<ActiveNearByDrivers> _onlineNearbyAvailableDriverList = [];
+  List<ActiveNearByDrivers>? get onlineNearbyAvailableDriverList =>
       _onlineNearbyAvailableDriverList;
 
   findPlaceAutoCompleSearch(String inputText) async {
@@ -610,6 +610,7 @@ class UserGoogleMapProvider with ChangeNotifier {
       }
     });
 
-    //   _onlineNearbyAvailableDriverList = Geofire
+    _onlineNearbyAvailableDriverList = GeoFireAssistant.activeNearDriversList;
+    //searchNearestOnlineDrivers()
   }
 }
