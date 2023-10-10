@@ -17,6 +17,7 @@ import 'package:muuv/model/user.dart';
 import 'package:muuv/utils/geo_assistant.dart';
 import 'package:muuv/utils/helper.dart';
 import 'package:muuv/widget/progress.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 import 'package:firebase_database/firebase_database.dart';
@@ -82,6 +83,9 @@ class UserGoogleMapProvider with ChangeNotifier {
 
   List<LatLng> _pLineCoordinateList = [];
   List<LatLng> get pLineCoordinateList => _pLineCoordinateList;
+
+  List _driverList = [];
+  List get driverList => _driverList;
 
   Direction? _userPickUpLocation;
 
@@ -617,6 +621,23 @@ class UserGoogleMapProvider with ChangeNotifier {
     //searchNearestOnlineDrivers()
   }
 
+  searchNearestOnlineDrivers(String selectedVehicleType) async {
+    if (_onlineNearbyAvailableDriverList.length == 0) {
+      _referenceRideRequest!.remove();
+      _polylineSet.clear();
+      _markerSet.clear();
+      _circleSet.clear();
+      _pLineCoordinateList.clear();
+      toast("No Avaialable Driver, Try Again");
+      Future.delayed(Duration(milliseconds: 4000), () {
+        //Write the funtion to naviagate to splash screen
+      });
+    }
+
+    await retriveOnlineDriverInfo(_onlineNearbyAvailableDriverList);
+    notifyListeners();
+  }
+
   updateReachingTime(driverCurrentPositionLatLng) async {
     if (_requestPositionInfo == true) {
       _requestPositionInfo = false;
@@ -626,12 +647,32 @@ class UserGoogleMapProvider with ChangeNotifier {
           double.parse(dropOffLocation!.locationLat!),
           double.parse(dropOffLocation.locationLong!));
 
-      var directionDetailsInfo = await await obtainDirectionDetails(
+      var directionDetailsInfo = await obtainDirectionDetails(
           driverCurrentPositionLatLng, userDestinationPosition);
 
       if (directionDetailsInfo == null) {
-        return; 
+        return;
       }
+
+      _driverRideStatus =
+          "Going Towards Destination: ${directionDetailsInfo.duration_text}";
+      _requestPositionInfo = true;
+    }
+    notifyListeners();
+  }
+
+  retriveOnlineDriverInfo(List onlineNearbyAvailableDriverList) async {
+    _driverList.clear();
+    DatabaseReference ref = FirebaseDatabase.instance.ref().child("drivers");
+    for (var i = 0; i < onlineNearbyAvailableDriverList.length; i++) {
+      await ref
+          .child(onlineNearbyAvailableDriverList[i].driverId.toString())
+          .once()
+          .then((dataSnapShot) {
+        var driverKeyInfo = dataSnapShot.snapshot.value;
+        _driverList.add(driverKeyInfo);
+        
+      });
     }
   }
 
@@ -651,5 +692,6 @@ class UserGoogleMapProvider with ChangeNotifier {
           "Driver is Coming" + directionDetailsInfo.distance_text.toString();
       _requestPositionInfo = true;
     }
+    notifyListeners();
   }
 }
