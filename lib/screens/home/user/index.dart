@@ -39,7 +39,7 @@ class _UserHomePageState extends State<UserHomePage> {
             Consumer<UserGoogleMapProvider>(
               builder: (context, provider, _) {
                 print(provider);
-
+provider.
                 // ignore: unnecessary_null_comparison
                 if (provider.controller != null) {
                   return GoogleMap(

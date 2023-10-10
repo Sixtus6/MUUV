@@ -288,9 +288,12 @@ class UserGoogleMapProvider with ChangeNotifier {
   }
 
   createActiveNearbyIconMarker(context) {
+    print("This image has succefully been created");
     if (_activeNearbyIcon == null) {
       ImageConfiguration imageConfiguration =
           createLocalImageConfiguration(context, size: Size(2, 2));
+          BitmapDescriptor.fromAssetImage(imageConfiguration, "assetName")
+
     }
   }
 
