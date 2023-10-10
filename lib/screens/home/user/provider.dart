@@ -291,8 +291,9 @@ class UserGoogleMapProvider with ChangeNotifier {
     print("This image has succefully been created");
     if (_activeNearbyIcon == null) {
       ImageConfiguration imageConfiguration =
-          createLocalImageConfiguration(context, size: Size(2, 2));
-      BitmapDescriptor.fromAssetImage(imageConfiguration, "assets/icon/driver.png")
+          createLocalImageConfiguration(context, size: Size(0.2, 0.2));
+      BitmapDescriptor.fromAssetImage(
+              imageConfiguration, "assets/icon/driver.png")
           .then((value) {
         _activeNearbyIcon = value;
       });
