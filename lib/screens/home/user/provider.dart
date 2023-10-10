@@ -592,12 +592,12 @@ class UserGoogleMapProvider with ChangeNotifier {
 
         if (_userRideRequestStatus == "arrived") {
           _driverRideStatus = "Driver has arrived";
-          updateDiverArrivalTime(driverCurrentPositionLatLng);
+          //            updateDiverArrivalTime(driverCurrentPositionLatLng);
         }
 
         if (_userRideRequestStatus == "ontrip") {
-          ///  updateReachingTime(driverCurrentPositionLatLng);
-          updateDiverArrivalTime(driverCurrentPositionLatLng);
+          updateReachingTime(driverCurrentPositionLatLng);
+          //updateDiverArrivalTime(driverCurrentPositionLatLng);
         }
 
         if (_userRideRequestStatus == "ended") {
@@ -608,13 +608,27 @@ class UserGoogleMapProvider with ChangeNotifier {
           //   double fareAmount = double.parse(
           //       (event.snapshot.value as Map)['fareAmount'].toString());
           // }
-          updateDiverArrivalTime(driverCurrentPositionLatLng);
+          //   updateDiverArrivalTime(driverCurrentPositionLatLng);
         }
       }
     });
 
     _onlineNearbyAvailableDriverList = GeoFireAssistant.activeNearDriversList;
     //searchNearestOnlineDrivers()
+  }
+
+  updateReachingTime(driverCurrentPositionLatLng) async {
+    if (_requestPositionInfo == true) {
+      _requestPositionInfo = false;
+      var dropOffLocation = _userDropOffLocation;
+      LatLng userDestinationPosition = LatLng(
+          double.parse(dropOffLocation!.locationLat!),
+          double.parse(dropOffLocation.locationLong!));
+
+
+      var directionDetailsInfo = await await obtainDirectionDetails(
+          driverCurrentPositionLatLng, userDestinationPosition);
+    }
   }
 
   updateDiverArrivalTime(driverCurrentPositionLatLng) async {
@@ -625,6 +639,13 @@ class UserGoogleMapProvider with ChangeNotifier {
 
       var directionDetailsInfo = await obtainDirectionDetails(
           driverCurrentPositionLatLng, userPickUpPosition);
+
+      if (directionDetailsInfo == null) {
+        return;
+      }
+      _driverRideStatus =
+          "Driver is Coming" + directionDetailsInfo.distance_text.toString();
+      _requestPositionInfo = true;
     }
   }
 }
