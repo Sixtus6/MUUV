@@ -57,6 +57,9 @@ class UserGoogleMapProvider with ChangeNotifier {
   bool _openNavigationDrawer = true;
   bool get openNavigationDrawer => _openNavigationDrawer;
 
+  bool _requestPositionInfo = true;
+  bool get requestPositionInfo => _requestPositionInfo;
+
   bool _activeNearbyDriverKeysLoaded = false;
   bool get activeNearbyDriverKeysLoaded => _activeNearbyDriverKeysLoaded;
 
@@ -584,17 +587,17 @@ class UserGoogleMapProvider with ChangeNotifier {
             LatLng(driverCurrentPositionLat, driverCurrentPositionLng);
 
         if (_userRideRequestStatus == "accepted") {
-          //  updateDiverArrivalTime(driverCurrentPositionLatLng);
+          updateDiverArrivalTime(driverCurrentPositionLatLng);
         }
 
         if (_userRideRequestStatus == "arrived") {
           _driverRideStatus = "Driver has arrived";
-          // updateDiverArrivalTime(driverCurrentPositionLatLng);
+          updateDiverArrivalTime(driverCurrentPositionLatLng);
         }
 
         if (_userRideRequestStatus == "ontrip") {
           ///  updateReachingTime(driverCurrentPositionLatLng);
-          // updateDiverArrivalTime(driverCurrentPositionLatLng);
+          updateDiverArrivalTime(driverCurrentPositionLatLng);
         }
 
         if (_userRideRequestStatus == "ended") {
@@ -605,12 +608,23 @@ class UserGoogleMapProvider with ChangeNotifier {
           //   double fareAmount = double.parse(
           //       (event.snapshot.value as Map)['fareAmount'].toString());
           // }
-          // updateDiverArrivalTime(driverCurrentPositionLatLng);
+          updateDiverArrivalTime(driverCurrentPositionLatLng);
         }
       }
     });
 
     _onlineNearbyAvailableDriverList = GeoFireAssistant.activeNearDriversList;
     //searchNearestOnlineDrivers()
+  }
+
+  updateDiverArrivalTime(driverCurrentPositionLatLng) async {
+    if (_requestPositionInfo == true) {
+      _requestPositionInfo = false;
+      LatLng userPickUpPosition = LatLng(
+          _userCurrentPosition!.latitude, _userCurrentPosition!.longitude);
+
+      var directionDetailsInfo = await obtainDirectionDetails(
+          driverCurrentPositionLatLng, userPickUpPosition);
+    }
   }
 }
