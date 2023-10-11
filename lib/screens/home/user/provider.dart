@@ -621,7 +621,7 @@ class UserGoogleMapProvider with ChangeNotifier {
     //searchNearestOnlineDrivers()
   }
 
-  searchNearestOnlineDrivers(String selectedVehicleType) async {
+  searchNearestOnlineDrivers(String selectedVehicleType, context) async {
     if (_onlineNearbyAvailableDriverList.length == 0) {
       _referenceRideRequest!.remove();
       _polylineSet.clear();
@@ -632,9 +632,36 @@ class UserGoogleMapProvider with ChangeNotifier {
       Future.delayed(Duration(milliseconds: 4000), () {
         //Write the funtion to naviagate to splash screen
       });
+
+      return;
     }
 
     await retriveOnlineDriverInfo(_onlineNearbyAvailableDriverList);
+    print("DriverList" + _driverList.toString());
+
+    for (var i = 0; i < driverList.length; i++) {
+      //SendNotification to drivers
+      sendNotificationToDriverNow(_driverList[i]["token"],
+          _referenceRideRequest!.key!, _userDropOffAddress, context);
+    }
+    toast("Ride Request Sent");
+    //Show searcing for drivers container
+
+    await FirebaseDatabase.instance
+        .ref()
+        .child("All Ride Request")
+        .child(referenceRideRequest!.key!)
+        .child("driverId")
+        .onValue
+        .listen((event) {
+      print("EventSnapshot:  ${event.snapshot.value}");
+      if (event.snapshot.value != null) {
+        if (event.snapshot.value != "waiting") {
+          print("show waiting screen");
+        }
+      }
+    });
+
     notifyListeners();
   }
 
@@ -671,7 +698,7 @@ class UserGoogleMapProvider with ChangeNotifier {
           .then((dataSnapShot) {
         var driverKeyInfo = dataSnapShot.snapshot.value;
         _driverList.add(driverKeyInfo);
-        
+        print("driver key information" + _driverList.toString());
       });
     }
   }

@@ -3,7 +3,7 @@ import 'package:muuv/model/activeNearByDrivers.dart';
 
 class GeoFireAssistant {
   static List<ActiveNearByDrivers> activeNearDriversList = [];
-
+  
   static void deleteOfflineDriverFromList(String driverId) {
     int indexNumber = activeNearDriversList
         .indexWhere((element) => element.driverID == driverId);

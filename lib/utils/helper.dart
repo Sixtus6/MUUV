@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import "package:http/http.dart" as http;
+import 'package:muuv/key/key.dart';
 import 'package:muuv/model/rider.dart';
 import 'package:muuv/model/user.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -101,4 +102,35 @@ double calculatePaddingBasedOnDistance(LatLngBounds bounds) {
   return padding;
 }
 
+sendNotificationToDriverNow(String deviceRegistrationToken,
+    String userRequestId, var userDropOffAddress, conntext) async {
+  String destination = userDropOffAddress;
+  Map<String, String> headerNotification = {
+    "Content-Type": 'application/json',
+    "Authorization": KeyConfig.fireBaseApiKey
+  };
 
+  Map bodyNotification = {
+    "boby": "Destination Address: \n$destination",
+    "title": "New Trip Request"
+  };
+
+  Map dataMap = {
+    "click_action": "FLUTTER_NOTIFICATION_CLICK",
+    "id": "1",
+    "status": "done",
+    "rideRequestId": userRequestId,
+  };
+
+  Map officialNotification = {
+    "notification":bodyNotification,
+    "data": dataMap,
+    "priority":"high",  
+    "to": deviceRegistrationToken, 
+  };
+
+  var responseNotification = http.post(
+      Uri.parse("https://fcm.googleapi.com/fcm/send"),
+      headers: headerNotification,
+      body: jsonEncode(officialNotification));
+}
