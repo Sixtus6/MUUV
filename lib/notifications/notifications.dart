@@ -12,6 +12,7 @@ import 'package:muuv/model/user.dart';
 import 'package:muuv/model/userRequestRideInfo.dart';
 import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/utils/helper.dart';
+import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 class PushNotificationSystem {
@@ -55,7 +56,7 @@ class PushNotificationSystem {
     String username;
     String rideRequestId;
     String userPhone;
-    UserRequestRideInfo userRequest = UserRequestRideInfo();
+    UserRequestRideInfo userRequestDetails = UserRequestRideInfo();
     final provider = Provider.of<UserGoogleMapProvider>(context, listen: false);
     FirebaseDatabase.instance
         .ref()
@@ -98,14 +99,30 @@ class PushNotificationSystem {
                       userPhone =
                           (snapshotData.snapshot.value as Map)["userPhone"],
                       rideRequestId = snapshotData.snapshot.key!,
-                      userRequest.originLatLng = LatLng(originLat!, originLng!),
-                      userRequest.originAddress =originAddress,   
-                      userRequest.destinationLatLng=  LatLng(destinationOriginLat!, destinationOriginLng!),
-                      userRequest.userName =username,
-userRequest.userPhone= userPhone
+                      userRequestDetails.originLatLng =
+                          LatLng(originLat!, originLng!),
+                      userRequestDetails.originAddress = originAddress,
+                      userRequestDetails.destinationLatLng =
+                          LatLng(destinationOriginLat!, destinationOriginLng!),
+                      userRequestDetails.userName = username,
+                      userRequestDetails.userPhone = userPhone,
+                      userRequestDetails.rideRequestId = rideRequestId,
+
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              NotificationDialogBox())
                       //double originLng =
                     }
+                  else
+                    {
+                      // ignore: prefer_const_constructors
+                      toast("This Ride Request id do not exist")
+                    }
                 });
+      } else {
+        toast("This Ride Request has been cancelled ");
+        Navigator.pop(context);
       }
     });
   }
