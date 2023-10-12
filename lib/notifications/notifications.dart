@@ -7,7 +7,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:muuv/model/user.dart';
+import 'package:muuv/model/userRequestRideInfo.dart';
 import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/utils/helper.dart';
 import 'package:provider/provider.dart';
@@ -53,6 +55,7 @@ class PushNotificationSystem {
     String username;
     String rideRequestId;
     String userPhone;
+    UserRequestRideInfo userRequest = UserRequestRideInfo();
     final provider = Provider.of<UserGoogleMapProvider>(context, listen: false);
     FirebaseDatabase.instance
         .ref()
@@ -95,7 +98,11 @@ class PushNotificationSystem {
                       userPhone =
                           (snapshotData.snapshot.value as Map)["userPhone"],
                       rideRequestId = snapshotData.snapshot.key!,
-
+                      userRequest.originLatLng = LatLng(originLat!, originLng!),
+                      userRequest.originAddress =originAddress,   
+                      userRequest.destinationLatLng=  LatLng(destinationOriginLat!, destinationOriginLng!),
+                      userRequest.userName =username,
+userRequest.userPhone= userPhone
                       //double originLng =
                     }
                 });
