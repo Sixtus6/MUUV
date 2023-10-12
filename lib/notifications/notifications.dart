@@ -42,14 +42,17 @@ class PushNotificationSystem {
     String userRideRequestId,
     BuildContext context,
   ) async {
-    UserModel? userData = await getUserFromPrefs();
-    // ignore: unused_local_variable
+    // UserModel? userData = await getUserFromPrefs();
+
     double? originLat;
     double? originLng;
     String originAddress;
     double? destinationOriginLat;
     double? destinationOriginLng;
     String destinationOriginAddress;
+    String username;
+    String rideRequestId;
+    String userPhone;
     final provider = Provider.of<UserGoogleMapProvider>(context, listen: false);
     FirebaseDatabase.instance
         .ref()
@@ -60,7 +63,7 @@ class PushNotificationSystem {
         .listen((event) {
       if (event.snapshot.value == "waiting" ||
           event.snapshot.value == "waiting" ||
-          event.snapshot.value == userData!.uid) {
+          event.snapshot.value == provider.user!.uid) {
         FirebaseDatabase.instance
             .ref()
             .child("All Ride Requests")
@@ -85,7 +88,14 @@ class PushNotificationSystem {
                           (snapshotData.snapshot.value! as Map)["destination"]
                               ["longitude"]),
                       destinationOriginAddress = (snapshotData.snapshot.value!
-                          as Map)["destinationAddress"]
+                          as Map)["destinationAddress"],
+
+                      username =
+                          (snapshotData.snapshot.value as Map)["userName"],
+                      userPhone =
+                          (snapshotData.snapshot.value as Map)["userPhone"],
+                      rideRequestId = snapshotData.snapshot.key!,
+
                       //double originLng =
                     }
                 });
