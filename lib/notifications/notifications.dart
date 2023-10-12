@@ -47,8 +47,8 @@ class PushNotificationSystem {
     double? originLat;
     double? originLng;
     String originAddress;
-    String? destinationOriginLat;
-    String? destinationOriginLng;
+    double? destinationOriginLat;
+    double? destinationOriginLng;
     String destinationOriginAddress;
     final provider = Provider.of<UserGoogleMapProvider>(context, listen: false);
     FirebaseDatabase.instance
@@ -76,8 +76,16 @@ class PushNotificationSystem {
                           as Map)["origin"]["latitude"]),
                       originLng = double.parse((snapshotData.snapshot.value!
                           as Map)["origin"]["longitude"]),
-                      originAddress =
-                          (snapshotData.snapshot.value! as Map)["originAddress"]
+                      originAddress = (snapshotData.snapshot.value!
+                          as Map)["originAddress"],
+                      destinationOriginLat = double.parse(
+                          (snapshotData.snapshot.value! as Map)["destination"]
+                              ["latitude"]),
+                      destinationOriginLng = double.parse(
+                          (snapshotData.snapshot.value! as Map)["destination"]
+                              ["longitude"]),
+                      destinationOriginAddress = (snapshotData.snapshot.value!
+                          as Map)["destinationAddress"]
                       //double originLng =
                     }
                 });
