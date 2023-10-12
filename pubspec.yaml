@@ -53,6 +53,7 @@ dependencies:
   location: ^5.0.3
   action_slider: ^0.7.0
   firebase_database: ^10.2.7
+  firebase_messaging: ^14.6.9
 
   # location: ^5.0.3
 
