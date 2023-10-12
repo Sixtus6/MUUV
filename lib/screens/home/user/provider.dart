@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geocoder2/geocoder2.dart';
@@ -126,6 +128,9 @@ class UserGoogleMapProvider with ChangeNotifier {
   String _userRideRequestStatus = "";
   String get userRideRequestStatus => _userRideRequestStatus;
 
+  late AssetsAudioPlayer _audioPlayer;
+  AssetsAudioPlayer get audioPlayer => _audioPlayer;
+
   List<ActiveNearByDrivers> _onlineNearbyAvailableDriverList = [];
   List<ActiveNearByDrivers>? get onlineNearbyAvailableDriverList =>
       _onlineNearbyAvailableDriverList;
@@ -151,6 +156,7 @@ class UserGoogleMapProvider with ChangeNotifier {
   UserGoogleMapProvider() {
     _location = loc.Location();
     _geolocator = Geolocator();
+    _audioPlayer = AssetsAudioPlayer();
     _checkAndRequestPermissions();
   }
 
