@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:muuv/model/user.dart';
 import 'package:muuv/model/userRequestRideInfo.dart';
+import 'package:muuv/notifications/notificationBox.dart';
 import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/utils/helper.dart';
 import 'package:nb_utils/nb_utils.dart';
