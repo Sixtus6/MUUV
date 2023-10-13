@@ -634,6 +634,7 @@ class UserGoogleMapProvider with ChangeNotifier {
 
     _onlineNearbyAvailableDriverList = GeoFireAssistant.activeNearDriversList;
     //searchNearestOnlineDrivers()
+    notifyListeners();
   }
 
   searchNearestOnlineDrivers(String selectedVehicleType, context) async {
@@ -716,6 +717,7 @@ class UserGoogleMapProvider with ChangeNotifier {
         print("driver key information" + _driverList.toString());
       });
     }
+    notifyListeners();
   }
 
   updateDiverArrivalTime(driverCurrentPositionLatLng) async {
@@ -765,5 +767,7 @@ class UserGoogleMapProvider with ChangeNotifier {
         toast("This ride request dosnt exist again");
       }
     });
+
+    notifyListeners();
   }
 }

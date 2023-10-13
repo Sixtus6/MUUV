@@ -39,6 +39,18 @@ class RiderGoogleMapProvider with ChangeNotifier {
   GoogleMapController? _newGoogleMapController;
   GoogleMapController? get newGoogleMapController => _newGoogleMapController;
 
+  void setController(GoogleMapController controller) {
+    _controllerCompleter.complete(controller);
+    notifyListeners();
+  }
+
+  void setnewGoogleMapController(GoogleMapController? controller) {
+    _newGoogleMapController = controller;
+    notifyListeners(); // Notify listeners when the controller is set
+  }
+
+  Future<GoogleMapController> get controller => _controllerCompleter.future;
+
   DriverData _onlineDriverData = DriverData();
   DriverData get onlineDriverData => _onlineDriverData;
 
