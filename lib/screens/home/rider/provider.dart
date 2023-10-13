@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:location/location.dart' as loc;
 import 'package:flutter/material.dart';
@@ -214,7 +215,9 @@ class RiderGoogleMapProvider with ChangeNotifier {
     ref.onDisconnect();
     ref.remove();
     ref = null;
-    Future.delayed(Duration(milliseconds: 2000),(){});
+    Future.delayed(Duration(milliseconds: 2000), () {
+      SystemChannels.platform.invokeListMethod("SystemNavigator.pop");
+    });
   }
 
   RiderGoogleMapProvider() {
