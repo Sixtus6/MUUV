@@ -82,8 +82,11 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                               activeColor: ColorConfig.primary,
                               value: provider.status == "Online",
                               onChanged: (value) {
-                                toast("Online");
-                                provider.setStatus("Online");
+                                provider.rider != null
+                                    ? provider.setStatus("Online")
+                                    : provider.rider != null
+                                        ? toast("You are Online")
+                                        : toast("Please wait");
                               }),
                         ),
                 ),

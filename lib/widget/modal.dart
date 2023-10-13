@@ -238,8 +238,9 @@ Future<dynamic> BottomModalRider(
                           activeColor: ColorConfig.primary,
                           value: provider.status == "Online",
                           onChanged: (value) {
-                            toast("Offline");
+                            toast("You are Offline");
                             provider.setStatus("Offline");
+                            Navigator.pop(context);
                           }).expand()
                       : Container(),
                 ],

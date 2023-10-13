@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_geofire/flutter_geofire.dart';
 import 'package:location/location.dart' as loc;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -162,6 +163,16 @@ class RiderGoogleMapProvider with ChangeNotifier {
       }
     });
     notifyListeners();
+  }
+
+  driverIsOnline() async {
+    Position pos = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    _driverCurrentPosition = pos;
+    Geofire.initialize("activeDrivers");
+    Geofire.setLocation(_rider!.uid, _driverCurrentPosition!.latitude,
+        _driverCurrentPosition!.longitude);
   }
 
   RiderGoogleMapProvider() {
