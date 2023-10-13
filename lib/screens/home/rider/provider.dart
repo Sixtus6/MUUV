@@ -130,7 +130,6 @@ class RiderGoogleMapProvider with ChangeNotifier {
 
   _readCurrentDriverInformation() async {
     RiderModel? riderData = await getRiderFromPrefs();
-    print("it came here");
     FirebaseDatabase.instance
         .ref()
         .child("drivers")
@@ -145,11 +144,11 @@ class RiderGoogleMapProvider with ChangeNotifier {
         _onlineDriverData.email = (snap.snapshot.value as Map)["email"];
         _onlineDriverData.address = (snap.snapshot.value as Map)["address"];
         _onlineDriverData.car_color =
-            (snap.snapshot.value as Map)["car_details"]["car_color"];
+            (snap.snapshot.value as Map)["carColor"];
         _onlineDriverData.car_model =
-            (snap.snapshot.value as Map)["car_details"]["car_model"];
+            (snap.snapshot.value as Map)["carModel"];
         _onlineDriverData.car_number =
-            (snap.snapshot.value as Map)["car_details"]["car_number"];
+            (snap.snapshot.value as Map)["carPlateNum"];
       } else {
         print("its null");
       }
