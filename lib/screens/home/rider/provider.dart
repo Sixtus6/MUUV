@@ -26,6 +26,27 @@ class RiderGoogleMapProvider with ChangeNotifier {
   final bool _isDriverActive = true;
   bool get isDriverActive => _isDriverActive;
 
+  bool _serviceEnabled = false;
+  loc.PermissionStatus _permissionGranted = loc.PermissionStatus.denied;
+  
+  Future<void> _checkAndRequestPermissions() async {
+    _serviceEnabled = await _location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await _location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await _location.hasPermission();
+    if (_permissionGranted == loc.PermissionStatus.denied) {
+      _permissionGranted = await _location.requestPermission();
+      if (_permissionGranted != loc.PermissionStatus.granted) {
+        return;
+      }
+    }
+  }
+
   RiderGoogleMapProvider() {
     _location = loc.Location();
     _geolocator = Geolocator();
