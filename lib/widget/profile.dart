@@ -71,34 +71,52 @@ class _ProfileContainerState extends State<ProfileContainer> {
                     : RichText(
                         text: TextSpan(
                           style: TextStyle(
-                            color: ColorConfig.secondary,
-                            //  fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                            color: ColorConfig.primary,
+                            fontSize: 13,
                           ),
                           children: <TextSpan>[
                             TextSpan(
-                              text: "Color",
-                              //  style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                              text: "color: ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                //  color: ColorConfig.secondary,
+                                // color: Colors.black.withOpacity(0.6),
+                              ),
                             ),
                             TextSpan(
                               text: widget.carColor!,
-                              style: TextStyle(color: ColorConfig.primary),
+                              style: TextStyle(color: ColorConfig.secondary),
                             ),
                             TextSpan(
-                              text: "Plate.no",
-                              //  style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                              text: " plate.no: ",
+                              style: TextStyle(
+                                color: ColorConfig.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             TextSpan(
-                              text: widget.carPlate!,
-                              style: TextStyle(color: ColorConfig.primary),
+                              text: widget.carPlate!  ,
+                              style: TextStyle(color: ColorConfig.secondary),
                             ),
                             TextSpan(
-                              text: "Model",
-                              //  style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                              text: " model: ",
+                              style: TextStyle(
+                                color: ColorConfig.primary,
+                                fontWeight: FontWeight.bold,
+                                // color: Colors.black.withOpacity(
+                                //   0.6,
+                                // ),
+                              ),
                             ),
                             TextSpan(
-                              text: widget.carModel!,
-                              style: TextStyle(color: ColorConfig.primary),
+                              text: widget.carModel!.length.toString().length <
+                                      7
+                                  ? "${widget.carModel!.substring(0, 7)}....."
+                                  : widget.carModel!,
+                              style: TextStyle(
+                                // overflow: TextOverflow.ellipsis,
+                                color: ColorConfig.secondary,
+                              ),
                             ),
                           ],
                         ),

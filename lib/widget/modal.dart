@@ -232,7 +232,7 @@ Future<dynamic> BottomModalRider(
               centerTitle: true,
               automaticallyImplyLeading: false,
               title: Text(
-                'Diver Profile',
+                'Driver Profile',
                 style: TextStyle(color: ColorConfig.secondary),
               ),
               actions: <Widget>[
@@ -290,7 +290,10 @@ Future<dynamic> BottomModalRider(
                             title: 'Home Adress',
                           ),
                           ProfileContainer(
-                            data: provider.rider!.carPlateNumber,
+                            carColor: provider.rider!.carColor,
+                            carModel: provider.rider!.carModel,
+                            carPlate: provider.rider!.carPlateNumber,
+                            data: "",
                             image: 'assets/icon/house.png',
                             title: 'Car Details',
                           ),
