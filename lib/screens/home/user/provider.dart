@@ -757,6 +757,12 @@ class UserGoogleMapProvider with ChangeNotifier {
             .child(_user!.uid)
             .child("newRidestatus")
             .set("accepted");
+        pauseLiveLocationUpdates();
+
+        //TODO: Lauch new screnn
+        toast("launch new screen");
+      } else {
+        toast("This ride request dosnt exist again");
       }
     });
   }

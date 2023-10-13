@@ -112,7 +112,7 @@ class PushNotificationSystem {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) =>
-                              NotificationDialogBox())
+                              NotificationDialogBox(userRideDetails: userRequestDetails,))
                       //double originLng =
                     }
                   else
