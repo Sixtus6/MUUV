@@ -7,6 +7,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:muuv/key/key.dart';
 import 'package:muuv/model/direction.dart';
+import 'package:muuv/model/driverdata.dart';
 import 'package:muuv/model/rider.dart';
 import 'package:muuv/utils/helper.dart';
 
@@ -37,6 +38,9 @@ class RiderGoogleMapProvider with ChangeNotifier {
 
   GoogleMapController? _newGoogleMapController;
   GoogleMapController? get newGoogleMapController => _newGoogleMapController;
+
+  DriverData _onlineDriverData = DriverData();
+  DriverData get onlineDriverData => _onlineDriverData;
 
   Position? _driverCurrentPosition;
   Position? get driverCurrentPosition => _driverCurrentPosition;
@@ -114,10 +118,23 @@ class RiderGoogleMapProvider with ChangeNotifier {
 
   readCurrentDriverInformation() async {
     RiderModel? riderData = await getRiderFromPrefs();
-    FirebaseDatabase.instance.ref().child("drivers").child(riderData!.uid).once().then((snap) {
-if(snap.snapshot.value != null ){
-
-}
+    FirebaseDatabase.instance
+        .ref()
+        .child("drivers")
+        .child(riderData!.uid)
+        .once()
+        .then((snap) {
+      if (snap.snapshot.value != null) {
+        _onlineDriverData.id = (snap.snapshot.value as Map)["id"];
+        _onlineDriverData.name = (snap.snapshot.value as Map)["name"];
+        _onlineDriverData.phone = (snap.snapshot.value as Map)["phone"];
+        _onlineDriverData.email = (snap.snapshot.value as Map)["email"];
+        _onlineDriverData.address = (snap.snapshot.value as Map)["address"];
+        _onlineDriverData.car_color = (snap.snapshot.value as Map)["car_color"];
+        _onlineDriverData.car_model = (snap.snapshot.value as Map)["car_model"];
+        _onlineDriverData.car_number =
+            (snap.snapshot.value as Map)["car_number"];
+      }
     });
   }
 
