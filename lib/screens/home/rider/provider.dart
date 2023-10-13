@@ -173,8 +173,19 @@ class RiderGoogleMapProvider with ChangeNotifier {
     Geofire.initialize("activeDrivers");
     Geofire.setLocation(_rider!.uid, _driverCurrentPosition!.latitude,
         _driverCurrentPosition!.longitude);
+
+    DatabaseReference ref = FirebaseDatabase.instance
+        .ref()
+        .child("drivers")
+        .child(_rider!.uid)
+        .child("newRideStatus");
+
+    ref.set("idle");
+    ref.onValue.listen((event) { })
   }
 
+
+updateDriversLocationAtRealTime(){}
   RiderGoogleMapProvider() {
     _location = loc.Location();
     _geolocator = Geolocator();
