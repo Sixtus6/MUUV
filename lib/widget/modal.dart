@@ -206,6 +206,7 @@ Future<dynamic> BottomModal(
   );
 }
 
+// ignore: non_constant_identifier_names
 Future<dynamic> BottomModalRider(
   BuildContext context,
   RiderGoogleMapProvider provider,
