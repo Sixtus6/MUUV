@@ -135,6 +135,10 @@ class UserGoogleMapProvider with ChangeNotifier {
   List<ActiveNearByDrivers>? get onlineNearbyAvailableDriverList =>
       _onlineNearbyAvailableDriverList;
 
+  resetAudioPlayer() {
+    _audioPlayer = AssetsAudioPlayer();
+  }
+
   findPlaceAutoCompleSearch(String inputText) async {
     if (inputText.length > 1) {
       String urlSearch =
@@ -653,7 +657,7 @@ class UserGoogleMapProvider with ChangeNotifier {
     toast("Ride Request Sent");
     //Show searcing for drivers container
 
-    await FirebaseDatabase.instance
+     FirebaseDatabase.instance
         .ref()
         .child("All Ride Request")
         .child(referenceRideRequest!.key!)
