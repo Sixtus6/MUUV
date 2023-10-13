@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
@@ -107,6 +108,10 @@ class UserGoogleMapProvider with ChangeNotifier {
   StreamSubscription<DatabaseEvent>? _tripRidesRequestStream;
   StreamSubscription<DatabaseEvent>? get tripRidesRequestStream =>
       _tripRidesRequestStream;
+
+  StreamSubscription<Position>? _streamSubscriptionPosition;
+  StreamSubscription<Position>? get streamSubscriptionPosition =>
+      _streamSubscriptionPosition;
 
   DatabaseReference? _referenceRideRequest;
   DatabaseReference? get referenceRideRequest => _referenceRideRequest;
@@ -657,7 +662,7 @@ class UserGoogleMapProvider with ChangeNotifier {
     toast("Ride Request Sent");
     //Show searcing for drivers container
 
-     FirebaseDatabase.instance
+    FirebaseDatabase.instance
         .ref()
         .child("All Ride Request")
         .child(referenceRideRequest!.key!)
@@ -730,5 +735,29 @@ class UserGoogleMapProvider with ChangeNotifier {
       _requestPositionInfo = true;
     }
     notifyListeners();
+  }
+
+  pauseLiveLocationUpdates() {
+    _streamSubscriptionPosition!.pause();
+    Geofire.removeLocation(_user!.uid);
+  }
+
+  acceptRideRequest() {
+    FirebaseDatabase.instance
+        .ref()
+        .child("drivers")
+        .child(_user!.uid)
+        .child("newRideStatus")
+        .once()
+        .then((snap) {
+      if (snap.snapshot.value == "Idle") {
+        FirebaseDatabase.instance
+            .ref()
+            .child("drivers")
+            .child(_user!.uid)
+            .child("newRidestatus")
+            .set("accepted");
+      }
+    });
   }
 }
