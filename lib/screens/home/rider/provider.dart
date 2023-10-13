@@ -68,6 +68,9 @@ class RiderGoogleMapProvider with ChangeNotifier {
 
   Direction? _driverPickUpLocation;
 
+  StreamSubscription<Position>? _streamSubscriptionPosition;
+  StreamSubscription<Position>? _streamSubscriptionDriverLivePosition;
+
   Future<void> _checkAndRequestPermissions() async {
     _serviceEnabled = await _location.serviceEnabled();
     if (!_serviceEnabled) {
@@ -184,7 +187,22 @@ class RiderGoogleMapProvider with ChangeNotifier {
     ref.onValue.listen((event) {});
   }
 
-  updateDriversLocationAtRealTime() {}
+  updateDriversLocationAtRealTime() {
+    _streamSubscriptionPosition =
+        Geolocator.getPositionStream().listen((Position position) {
+      //_isDriverActive == true;
+      if (_status == "Online") {
+        Geofire.setLocation(_rider!.uid, _driverCurrentPosition!.latitude,
+            _driverCurrentPosition!.longitude);
+      }
+
+      LatLng latLng = LatLng(
+          _driverCurrentPosition!.latitude, _driverCurrentPosition!.longitude);
+
+      _newGoogleMapController!.animateCamera(CameraUpdate.newLatLng(latLng));
+    });
+  }
+
   RiderGoogleMapProvider() {
     _location = loc.Location();
     _geolocator = Geolocator();
