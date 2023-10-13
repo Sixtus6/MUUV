@@ -3,6 +3,9 @@ import 'package:location/location.dart' as loc;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:muuv/key/key.dart';
+import 'package:muuv/model/direction.dart';
+import 'package:muuv/utils/helper.dart';
 
 class RiderGoogleMapProvider with ChangeNotifier {
   Completer<GoogleMapController> _controllerCompleter = Completer();
@@ -28,7 +31,15 @@ class RiderGoogleMapProvider with ChangeNotifier {
 
   bool _serviceEnabled = false;
   loc.PermissionStatus _permissionGranted = loc.PermissionStatus.denied;
-  
+
+  GoogleMapController? _newGoogleMapController;
+  GoogleMapController? get newGoogleMapController => _newGoogleMapController;
+
+  Position? _driverCurrentPosition;
+  Position? get driverCurrentPosition => _driverCurrentPosition;
+
+  Direction? _driverPickUpLocation;
+
   Future<void> _checkAndRequestPermissions() async {
     _serviceEnabled = await _location.serviceEnabled();
     if (!_serviceEnabled) {
@@ -46,6 +57,59 @@ class RiderGoogleMapProvider with ChangeNotifier {
       }
     }
   }
+
+  void _updatePickuplocationAddress(Direction userPickupaddress) {
+    _driverPickUpLocation = userPickupaddress;
+    notifyListeners();
+  }
+
+  Future<String> searchAddressViaCordinates(Position position) async {
+    String apiUrl =
+        "https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude},${position.latitude}&key=${KeyConfig.googleApiKey}";
+
+    print(apiUrl);
+    String addressCordinate = "";
+    var responseRequest = await receiveRequest(apiUrl);
+
+    if (responseRequest != null) {
+      addressCordinate = responseRequest["results"][0]["formatted_address"];
+
+      Direction driverPickupaddress = Direction();
+      driverPickupaddress.locationLat = position.latitude.toString();
+      driverPickupaddress.locationLong = position.longitude.toString();
+      driverPickupaddress.locationName = addressCordinate.toString();
+      _updatePickuplocationAddress(driverPickupaddress);
+
+      // final screenState = Provider.of<UserRideInfo>(context,listen: false);
+    }
+    return addressCordinate;
+  }
+
+  Future<void> locateDriverPosition() async {
+    try {
+      Position cPosition = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      _driverCurrentPosition = cPosition;
+
+      LatLng latLngPosition = LatLng(
+          _driverCurrentPosition!.latitude, _driverCurrentPosition!.longitude);
+      CameraPosition cameraPosition =
+          CameraPosition(target: latLngPosition, zoom: 15);
+
+      _newGoogleMapController!
+          .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+
+      String driverAddress =
+          await searchAddressViaCordinates(_driverCurrentPosition!);
+      print(["this is user curren position", driverAddress]);
+
+      notifyListeners();
+    } catch (e) {
+      print('Error locating user position: $e');
+    }
+  }
+
+  
 
   RiderGoogleMapProvider() {
     _location = loc.Location();
