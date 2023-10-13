@@ -35,7 +35,6 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                       onMapCreated: (controller) {
                         provider.setController(controller);
                         provider.setnewGoogleMapController(controller);
-
                         provider.locateDriverPosition();
                       },
                       // onCameraMove: (CameraPosition? position) {
@@ -82,11 +81,14 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                               activeColor: ColorConfig.primary,
                               value: provider.status == "Online",
                               onChanged: (value) {
-                                provider.rider != null
-                                    ? provider.setStatus("Online")
-                                    : provider.rider != null
-                                        ? toast("You are Online")
-                                        : toast("Please wait");
+                                if (provider.rider != null) {
+                                  provider.driverIsOnline();
+                                  provider.updateDriversLocationAtRealTime();
+                                  provider.setStatus("Online");
+                                  toast("You are Online");
+                                } else {
+                                  toast("Please wait");
+                                }
                               }),
                         ),
                 ),

@@ -240,6 +240,7 @@ Future<dynamic> BottomModalRider(
                           onChanged: (value) {
                             toast("You are Offline");
                             provider.setStatus("Offline");
+                            provider.driverIsOffline();
                             Navigator.pop(context);
                           }).expand()
                       : Container(),
