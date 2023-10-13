@@ -30,6 +30,9 @@ class RiderGoogleMapProvider with ChangeNotifier {
   String _status = "Offline";
   String get status => _status;
 
+  RiderModel? _rider;
+  RiderModel? get rider => _rider;
+
   final bool _isDriverActive = true;
   bool get isDriverActive => _isDriverActive;
 
@@ -126,6 +129,8 @@ class RiderGoogleMapProvider with ChangeNotifier {
       String driverAddress =
           await searchAddressViaCordinates(_driverCurrentPosition!);
       print(["this is user curren position", driverAddress]);
+      RiderModel? riderData = await getRiderFromPrefs();
+      _rider = riderData;
       _readCurrentDriverInformation();
       notifyListeners();
     } catch (e) {
