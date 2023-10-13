@@ -233,13 +233,15 @@ Future<dynamic> BottomModalRider(
               automaticallyImplyLeading: false,
               leading: Row(
                 children: [
-                  Switch.adaptive(
-                      activeColor: ColorConfig.primary,
-                      value: provider.status == "Online",
-                      onChanged: (value) {
-                        toast("Offline");
-                        provider.setStatus("Offline");
-                      }).expand(),
+                  provider.status == "Online"
+                      ? Switch.adaptive(
+                          activeColor: ColorConfig.primary,
+                          value: provider.status == "Online",
+                          onChanged: (value) {
+                            toast("Offline");
+                            provider.setStatus("Offline");
+                          }).expand()
+                      : Container(),
                 ],
               ),
               title: Text(
