@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lottie/lottie.dart';
+import 'package:muuv/config/color.dart';
 import 'package:muuv/screens/home/rider/provider.dart';
 import 'package:muuv/screens/onboarding/index.dart';
 import 'package:muuv/widget/loader.dart';
@@ -44,7 +46,7 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                       // },
                       initialCameraPosition: const CameraPosition(
                         target: LatLng(37.7749, -122.4194),
-                        zoom: 15,
+                        zoom: 11.5,
                       ),
                       mapType: MapType.normal,
                       myLocationButtonEnabled: true,
@@ -57,10 +59,30 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                     )
                   : Center(child: ShimmerLoader()),
               Container(
-                color: Colors.black87.withOpacity(0.5),
+                color: Colors.black87.withOpacity(0.7),
               )
                   .withHeight(MediaQuery.of(context).size.height)
                   .withWidth(double.infinity),
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(155),
+                  child: provider.status == "Online"
+                      ? Lottie.asset(
+                          "assets/lottie/locpin.json",
+                        )
+                      : Transform.scale(
+                          scale: 2,
+                          child: Switch.adaptive(
+                              activeColor: ColorConfig.primary,
+                              value: provider.status == "Online",
+                              onChanged: (value) {
+                                toast("Online");
+                                provider.setStatus("Onlinee");
+                              }),
+                        ),
+                ),
+              )
             ]);
           },
         ),

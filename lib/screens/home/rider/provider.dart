@@ -27,7 +27,7 @@ class RiderGoogleMapProvider with ChangeNotifier {
   late loc.Location _location;
   loc.Location get location => _location;
 
-  final String _status = "Offline";
+  String _status = "Offline";
   String get status => _status;
 
   final bool _isDriverActive = true;
@@ -46,6 +46,11 @@ class RiderGoogleMapProvider with ChangeNotifier {
 
   void setnewGoogleMapController(GoogleMapController? controller) {
     _newGoogleMapController = controller;
+    notifyListeners(); // Notify listeners when the controller is set
+  }
+
+  void setStatus(String data) {
+    _status = data;
     notifyListeners(); // Notify listeners when the controller is set
   }
 
@@ -143,10 +148,8 @@ class RiderGoogleMapProvider with ChangeNotifier {
         _onlineDriverData.phone = (snap.snapshot.value as Map)["phone"];
         _onlineDriverData.email = (snap.snapshot.value as Map)["email"];
         _onlineDriverData.address = (snap.snapshot.value as Map)["address"];
-        _onlineDriverData.car_color =
-            (snap.snapshot.value as Map)["carColor"];
-        _onlineDriverData.car_model =
-            (snap.snapshot.value as Map)["carModel"];
+        _onlineDriverData.car_color = (snap.snapshot.value as Map)["carColor"];
+        _onlineDriverData.car_model = (snap.snapshot.value as Map)["carModel"];
         _onlineDriverData.car_number =
             (snap.snapshot.value as Map)["carPlateNum"];
       } else {
