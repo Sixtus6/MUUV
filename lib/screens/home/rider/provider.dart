@@ -181,11 +181,10 @@ class RiderGoogleMapProvider with ChangeNotifier {
         .child("newRideStatus");
 
     ref.set("idle");
-    ref.onValue.listen((event) { })
+    ref.onValue.listen((event) {});
   }
 
-
-updateDriversLocationAtRealTime(){}
+  updateDriversLocationAtRealTime() {}
   RiderGoogleMapProvider() {
     _location = loc.Location();
     _geolocator = Geolocator();
