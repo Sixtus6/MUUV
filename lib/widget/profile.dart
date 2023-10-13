@@ -5,10 +5,19 @@ import 'package:nb_utils/nb_utils.dart';
 
 class ProfileContainer extends StatefulWidget {
   const ProfileContainer(
-      {required this.image, required this.data, required this.title});
+      {required this.image,
+      required this.data,
+      required this.title,
+      this.carColor,
+      this.carModel,
+      this.carPlate});
   final String image;
   final String data;
   final String title;
+  final String? carColor;
+  final String? carPlate;
+  final String? carModel;
+
   @override
   State<ProfileContainer> createState() => _ProfileContainerState();
 }
@@ -51,13 +60,49 @@ class _ProfileContainerState extends State<ProfileContainer> {
                       fontSize: 15,
                       fontWeight: FontWeight.bold),
                 ),
-                Text(
-                  widget.data,
-                  style: TextStyle(
-                    color: ColorConfig.secondary,
-                    fontSize: 13,
-                  ),
-                ),
+                widget.data != ''
+                    ? Text(
+                        widget.data,
+                        style: TextStyle(
+                          color: ColorConfig.secondary,
+                          fontSize: 13,
+                        ),
+                      )
+                    : RichText(
+                        text: TextSpan(
+                          style: TextStyle(
+                            color: ColorConfig.secondary,
+                            //  fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: "Color",
+                              //  style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                            ),
+                            TextSpan(
+                              text: widget.carColor!,
+                              style: TextStyle(color: ColorConfig.primary),
+                            ),
+                            TextSpan(
+                              text: "Plate.no",
+                              //  style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                            ),
+                            TextSpan(
+                              text: widget.carPlate!,
+                              style: TextStyle(color: ColorConfig.primary),
+                            ),
+                            TextSpan(
+                              text: "Model",
+                              //  style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                            ),
+                            TextSpan(
+                              text: widget.carModel!,
+                              style: TextStyle(color: ColorConfig.primary),
+                            ),
+                          ],
+                        ),
+                      ),
                 SizeConfigs.getPercentageWidth(2).toInt().height,
               ],
             )

@@ -4,6 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/screens/home/rider/provider.dart';
+import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/screens/onboarding/index.dart';
 import 'package:muuv/widget/loader.dart';
 import 'package:muuv/widget/modal.dart';
@@ -86,46 +87,46 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                               }),
                         ),
                 ),
-              )
-                   Positioned(
-              top: 0,
-              left: 0,
-              child: Consumer<RiderGoogleMapProvider>(
-                builder: (BuildContext context, provider, _) {
-                  return GestureDetector(
-                    onTap: () {
-                      print("object");
-                      provider.user != null
-                          ? BottomModal(context, provider, false)
-                          : toast("Please wait");
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.7),
-                        borderRadius: BorderRadius.all(Radius.circular(3)),
-                        boxShadow: const [
-                          BoxShadow(
-                            color: Colors.black12, // Border color
-                            blurRadius: 1.0, // Border width
-                            spreadRadius: 1, // Border width
-                            // Offset of the border
-                          ),
-                        ],
-                      ),
-                      height: SizeConfigs.getPercentageWidth(11),
-                      width: SizeConfigs.getPercentageWidth(11),
-                      margin: EdgeInsets.only(
-                          left: SizeConfigs.getPercentageWidth(4),
-                          top: SizeConfigs.getPercentageWidth(4)),
-                      padding:
-                          EdgeInsets.all(SizeConfigs.getPercentageWidth(2)),
-                      child: Image.asset('assets/icon/user.png',
-                          color: Colors.black54),
-                    ),
-                  );
-                },
               ),
-            )
+              Positioned(
+                top: 0,
+                left: 0,
+                child: Consumer<RiderGoogleMapProvider>(
+                  builder: (BuildContext context, provider, _) {
+                    return GestureDetector(
+                      onTap: () {
+                        print("object");
+                        provider.rider != null
+                            ? BottomModalRider(context, provider, false)
+                            : toast("Please wait");
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.7),
+                          borderRadius: BorderRadius.all(Radius.circular(3)),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black12, // Border color
+                              blurRadius: 1.0, // Border width
+                              spreadRadius: 1, // Border width
+                              // Offset of the border
+                            ),
+                          ],
+                        ),
+                        height: SizeConfigs.getPercentageWidth(11),
+                        width: SizeConfigs.getPercentageWidth(11),
+                        margin: EdgeInsets.only(
+                            left: SizeConfigs.getPercentageWidth(4),
+                            top: SizeConfigs.getPercentageWidth(4)),
+                        padding:
+                            EdgeInsets.all(SizeConfigs.getPercentageWidth(2)),
+                        child: Image.asset('assets/icon/user.png',
+                            color: Colors.black54),
+                      ),
+                    );
+                  },
+                ),
+              )
             ]);
           },
         ),
