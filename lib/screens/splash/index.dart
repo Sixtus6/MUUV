@@ -6,6 +6,7 @@ import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/controllers/user/auth.dart';
 import 'package:muuv/model/user.dart';
+import 'package:muuv/screens/home/rider/index.dart';
 import 'package:muuv/screens/home/user/index.dart';
 import 'package:muuv/screens/onboarding/index.dart';
 import 'package:muuv/utils/helper.dart';
@@ -29,6 +30,11 @@ class _SplashScreenState extends State<SplashScreen> {
             pageRouteAnimation: PageRouteAnimation.Fade, isNewTask: true);
       } else if (!rider.isEmptyOrNull) {
         print("rider screen");
+
+        //  OnboardingScreen().launch(context,
+        //     pageRouteAnimation: PageRouteAnimation.Fade, isNewTask: true);
+             RiderHomePage().launch(context,
+            pageRouteAnimation: PageRouteAnimation.Fade, isNewTask: true);
       } else {
         OnboardingScreen().launch(context,
             pageRouteAnimation: PageRouteAnimation.Fade, isNewTask: true);

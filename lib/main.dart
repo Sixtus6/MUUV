@@ -4,6 +4,7 @@ import 'package:muuv/config/color.dart';
 import 'package:muuv/controllers/rider/auth.dart';
 import 'package:muuv/controllers/user/auth.dart';
 import 'package:muuv/provider/theme.dart';
+import 'package:muuv/screens/home/rider/provider.dart';
 import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/screens/mainscreen.dart';
 //import 'package:muuv/screens/rider/index.dart';
@@ -44,6 +45,8 @@ Future<void> main() async {
             create: (_) => UserGoogleMapProvider()),
         ChangeNotifierProvider<RiderAuthProvider>(
             create: (_) => RiderAuthProvider()),
+              ChangeNotifierProvider<RiderGoogleMapProvider>(
+            create: (_) => RiderGoogleMapProvider()),
         //    ChangeNotifierProvider<UserRideInfo>(create: (_) => UserRideInfo())
       ],
       child: MyApp(),

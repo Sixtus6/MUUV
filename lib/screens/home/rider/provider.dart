@@ -121,7 +121,7 @@ class RiderGoogleMapProvider with ChangeNotifier {
       String driverAddress =
           await searchAddressViaCordinates(_driverCurrentPosition!);
       print(["this is user curren position", driverAddress]);
-
+      _readCurrentDriverInformation();
       notifyListeners();
     } catch (e) {
       print('Error locating user position: $e');
@@ -130,6 +130,7 @@ class RiderGoogleMapProvider with ChangeNotifier {
 
   _readCurrentDriverInformation() async {
     RiderModel? riderData = await getRiderFromPrefs();
+    print("it came here");
     FirebaseDatabase.instance
         .ref()
         .child("drivers")
@@ -149,14 +150,17 @@ class RiderGoogleMapProvider with ChangeNotifier {
             (snap.snapshot.value as Map)["car_details"]["car_model"];
         _onlineDriverData.car_number =
             (snap.snapshot.value as Map)["car_details"]["car_number"];
+      } else {
+        print("its null");
       }
     });
+    notifyListeners();
   }
 
   RiderGoogleMapProvider() {
     _location = loc.Location();
     _geolocator = Geolocator();
-    _readCurrentDriverInformation();
+
     _checkAndRequestPermissions();
   }
 }

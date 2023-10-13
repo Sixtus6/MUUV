@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 import 'package:muuv/model/rider.dart';
 import 'package:muuv/model/user.dart';
@@ -92,6 +93,9 @@ class RiderAuthProvider with ChangeNotifier {
       // If user creation is successful, we can now update additional user details
       await _updateUserDetails(userCredential.user!, name, phoneNumber, address,
           model, color, platenumber);
+
+      await _updateUserDetailsRealTime(userCredential.user!, name, phoneNumber,
+          address, model, color, platenumber);
       _isSignUpSuccessful = true;
       notifyListeners();
       toast("Account created successfully");
@@ -140,6 +144,33 @@ class RiderAuthProvider with ChangeNotifier {
     }
   }
 
+  Future<void> _updateUserDetailsRealTime(
+      User user,
+      String name,
+      String phoneNumber,
+      String address,
+      String model,
+      String color,
+      String platenumber) async {
+    try {
+      DatabaseReference ref =
+          FirebaseDatabase.instance.ref().child('drivers').child(user.uid);
+
+      await ref.set({
+        'fullName': name,
+        'phoneNumber': phoneNumber,
+        'address': address,
+        'carModel': model,
+        'carColor': color,
+        'carPlateNum': platenumber,
+        // Add other details as needed
+      });
+    } catch (e) {
+      print('Error updating user details: $e');
+      rethrow;
+    }
+  }
+
   Future<void> _fetchUserDetails(String uid, email) async {
     // Fetch user details from Firestore using uid and update _userDetails
     // Example: Fetching from a 'users' collection
@@ -154,9 +185,9 @@ class RiderAuthProvider with ChangeNotifier {
         address: userSnapshot['address'],
         phoneNumber: userSnapshot['phoneNumber'],
         password: "",
-        carColor: '',
-        carPlateNumber: '',
-        carModel: '',
+        carColor: userSnapshot['carColor'],
+        carPlateNumber: userSnapshot['carPlateNum'],
+        carModel: userSnapshot['carModel'],
       );
     }
   }

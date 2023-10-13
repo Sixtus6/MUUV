@@ -30,7 +30,8 @@ class RiderModel {
       'phoneNumber': phoneNumber,
       'address': address,
       'carModel': carModel,
-      'carColor': carColor
+      'carColor': carColor,
+      'carPlateNum': carPlateNumber
     };
   }
 
@@ -43,7 +44,7 @@ class RiderModel {
       address: json['address'] as String,
       carColor: json['carColor'] as String,
       carModel: json['carModel'] as String,
-      carPlateNumber: json['carPlateNumber'] as String,
+      carPlateNumber: json['carPlateNum'] as String,
       password: json['password'] as String,
     );
   }
