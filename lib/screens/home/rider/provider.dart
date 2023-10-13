@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:location/location.dart' as loc;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -17,9 +17,19 @@ class RiderGoogleMapProvider with ChangeNotifier {
   LocationPermission? _locationPermission;
   LocationPermission? get locationPermission => _locationPermission;
 
-  String _status = "Offline";
+  late loc.Location _location;
+  loc.Location get location => _location;
+
+  final String _status = "Offline";
   String get status => _status;
 
-  bool _openNavigationDrawer = true;
-  bool get openNavigationDrawer => _openNavigationDrawer;
+  final bool _isDriverActive = true;
+  bool get isDriverActive => _isDriverActive;
+
+  RiderGoogleMapProvider() {
+    _location = loc.Location();
+    _geolocator = Geolocator();
+
+    _checkAndRequestPermissions();
+  }
 }
