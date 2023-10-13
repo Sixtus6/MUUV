@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:location/location.dart' as loc;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -113,7 +114,11 @@ class RiderGoogleMapProvider with ChangeNotifier {
 
   readCurrentDriverInformation() async {
     RiderModel? riderData = await getRiderFromPrefs();
-    
+    FirebaseDatabase.instance.ref().child("drivers").child(riderData!.uid).once().then((snap) {
+if(snap.snapshot.value != null ){
+
+}
+    });
   }
 
   RiderGoogleMapProvider() {
