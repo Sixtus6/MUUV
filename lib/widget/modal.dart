@@ -231,6 +231,9 @@ Future<dynamic> BottomModalRider(
             AppBar(
               centerTitle: true,
               automaticallyImplyLeading: false,
+              leading: Row(
+                children: [],
+              ),
               title: Text(
                 'Driver Profile',
                 style: TextStyle(color: ColorConfig.secondary),
