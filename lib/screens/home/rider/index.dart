@@ -10,6 +10,6 @@ class RiderHomePage extends StatefulWidget {
 class _RiderHomeScreenState extends State<RiderHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold ();
+    return SafeArea(child: GestureDetector(child: Stack(children: [Scaffold()])));
   }
 }

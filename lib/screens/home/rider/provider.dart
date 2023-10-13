@@ -125,6 +125,7 @@ class RiderGoogleMapProvider with ChangeNotifier {
         .once()
         .then((snap) {
       if (snap.snapshot.value != null) {
+        print(["this is the snapshot data", snap.snapshot.value]);
         _onlineDriverData.id = (snap.snapshot.value as Map)["id"];
         _onlineDriverData.name = (snap.snapshot.value as Map)["name"];
         _onlineDriverData.phone = (snap.snapshot.value as Map)["phone"];
