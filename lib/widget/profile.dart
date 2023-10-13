@@ -43,10 +43,16 @@ class _ProfileContainerState extends State<ProfileContainer> {
               height: 30,
               width: 30,
               // padding: EdgeInsets.all(10),
-              child: Image.asset(
-                widget.image,
-                color: ColorConfig.primary,
-              ),
+              child: widget.data != ""
+                  ? Image.asset(
+                      widget.image,
+                      color: ColorConfig.primary,
+                    )
+                  : Icon(
+                      Icons.directions_car,
+                      color: ColorConfig.primary,
+                      size: 33,
+                    ),
             ),
             SizeConfigs.getPercentageWidth(3).toInt().width,
             Column(
@@ -95,7 +101,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
                               ),
                             ),
                             TextSpan(
-                              text: widget.carPlate!  ,
+                              text: widget.carPlate!,
                               style: TextStyle(color: ColorConfig.secondary),
                             ),
                             TextSpan(
