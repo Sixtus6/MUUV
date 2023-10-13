@@ -232,7 +232,15 @@ Future<dynamic> BottomModalRider(
               centerTitle: true,
               automaticallyImplyLeading: false,
               leading: Row(
-                children: [],
+                children: [
+                  Switch.adaptive(
+                      activeColor: ColorConfig.primary,
+                      value: provider.status == "Online",
+                      onChanged: (value) {
+                        toast("Offline");
+                        provider.setStatus("Offline");
+                      }).expand(),
+                ],
               ),
               title: Text(
                 'Driver Profile',
