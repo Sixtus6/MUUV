@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:location/location.dart' as loc;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:muuv/key/key.dart';
 import 'package:muuv/model/direction.dart';
+import 'package:muuv/model/rider.dart';
 import 'package:muuv/utils/helper.dart';
 
 class RiderGoogleMapProvider with ChangeNotifier {
@@ -109,7 +111,10 @@ class RiderGoogleMapProvider with ChangeNotifier {
     }
   }
 
-  
+  readCurrentDriverInformation() async {
+    RiderModel? riderData = await getRiderFromPrefs();
+    
+  }
 
   RiderGoogleMapProvider() {
     _location = loc.Location();

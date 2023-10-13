@@ -36,6 +36,21 @@ Future<UserModel?> getUserFromPrefs() async {
   return null;
 }
 
+Future<RiderModel?> getRiderFromPrefs() async {
+  final riderJson = getStringAsync("rider");
+  if (riderJson != null) {
+    print([riderJson.runtimeType, jsonDecode(riderJson)]);
+    final Map<String, dynamic> userMap = jsonDecode(riderJson);
+    final decoded = RiderModel.fromJson(userMap);
+    // // print(jsonEncode(decoded));
+    // print([decoded.runtimeType]);
+    // print([decoded]);
+    return decoded;
+  }
+
+  return null;
+}
+
 Future<dynamic> receiveRequest(String url) async {
   http.Response response = await http.get(Uri.parse(url));
   try {
@@ -123,10 +138,10 @@ sendNotificationToDriverNow(String deviceRegistrationToken,
   };
 
   Map officialNotification = {
-    "notification":bodyNotification,
+    "notification": bodyNotification,
     "data": dataMap,
-    "priority":"high",  
-    "to": deviceRegistrationToken, 
+    "priority": "high",
+    "to": deviceRegistrationToken,
   };
 
   var responseNotification = http.post(
