@@ -203,6 +203,20 @@ class RiderGoogleMapProvider with ChangeNotifier {
     });
   }
 
+  driverIsOffline() {
+    Geofire.removeLocation(_rider!.uid);
+    DatabaseReference? ref = FirebaseDatabase.instance
+        .ref()
+        .child("drivers")
+        .child(_rider!.uid)
+        .child("newRideStatus");
+
+    ref.onDisconnect();
+    ref.remove();
+    ref = null;
+    Future.delayed(Duration(milliseconds: 2000),(){});
+  }
+
   RiderGoogleMapProvider() {
     _location = loc.Location();
     _geolocator = Geolocator();
