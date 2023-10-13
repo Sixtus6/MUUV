@@ -116,7 +116,7 @@ class RiderGoogleMapProvider with ChangeNotifier {
     }
   }
 
-  readCurrentDriverInformation() async {
+  _readCurrentDriverInformation() async {
     RiderModel? riderData = await getRiderFromPrefs();
     FirebaseDatabase.instance
         .ref()
@@ -130,10 +130,12 @@ class RiderGoogleMapProvider with ChangeNotifier {
         _onlineDriverData.phone = (snap.snapshot.value as Map)["phone"];
         _onlineDriverData.email = (snap.snapshot.value as Map)["email"];
         _onlineDriverData.address = (snap.snapshot.value as Map)["address"];
-        _onlineDriverData.car_color = (snap.snapshot.value as Map)["car_color"];
-        _onlineDriverData.car_model = (snap.snapshot.value as Map)["car_model"];
+        _onlineDriverData.car_color =
+            (snap.snapshot.value as Map)["car_details"]["car_color"];
+        _onlineDriverData.car_model =
+            (snap.snapshot.value as Map)["car_details"]["car_model"];
         _onlineDriverData.car_number =
-            (snap.snapshot.value as Map)["car_number"];
+            (snap.snapshot.value as Map)["car_details"]["car_number"];
       }
     });
   }
@@ -141,7 +143,7 @@ class RiderGoogleMapProvider with ChangeNotifier {
   RiderGoogleMapProvider() {
     _location = loc.Location();
     _geolocator = Geolocator();
-
+    _readCurrentDriverInformation();
     _checkAndRequestPermissions();
   }
 }
