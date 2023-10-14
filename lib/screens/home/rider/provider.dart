@@ -215,9 +215,9 @@ class RiderGoogleMapProvider with ChangeNotifier {
     ref.onDisconnect();
     ref.remove();
     ref = null;
-    Future.delayed(Duration(milliseconds: 2000), () {
-      SystemChannels.platform.invokeListMethod("SystemNavigator.pop");
-    });
+    // Future.delayed(Duration(milliseconds: 2000), () {
+    //   SystemChannels.platform.invokeListMethod("SystemNavigator.pop");
+    // });
   }
 
   RiderGoogleMapProvider() {
