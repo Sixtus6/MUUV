@@ -6,6 +6,7 @@ import 'package:muuv/screens/home/rider/provider.dart';
 import 'package:muuv/screens/home/user/index.dart';
 import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/utils/helper.dart';
+import 'package:muuv/widget/button.dart';
 import 'package:muuv/widget/constant.dart';
 import 'package:muuv/widget/placetitle.dart';
 import 'package:muuv/widget/profile.dart';
@@ -313,11 +314,20 @@ Future<dynamic> BottomModalRider(
                                 data: "",
                                 image: 'assets/icon/house.png',
                                 title: 'Car Details',
-                           
-
+                              ),
                             ],
                           ),
                         )),
+                    Text(
+                      "Logout",
+                      style: TextStyle(color: ColorConfig.primary),
+                    ),
+                    CustomButton(
+                        h: 9,
+                        w: 25,
+                        img: 'assets/icon/passenger1.png',
+                        text: 'Logout',
+                        ontap: () {}),
                   ],
                 );
 
