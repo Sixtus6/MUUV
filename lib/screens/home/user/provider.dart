@@ -239,7 +239,11 @@ class UserGoogleMapProvider with ChangeNotifier {
       _email = userData.emailAddress;
       _user = userData;
       dev.log("initiLze");
-      initializeGeofireListiner();
+
+      _userCurrentPosition != null
+          ? initializeGeofireListiner()
+          : print("this is null so waiting");
+
       notifyListeners();
     } catch (e) {
       print('Error locating user position: $e');
@@ -319,7 +323,7 @@ class UserGoogleMapProvider with ChangeNotifier {
     print(["This image processsing", _activeNearbyIcon]);
     if (_activeNearbyIcon == null) {
       ImageConfiguration imageConfiguration =
-          createLocalImageConfiguration(context, size: Size(0.2, 0.2));
+          createLocalImageConfiguration(context, size: Size(5, 5));
       BitmapDescriptor.fromAssetImage(imageConfiguration, "assets/icon/car.png")
           .then((value) {
         _activeNearbyIcon = value;
