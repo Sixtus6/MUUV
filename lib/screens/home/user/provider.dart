@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
@@ -215,6 +216,7 @@ class UserGoogleMapProvider with ChangeNotifier {
   }
 
   Future<void> locateUserPosition() async {
+    dev.log("locate");
     try {
       Position cPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
@@ -236,6 +238,7 @@ class UserGoogleMapProvider with ChangeNotifier {
       _username = userData!.name;
       _email = userData.emailAddress;
       _user = userData;
+      dev.log("initiLze");
       initializeGeofireListiner();
       notifyListeners();
     } catch (e) {
@@ -249,14 +252,15 @@ class UserGoogleMapProvider with ChangeNotifier {
     Geofire.queryAtLocation(
             _userCurrentPosition!.latitude, userCurrentPosition!.longitude, 10)!
         .listen((event) {
+      print(event);
       if (event != null) {
         var callback = event["callBack"];
-        print(callback);
+        //  print(callback);
         switch (callback) {
           case Geofire.onKeyEntered:
             ActiveNearByDrivers activeNearByDrivers = ActiveNearByDrivers();
-            activeNearByDrivers.locationLat = event["latitude"].toString();
-            activeNearByDrivers.locationLong = event["longitude"].toString();
+            activeNearByDrivers.locationLat = event["latitude"];
+            activeNearByDrivers.locationLong = event["longitude"];
             activeNearByDrivers.driverID = event["key"];
             GeoFireAssistant.activeNearDriversList.add(activeNearByDrivers);
             if (_activeNearbyDriverKeysLoaded == true) {
@@ -295,15 +299,14 @@ class UserGoogleMapProvider with ChangeNotifier {
     Set<Marker> driversMarkerSet = Set<Marker>();
     for (ActiveNearByDrivers eachDriver
         in GeoFireAssistant.activeNearDriversList) {
-      LatLng eachDriverActivePosition = LatLng(
-          double.parse(eachDriver.locationLat!),
-          double.parse(eachDriver.locationLong!));
+      LatLng eachDriverActivePosition =
+          LatLng(eachDriver.locationLat!, eachDriver.locationLong!);
 
       Marker marker = Marker(
           markerId: MarkerId(eachDriver.driverID!),
           position: eachDriverActivePosition,
           icon: _activeNearbyIcon!,
-          rotation: 300);
+          rotation: 360);
 
       driversMarkerSet.add(marker);
     }
@@ -313,17 +316,16 @@ class UserGoogleMapProvider with ChangeNotifier {
   }
 
   createActiveNearbyIconMarker(context) {
-         print(["This image processsing", _activeNearbyIcon ]);
+    print(["This image processsing", _activeNearbyIcon]);
     if (_activeNearbyIcon == null) {
- 
       ImageConfiguration imageConfiguration =
-          createLocalImageConfiguration(context, size: Size(2, 2));
+          createLocalImageConfiguration(context, size: Size(0.2, 0.2));
       BitmapDescriptor.fromAssetImage(imageConfiguration, "assets/icon/car.png")
           .then((value) {
         _activeNearbyIcon = value;
       });
-    }else{
-      print("therer is an issue with the image loader")
+    } else {
+      print("therer is an issue with the image loader");
     }
   }
 
