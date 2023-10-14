@@ -236,6 +236,7 @@ class UserGoogleMapProvider with ChangeNotifier {
       _username = userData!.name;
       _email = userData.emailAddress;
       _user = userData;
+      initializeGeofireListiner();
       notifyListeners();
     } catch (e) {
       print('Error locating user position: $e');
@@ -243,17 +244,19 @@ class UserGoogleMapProvider with ChangeNotifier {
   }
 
   initializeGeofireListiner() {
+    print("geolocator starter");
     Geofire.initialize("activeDrivers");
     Geofire.queryAtLocation(
             _userCurrentPosition!.latitude, userCurrentPosition!.longitude, 10)!
         .listen((event) {
       if (event != null) {
         var callback = event["callBack"];
+        print(callback);
         switch (callback) {
           case Geofire.onKeyEntered:
             ActiveNearByDrivers activeNearByDrivers = ActiveNearByDrivers();
-            activeNearByDrivers.locationLat = event["latitude"];
-            activeNearByDrivers.locationLong = event["longitude"];
+            activeNearByDrivers.locationLat = event["latitude"].toString();
+            activeNearByDrivers.locationLong = event["longitude"].toString();
             activeNearByDrivers.driverID = event["key"];
             GeoFireAssistant.activeNearDriversList.add(activeNearByDrivers);
             if (_activeNearbyDriverKeysLoaded == true) {
@@ -310,14 +313,17 @@ class UserGoogleMapProvider with ChangeNotifier {
   }
 
   createActiveNearbyIconMarker(context) {
-    print("This image has succefully been created");
+         print(["This image processsing", _activeNearbyIcon ]);
     if (_activeNearbyIcon == null) {
+ 
       ImageConfiguration imageConfiguration =
           createLocalImageConfiguration(context, size: Size(2, 2));
       BitmapDescriptor.fromAssetImage(imageConfiguration, "assets/icon/car.png")
           .then((value) {
         _activeNearbyIcon = value;
       });
+    }else{
+      print("therer is an issue with the image loader")
     }
   }
 
