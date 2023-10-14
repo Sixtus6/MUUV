@@ -5,6 +5,7 @@ import 'package:muuv/model/user.dart';
 import 'package:muuv/screens/home/rider/provider.dart';
 import 'package:muuv/screens/home/user/index.dart';
 import 'package:muuv/screens/home/user/provider.dart';
+import 'package:muuv/screens/onboarding/index.dart';
 import 'package:muuv/utils/helper.dart';
 import 'package:muuv/widget/button.dart';
 import 'package:muuv/widget/constant.dart';
@@ -226,7 +227,7 @@ Future<dynamic> BottomModalRider(
     isScrollControlled: true,
     builder: (BuildContext context) {
       return Container(
-        height: SizeConfigs.getPercentageWidth(90),
+        height: SizeConfigs.getPercentageWidth(85),
         child: Column(
           children: [
             AppBar(
@@ -318,16 +319,24 @@ Future<dynamic> BottomModalRider(
                             ],
                           ),
                         )),
-                    Text(
-                      "Logout",
-                      style: TextStyle(color: ColorConfig.primary),
-                    ),
+                    SizeConfigs.getPercentageWidth(2).toInt().height,
                     CustomButton(
-                        h: 9,
-                        w: 25,
-                        img: 'assets/icon/passenger1.png',
+                        h: 11,
+                        w: 22,
+                        img: '',
                         text: 'Logout',
-                        ontap: () {}),
+                        ontap: () async {
+                          if (provider.status == "Online") {
+                            toast("Toggle mode from online to offline");
+                            return;
+                          }
+                          await removeKey("rider").then(
+                              (value) => print("removed data from caxhe"));
+                          toast("You've been logged out as a Driver");
+                          OnboardingScreen().launch(context,
+                              pageRouteAnimation: PageRouteAnimation.Fade,
+                              isNewTask: true);
+                        }),
                   ],
                 );
 

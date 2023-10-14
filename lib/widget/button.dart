@@ -35,8 +35,10 @@ class CustomButton extends StatelessWidget {
                 Text(
                   text,
                   style: TextStyle(
-                      color: ColorConfig.secondary,
-                      fontSize: 17,
+                      color: img != ""
+                          ? ColorConfig.secondary
+                          : ColorConfig.primary,
+                      fontSize: img != "" ? 17 : 16,
                       fontWeight: FontWeight.bold),
                 ),
                 img != ""
