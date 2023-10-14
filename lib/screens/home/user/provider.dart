@@ -218,6 +218,10 @@ class UserGoogleMapProvider with ChangeNotifier {
   Future<void> locateUserPosition() async {
     dev.log("locate");
     try {
+      if (_userCurrentPosition == null) {
+        print("this is null so waiting");
+        return;
+      }
       Position cPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       _userCurrentPosition = cPosition;
@@ -240,9 +244,7 @@ class UserGoogleMapProvider with ChangeNotifier {
       _user = userData;
       dev.log("initiLze");
 
-      _userCurrentPosition != null
-          ? initializeGeofireListiner()
-          : print("this is null so waiting");
+      initializeGeofireListiner();
 
       notifyListeners();
     } catch (e) {
@@ -251,50 +253,59 @@ class UserGoogleMapProvider with ChangeNotifier {
   }
 
   initializeGeofireListiner() {
-    print("geolocator starter");
-    Geofire.initialize("activeDrivers");
-    Geofire.queryAtLocation(
-            _userCurrentPosition!.latitude, userCurrentPosition!.longitude, 10)!
-        .listen((event) {
-      print(event);
-      if (event != null) {
-        var callback = event["callBack"];
-        //  print(callback);
-        switch (callback) {
-          case Geofire.onKeyEntered:
-            ActiveNearByDrivers activeNearByDrivers = ActiveNearByDrivers();
-            activeNearByDrivers.locationLat = event["latitude"];
-            activeNearByDrivers.locationLong = event["longitude"];
-            activeNearByDrivers.driverID = event["key"];
-            GeoFireAssistant.activeNearDriversList.add(activeNearByDrivers);
-            if (_activeNearbyDriverKeysLoaded == true) {
-              displayActiveDriversOnUserMap();
-            }
-            break;
-
-          case Geofire.onKeyExited:
-            GeoFireAssistant.deleteOfflineDriverFromList(event["key"]);
-            displayActiveDriversOnUserMap();
-            break;
-
-          case Geofire.onKeyMoved:
-            ActiveNearByDrivers activeNearByDrivers = ActiveNearByDrivers();
-            activeNearByDrivers.locationLat = event["latitude"];
-            activeNearByDrivers.locationLong = event["longitude"];
-            activeNearByDrivers.driverID = event["key"];
-            GeoFireAssistant.updateActiveNearByDiver(activeNearByDrivers);
-            displayActiveDriversOnUserMap();
-            break;
-
-          case Geofire.onGeoQueryReady:
-            _activeNearbyDriverKeysLoaded = true;
-            displayActiveDriversOnUserMap();
-            break;
-        }
+    try {
+      print([_userCurrentPosition, "thiis is the user current poaition"]);
+      if (_userCurrentPosition == null) {
+        print("this is null so waiting");
+        return;
       }
+      print("geolocator starter");
+      Geofire.initialize("activeDrivers");
+      Geofire.queryAtLocation(_userCurrentPosition!.latitude,
+              userCurrentPosition!.longitude, 10)!
+          .listen((event) {
+        print(event);
+        if (event != null) {
+          var callback = event["callBack"];
+          //  print(callback);
+          switch (callback) {
+            case Geofire.onKeyEntered:
+              ActiveNearByDrivers activeNearByDrivers = ActiveNearByDrivers();
+              activeNearByDrivers.locationLat = event["latitude"];
+              activeNearByDrivers.locationLong = event["longitude"];
+              activeNearByDrivers.driverID = event["key"];
+              GeoFireAssistant.activeNearDriversList.add(activeNearByDrivers);
+              if (_activeNearbyDriverKeysLoaded == true) {
+                displayActiveDriversOnUserMap();
+              }
+              break;
 
-      notifyListeners();
-    });
+            case Geofire.onKeyExited:
+              GeoFireAssistant.deleteOfflineDriverFromList(event["key"]);
+              displayActiveDriversOnUserMap();
+              break;
+
+            case Geofire.onKeyMoved:
+              ActiveNearByDrivers activeNearByDrivers = ActiveNearByDrivers();
+              activeNearByDrivers.locationLat = event["latitude"];
+              activeNearByDrivers.locationLong = event["longitude"];
+              activeNearByDrivers.driverID = event["key"];
+              GeoFireAssistant.updateActiveNearByDiver(activeNearByDrivers);
+              displayActiveDriversOnUserMap();
+              break;
+
+            case Geofire.onGeoQueryReady:
+              _activeNearbyDriverKeysLoaded = true;
+              displayActiveDriversOnUserMap();
+              break;
+          }
+        }
+
+        notifyListeners();
+      });
+    } catch (e) {
+      dev.log(e.toString());
+    }
   }
 
   displayActiveDriversOnUserMap() {
