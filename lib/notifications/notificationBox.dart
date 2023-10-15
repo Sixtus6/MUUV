@@ -70,8 +70,10 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                 SizeConfigs.getPercentageWidth(3).toInt().height,
                 CustomModalContainer(
                     image: "assets/icon/toloc.png",
-                    address: widget.userRideDetails!.originAddress!.length > 35
-                        ? "${widget.userRideDetails!.originAddress!.substring(0, 35)}...."
+                    address: widget
+                                .userRideDetails!.destinationAddress!.length >
+                            35
+                        ? "${widget.userRideDetails!.destinationAddress!.substring(0, 35)}...."
                         : widget.userRideDetails!.destinationAddress.toString(),
                     header: "To"),
                 SizeConfigs.getPercentageWidth(5).toInt().height,
@@ -98,9 +100,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.green)),
-                      onPressed: () {
-                    
-                      },
+                      onPressed: () {},
                       child: Text(
                         "Accept",
                         style: TextStyle(color: Colors.white),
