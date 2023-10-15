@@ -64,16 +64,14 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                 CustomModalContainer(
                     image: "assets/icon/fromloc.png",
                     address: widget.userRideDetails!.originAddress!.length > 35
-                        ? "${widget.userRideDetails!.originAddress!
-                                .substring(0, 35)}...."
+                        ? "${widget.userRideDetails!.originAddress!.substring(0, 35)}...."
                         : widget.userRideDetails!.originAddress.toString(),
                     header: "From"),
                 SizeConfigs.getPercentageWidth(3).toInt().height,
                 CustomModalContainer(
                     image: "assets/icon/toloc.png",
                     address: widget.userRideDetails!.originAddress!.length > 35
-                        ? "${widget.userRideDetails!.originAddress!
-                                .substring(0, 35)}...."
+                        ? "${widget.userRideDetails!.originAddress!.substring(0, 35)}...."
                         : widget.userRideDetails!.destinationAddress.toString(),
                     header: "To"),
                 SizeConfigs.getPercentageWidth(5).toInt().height,
@@ -82,14 +80,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                   thickness: 2,
                   color: ColorConfig.primary,
                 ),
-
-                ShimmerInkButton(
-            isLoading: true, // Set to true to display shimmer effect
-            onPressed: () {
-              // Handle button press
-              print('Button pressed!');
-            },
-            label: 'Press me',
+                ShimmerEffect(),
               ],
             ),
           ),
