@@ -99,7 +99,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.green)),
                       onPressed: () {
-                        provider.isDriverActive.toString();
+                    
                       },
                       child: Text(
                         "Accept",
