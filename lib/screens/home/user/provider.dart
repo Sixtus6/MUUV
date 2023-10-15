@@ -18,6 +18,7 @@ import 'package:muuv/model/direction.dart';
 import 'package:muuv/model/direction_info.dart';
 import 'package:muuv/model/predictedPlaces.dart';
 import 'package:muuv/model/user.dart';
+import 'package:muuv/notifications/notifications.dart';
 import 'package:muuv/utils/geo_assistant.dart';
 import 'package:muuv/utils/helper.dart';
 import 'package:muuv/widget/progress.dart';
@@ -114,6 +115,8 @@ class UserGoogleMapProvider with ChangeNotifier {
   StreamSubscription<Position>? get streamSubscriptionPosition =>
       _streamSubscriptionPosition;
 
+  
+
   DatabaseReference? _referenceRideRequest;
   DatabaseReference? get referenceRideRequest => _referenceRideRequest;
 
@@ -168,6 +171,7 @@ class UserGoogleMapProvider with ChangeNotifier {
     _geolocator = Geolocator();
     _audioPlayer = AssetsAudioPlayer();
     _checkAndRequestPermissions();
+  
   }
 
   setpickLocation(LatLng? newLocation) {
@@ -605,7 +609,7 @@ class UserGoogleMapProvider with ChangeNotifier {
 
       if ((event.snapshot.value as Map)["driverPhone"] != null) {
         _driverCarDetails =
-            (event.snapshot.value as Map)["driverPhone  "].toString();
+            (event.snapshot.value as Map)["driverPhone"].toString();
       }
 
       if ((event.snapshot.value as Map)["driverName"] != null) {
@@ -690,7 +694,7 @@ class UserGoogleMapProvider with ChangeNotifier {
 
     FirebaseDatabase.instance
         .ref()
-        .child("All Ride Request")
+        .child("All Ride Requests")
         .child(referenceRideRequest!.key!)
         .child("driverId")
         .onValue
@@ -777,7 +781,7 @@ class UserGoogleMapProvider with ChangeNotifier {
         .child("newRideStatus")
         .once()
         .then((snap) {
-      if (snap.snapshot.value == "Idle") {
+      if (snap.snapshot.value == "idle") {
         FirebaseDatabase.instance
             .ref()
             .child("drivers")

@@ -112,7 +112,9 @@ class PushNotificationSystem {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) =>
-                              NotificationDialogBox(userRideDetails: userRequestDetails,))
+                              NotificationDialogBox(
+                                userRideDetails: userRequestDetails,
+                              ))
                       //double originLng =
                     }
                   else
@@ -126,5 +128,21 @@ class PushNotificationSystem {
         Navigator.pop(context);
       }
     });
+  }
+
+  Future generateAndGetToken() async {
+    String? registrationToken = await messaging.getToken();
+    print("Token $registrationToken");
+    UserModel? userData = await getUserFromPrefs();
+    FirebaseDatabase.instance
+        .ref()
+        .child("drivers")
+        .child(userData!.uid)
+        .child("token")
+        .set(registrationToken);
+
+    messaging.subscribeToTopic("allDrivers");
+    messaging.subscribeToTopic("allUsers");
+      
   }
 }

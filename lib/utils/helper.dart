@@ -122,7 +122,7 @@ sendNotificationToDriverNow(String deviceRegistrationToken,
   String destination = userDropOffAddress;
   Map<String, String> headerNotification = {
     "Content-Type": 'application/json',
-    "Authorization": KeyConfig.fireBaseApiKey
+    "Authorization": KeyConfig.fireBaseApiKey 
   };
 
   Map bodyNotification = {

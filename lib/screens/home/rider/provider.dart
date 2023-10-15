@@ -11,6 +11,7 @@ import 'package:muuv/key/key.dart';
 import 'package:muuv/model/direction.dart';
 import 'package:muuv/model/driverdata.dart';
 import 'package:muuv/model/rider.dart';
+import 'package:muuv/notifications/notifications.dart';
 import 'package:muuv/utils/helper.dart';
 
 class RiderGoogleMapProvider with ChangeNotifier {
@@ -43,6 +44,9 @@ class RiderGoogleMapProvider with ChangeNotifier {
 
   GoogleMapController? _newGoogleMapController;
   GoogleMapController? get newGoogleMapController => _newGoogleMapController;
+
+  PushNotificationSystem? _pnotification;
+  PushNotificationSystem? get pnotification => _pnotification;
 
   void setController(GoogleMapController controller) {
     _controllerCompleter.complete(controller);
@@ -223,7 +227,7 @@ class RiderGoogleMapProvider with ChangeNotifier {
   RiderGoogleMapProvider() {
     _location = loc.Location();
     _geolocator = Geolocator();
-
+    _pnotification = PushNotificationSystem();
     _checkAndRequestPermissions();
   }
 }

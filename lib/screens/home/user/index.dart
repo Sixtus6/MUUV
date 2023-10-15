@@ -40,6 +40,7 @@ class _UserHomePageState extends State<UserHomePage> {
               builder: (context, provider, _) {
                 print(provider);
                 provider.createActiveNearbyIconMarker(context);
+              
                 // ignore: unnecessary_null_comparison
                 if (provider.controller != null) {
                   return GoogleMap(
@@ -266,7 +267,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             provider.userPickUpLocation!.locationName
                           ]);
                           print("allow them");
-//saveRequest         
+//saveRequest
                           controller.loading(); //starts loading animation
                           await Future.delayed(const Duration(seconds: 3));
                           // print(controlle);

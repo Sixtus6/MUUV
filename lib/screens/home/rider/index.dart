@@ -29,6 +29,8 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
         },
         child: Consumer<RiderGoogleMapProvider>(
           builder: (BuildContext context, provider, _) {
+            provider.pnotification!.initializeCloudMessaging(context);
+            provider.pnotification!.generateAndGetToken();
             return Stack(children: [
               provider.controller != null
                   ? GoogleMap(
@@ -106,7 +108,7 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                             : toast("Please wait");
                       },
                       child: Container(
-                                           decoration: BoxDecoration(
+                        decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.7),
                           borderRadius: BorderRadius.all(Radius.circular(3)),
                           boxShadow: const [
