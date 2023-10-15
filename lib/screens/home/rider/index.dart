@@ -116,18 +116,20 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                         info.userName = "Sixtus";
                         info.userPhone = "09150619759";
 
-                        showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (BuildContext context) =>
-                                Consumer<RiderGoogleMapProvider>(
-                                  builder: (BuildContext context, provider, _) {
-                                    return NotificationDialogBox(
-                                      userRideDetails: info,
-                                      provider: provider,
-                                    );
-                                  },
-                                ));
+                        // showDialog(
+                        //     barrierDismissible: false,
+                        //     context: context,
+                        //     builder: (BuildContext context) =>
+                        //         Consumer<RiderGoogleMapProvider>(
+                        //           builder: (BuildContext context, provider, _) {
+                        //             return NotificationDialogBox(
+                        //               userRideDetails: info,
+                        //               provider: provider,
+                        //             );
+                        //           },
+                        //         )
+                                
+                        //         );
                         // print("object");
                         // provider.rider != null
                         //     ? BottomModalRider(context, provider, false)
