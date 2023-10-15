@@ -80,13 +80,29 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                   thickness: 2,
                   color: ColorConfig.primary,
                 ),
-                ShimmerActionButton(
-                  isLoading: true, // Set to true to display shimmer effect
-                  onPressed: () {
-                    // Handle button press
-                    print('Button pressed!');
-                  },
-                  label: 'Press me',
+                Row(
+                  children: [
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.red)),
+                      onPressed: () {},
+                      child: Text(
+                        "Accept",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.red)),
+                      onPressed: () {},
+                      child: Text(
+                        "Decline",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
