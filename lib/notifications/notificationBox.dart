@@ -26,25 +26,48 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
       // shape: RoundedRectangleBorder(),
       backgroundColor: Colors.transparent,
       elevation: 0,
-      child: Padding(
-        padding: EdgeInsets.only(
-            top: SizeConfigs.getPercentageWidth(38),
-            bottom: SizeConfigs.getPercentageWidth(38)),
-        child: Container(
-          decoration: BoxDecoration(
-            color: ColorConfig.white,
-            borderRadius: BorderRadius.circular(15),
-          ),
-          padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(7)),
-          child: Column(
-            children: [
-              Lottie.asset(
-                "assets/lottie/car2.json",
-              ),
-            ],
+      child: Stack(children: [
+        Padding(
+          padding: EdgeInsets.only(
+              top: SizeConfigs.getPercentageWidth(38),
+              bottom: SizeConfigs.getPercentageWidth(38)),
+          child: Container(
+            ///width: 1,
+            decoration: BoxDecoration(
+              color: ColorConfig.scaffold,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(4)),
+            child: Column(
+              children: [
+                Container(
+                  color: Colors.transparent,
+                ).withSize(
+                    height: SizeConfigs.getPercentageWidth(40),
+                    width: double.infinity),
+                Text("New Ride Request",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: ColorConfig.secondary,
+                    ))
+              ],
+            ),
           ),
         ),
-      ),
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: SizeConfigs.getPercentageWidth(90),
+          child: Padding(
+            padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(10)),
+            child: Lottie.asset(
+              "assets/lottie/car2.json",
+            ),
+          ),
+        ),
+      ]),
     );
   }
 
