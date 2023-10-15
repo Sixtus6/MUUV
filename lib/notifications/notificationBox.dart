@@ -32,7 +32,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
         Padding(
           padding: EdgeInsets.only(
               top: SizeConfigs.getPercentageWidth(38),
-              bottom: SizeConfigs.getPercentageWidth(38)),
+              bottom: SizeConfigs.getPercentageWidth(47)),
           child: Container(
             ///width: 1,
             decoration: BoxDecoration(
@@ -90,7 +90,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                               MaterialStateProperty.all<Color>(Colors.red)),
                       onPressed: () {},
                       child: Text(
-                        "Accept",
+                        "Decline",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -100,7 +100,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                               MaterialStateProperty.all<Color>(Colors.green)),
                       onPressed: () {},
                       child: Text(
-                        "Decline",
+                        "Accept",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
