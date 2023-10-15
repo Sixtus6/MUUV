@@ -1,13 +1,12 @@
 // ignore_for_file: unused_local_variable
 
-import 'dart:js_interop';
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:muuv/model/rider.dart';
 import 'package:muuv/model/user.dart';
 import 'package:muuv/model/userRequestRideInfo.dart';
 import 'package:muuv/notifications/notificationBox.dart';
@@ -133,16 +132,15 @@ class PushNotificationSystem {
   Future generateAndGetToken() async {
     String? registrationToken = await messaging.getToken();
     print("Token $registrationToken");
-    UserModel? userData = await getUserFromPrefs();
+    RiderModel? riderData = await getRiderFromPrefs();
     FirebaseDatabase.instance
         .ref()
         .child("drivers")
-        .child(userData!.uid)
+        .child(riderData!.uid)
         .child("token")
         .set(registrationToken);
 
     messaging.subscribeToTopic("allDrivers");
     messaging.subscribeToTopic("allUsers");
-      
   }
 }

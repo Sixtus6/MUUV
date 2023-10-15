@@ -135,62 +135,66 @@ Future<dynamic> BottomModal(
                     builder: (BuildContext context, provider, _) {
                       // print(data!.toJson().values.isNotEmpty);
 
-                      return Container(
-                          decoration: BoxDecoration(
-                              color: ColorConfig.white,
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
+                      return Column(
+                        children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                  color: ColorConfig.white,
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(10),
+                                  )),
+                              // padding: EdgeInsets.all(
+                              //     SizeConfigs.getPercentageWidth(10)),
+                              margin: EdgeInsets.only(
+                                  left: SizeConfigs.getPercentageWidth(4),
+                                  right: SizeConfigs.getPercentageWidth(4)),
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    //   SizeConfigs.getPercentageWidth(3).toInt().height,
+                                    ProfileContainer(
+                                      data: provider.user!.name,
+                                      image: 'assets/icon/user.png',
+                                      title: 'Name',
+                                    ),
+
+                                    ProfileContainer(
+                                      data: provider.user!.emailAddress,
+                                      image: 'assets/icon/mail.png',
+                                      title: 'Email',
+                                    ),
+                                    ProfileContainer(
+                                      data: provider.user!.phoneNumber,
+                                      image: 'assets/icon/contact.png',
+                                      title: 'Phone Number',
+                                    ),
+
+                                    ProfileContainer(
+                                      data: provider.user!.address,
+                                      image: 'assets/icon/house.png',
+                                      title: 'Home Adress',
+                                    ),
+                                    ProfileContainer(
+                                      data: provider
+                                                  .userPickUpLocation!.locationName!
+                                                  .toString()
+                                                  .length <
+                                              40
+                                          ? "Loading......"
+                                          : provider
+                                                  .userPickUpLocation!.locationName!
+                                                  .substring(0, 40) +
+                                              ".....",
+                                      image: 'assets/icon/fromloc.png',
+                                      title: 'Current location',
+                                    ),
+                                    //  SizeConfigs.getPercentageWidth(3).toInt().height,
+                                  ],
+                                ),
                               )),
-                          // padding: EdgeInsets.all(
-                          //     SizeConfigs.getPercentageWidth(10)),
-                          margin: EdgeInsets.only(
-                              left: SizeConfigs.getPercentageWidth(4),
-                              right: SizeConfigs.getPercentageWidth(4)),
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Column(
-                              children: [
-                                //   SizeConfigs.getPercentageWidth(3).toInt().height,
-                                ProfileContainer(
-                                  data: provider.user!.name,
-                                  image: 'assets/icon/user.png',
-                                  title: 'Name',
-                                ),
-
-                                ProfileContainer(
-                                  data: provider.user!.emailAddress,
-                                  image: 'assets/icon/mail.png',
-                                  title: 'Email',
-                                ),
-                                ProfileContainer(
-                                  data: provider.user!.phoneNumber,
-                                  image: 'assets/icon/contact.png',
-                                  title: 'Phone Number',
-                                ),
-
-                                ProfileContainer(
-                                  data: provider.user!.address,
-                                  image: 'assets/icon/house.png',
-                                  title: 'Home Adress',
-                                ),
-                                ProfileContainer(
-                                  data: provider
-                                              .userPickUpLocation!.locationName!
-                                              .toString()
-                                              .length <
-                                          40
-                                      ? "Loading......"
-                                      : provider
-                                              .userPickUpLocation!.locationName!
-                                              .substring(0, 40) +
-                                          ".....",
-                                  image: 'assets/icon/fromloc.png',
-                                  title: 'Current location',
-                                ),
-                                //  SizeConfigs.getPercentageWidth(3).toInt().height,
-                              ],
-                            ),
-                          ));
+                        ],
+                      );
 
                       // return ListView.builder(
                       //   itemCount: 1,

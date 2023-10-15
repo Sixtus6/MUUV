@@ -40,7 +40,7 @@ class _UserHomePageState extends State<UserHomePage> {
               builder: (context, provider, _) {
                 print(provider);
                 provider.createActiveNearbyIconMarker(context);
-              
+
                 // ignore: unnecessary_null_comparison
                 if (provider.controller != null) {
                   return GoogleMap(
@@ -257,23 +257,30 @@ class _UserHomePageState extends State<UserHomePage> {
 
                           controller.reset();
 
-                          print([
-                            provider.userDropOffLocation!.locationName,
-                            provider.userPickUpLocation!.locationName
-                          ]);
+                          // print([
+                          //   provider.userDropOffLocation!.locationName,
+                          //   provider.userPickUpLocation!.locationName
+                          // ]);
                         } else {
-                          print([
-                            provider.userDropOffLocation!.locationName,
-                            provider.userPickUpLocation!.locationName
-                          ]);
+                          // print([
+                          //   provider.userDropOffLocation!.locationName,
+                          //   provider.userPickUpLocation!.locationName
+                          // ]);
                           print("allow them");
 //saveRequest
-                          controller.loading(); //starts loading animation
-                          await Future.delayed(const Duration(seconds: 3));
+                          try {
+                            provider.saveRideRequest(context);
+                            controller.loading(); //starts loading animation
+
+                            await Future.delayed(const Duration(seconds: 3));
+                          } finally {
+                            controller.success(); //starts success animation
+                            await Future.delayed(const Duration(seconds: 2));
+                            controller.reset();
+                          }
+
                           // print(controlle);
-                          controller.success(); //starts success animation
-                          await Future.delayed(const Duration(seconds: 1));
-                          controller.reset();
+
                           //   resets the slider
                         }
                       },
