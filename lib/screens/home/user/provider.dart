@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:assets_audio_player/assets_audio_player.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'dart:developer' as dev;
 import 'package:flutter/material.dart';
@@ -135,16 +135,12 @@ class UserGoogleMapProvider with ChangeNotifier {
   String _userRideRequestStatus = "";
   String get userRideRequestStatus => _userRideRequestStatus;
 
-  late AssetsAudioPlayer _audioPlayer;
-  AssetsAudioPlayer get audioPlayer => _audioPlayer;
+
 
   List<ActiveNearByDrivers> _onlineNearbyAvailableDriverList = [];
   List<ActiveNearByDrivers>? get onlineNearbyAvailableDriverList =>
       _onlineNearbyAvailableDriverList;
 
-  resetAudioPlayer() {
-    _audioPlayer = AssetsAudioPlayer();
-  }
 
   findPlaceAutoCompleSearch(String inputText) async {
     if (inputText.length > 1) {
@@ -167,7 +163,7 @@ class UserGoogleMapProvider with ChangeNotifier {
   UserGoogleMapProvider() {
     _location = loc.Location();
     _geolocator = Geolocator();
-    _audioPlayer = AssetsAudioPlayer();
+ 
     _checkAndRequestPermissions();
   }
 

@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
@@ -72,6 +74,9 @@ class RiderGoogleMapProvider with ChangeNotifier {
   Position? get driverCurrentPosition => _driverCurrentPosition;
 
   Direction? _driverPickUpLocation;
+
+  late AssetsAudioPlayer _audioPlayer;
+  AssetsAudioPlayer get audioPlayer => _audioPlayer;
 
   StreamSubscription<Position>? _streamSubscriptionPosition;
   StreamSubscription<Position>? _streamSubscriptionDriverLivePosition;
@@ -191,6 +196,9 @@ class RiderGoogleMapProvider with ChangeNotifier {
     ref.set("idle");
     ref.onValue.listen((event) {});
   }
+  resetAudioPlayer() {
+    _audioPlayer = AssetsAudioPlayer();
+  }
 
   updateDriversLocationAtRealTime() { 
     _streamSubscriptionPosition =
@@ -229,5 +237,6 @@ class RiderGoogleMapProvider with ChangeNotifier {
     _geolocator = Geolocator();
     _pnotification = PushNotificationSystem();
     _checkAndRequestPermissions();
+       _audioPlayer = AssetsAudioPlayer();
   }
 }

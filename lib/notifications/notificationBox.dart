@@ -2,6 +2,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/model/userRequestRideInfo.dart';
+import 'package:muuv/screens/home/rider/provider.dart';
 import 'package:muuv/screens/home/user/provider.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,8 @@ class NotificationDialogBox extends StatefulWidget {
 class _NotificationDialogBoxState extends State<NotificationDialogBox> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<UserGoogleMapProvider>(context, listen: false);
+    final provider =
+        Provider.of<RiderGoogleMapProvider>(context, listen: false);
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       backgroundColor: Colors.transparent,
@@ -32,7 +34,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
           SizedBox(
             height: 10,
           ),
-          Text("New Ride Requesr",
+          Text("New Ride Request",
               style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -93,8 +95,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                     Navigator.pop(context);
                   },
                   child: Text("Cancel")),
-
-                      ElevatedButton(
+              ElevatedButton(
                   onPressed: () {
                     provider.audioPlayer.pause();
                     provider.audioPlayer.stop();

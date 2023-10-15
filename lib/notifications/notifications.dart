@@ -10,15 +10,18 @@ import 'package:muuv/model/rider.dart';
 import 'package:muuv/model/user.dart';
 import 'package:muuv/model/userRequestRideInfo.dart';
 import 'package:muuv/notifications/notificationBox.dart';
+import 'package:muuv/screens/home/rider/provider.dart';
 import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/utils/helper.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
+import 'dart:developer' as dev;
 
 class PushNotificationSystem {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
   /* ------------------------------------ - ----------------------------------- */
   Future initializeCloudMessaging(BuildContext context) async {
+    dev.log(" Rideer screen Initiliazed");
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage? remoteMessage) => {
@@ -45,6 +48,7 @@ class PushNotificationSystem {
     String userRideRequestId,
     BuildContext context,
   ) async {
+    dev.log("the Floe came doen here");
     // UserModel? userData = await getUserFromPrefs();
 
     double? originLat;
@@ -57,16 +61,17 @@ class PushNotificationSystem {
     String rideRequestId;
     String userPhone;
     UserRequestRideInfo userRequestDetails = UserRequestRideInfo();
-    final provider = Provider.of<UserGoogleMapProvider>(context, listen: false);
+    final provider =
+        Provider.of<RiderGoogleMapProvider>(context, listen: false);
     FirebaseDatabase.instance
         .ref()
         .child("All Ride Requests")
         .child(userRideRequestId)
-        .child("driverId")
+        .child("driverID")
         .onValue
         .listen((event) {
       if (event.snapshot.value == "waiting" ||
-          event.snapshot.value == provider.user!.uid) {
+          event.snapshot.value == provider.rider!.uid) {
         FirebaseDatabase.instance
             .ref()
             .child("All Ride Requests")
@@ -107,12 +112,12 @@ class PushNotificationSystem {
                       userRequestDetails.userPhone = userPhone,
                       userRequestDetails.rideRequestId = rideRequestId,
 
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) =>
-                              NotificationDialogBox(
-                                userRideDetails: userRequestDetails,
-                              ))
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                NotificationDialogBox(
+                                  userRideDetails: userRequestDetails,
+                                ))
                       //double originLng =
                     }
                   else

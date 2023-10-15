@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
+import 'package:muuv/notifications/notificationBox.dart';
 import 'package:muuv/screens/home/rider/provider.dart';
 import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/screens/onboarding/index.dart';
@@ -102,10 +103,16 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                   builder: (BuildContext context, provider, _) {
                     return GestureDetector(
                       onTap: () {
-                        print("object");
-                        provider.rider != null
-                            ? BottomModalRider(context, provider, false)
-                            : toast("Please wait");
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                NotificationDialogBox(
+                                  userRideDetails: userRequestDetails,
+                                ));
+                        // print("object");
+                        // provider.rider != null
+                        //     ? BottomModalRider(context, provider, false)
+                        //     : toast("Please wait");
                       },
                       child: Container(
                         decoration: BoxDecoration(
