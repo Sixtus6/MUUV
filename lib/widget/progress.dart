@@ -23,22 +23,7 @@ class ProgressDialog extends StatelessWidget {
           ),
         ),
       ),
-      // child: Container(
-      //   margin: EdgeInsets.all(16.0),
-      //   decoration: BoxDecoration(
-      //       color: ColorConfig.white, borderRadius: BorderRadius.circular(6)),
-      //   child: Row(children: [
-      //     SizeConfigs.getPercentageWidth(3).toInt().width,
-      //     CircularProgressIndicator(
-      //       valueColor: AlwaysStoppedAnimation<Color>(ColorConfig.green),
-      //     ),
-      //     SizeConfigs.getPercentageWidth(20).toInt().width,
-      //     Text(
-      //       message!,
-      //       style: TextStyle(color: ColorConfig.secondary, fontSize: 12),
-      //     )
-      //   ]),
-      // ),
+
     );
   }
 }

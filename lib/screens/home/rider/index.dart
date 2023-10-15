@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
+import 'package:muuv/model/userRequestRideInfo.dart';
 import 'package:muuv/notifications/notificationBox.dart';
 import 'package:muuv/screens/home/rider/provider.dart';
 import 'package:muuv/screens/home/user/provider.dart';
@@ -103,11 +104,23 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                   builder: (BuildContext context, provider, _) {
                     return GestureDetector(
                       onTap: () {
+                        UserRequestRideInfo info = UserRequestRideInfo();
+                        info.destinationAddress = "GreenField";
+                        info.destinationLatLng =
+                            LatLng(5.033626099999999, 5.033626099999999);
+                        info.originLatLng =
+                            LatLng(5.033626099999999, 5.033626099999999);
+                        info.originAddress =
+                            "31 Dominic Utuk Ave, 520103, Uyo, Akwa Ibom, Nigeria";
+                        info.rideRequestId = "NgliGI3RbCDG_WMJKbg";
+                        info.userName = "Sixtus";
+                        info.userPhone = "09150619759";
+
                         showDialog(
                             context: context,
                             builder: (BuildContext context) =>
                                 NotificationDialogBox(
-                                  userRideDetails: userRequestDetails,
+                                  userRideDetails: info,
                                 ));
                         // print("object");
                         // provider.rider != null
