@@ -115,9 +115,14 @@ class PushNotificationSystem {
                       showDialog(
                           context: context,
                           builder: (BuildContext context) =>
-                              NotificationDialogBox(
-                                userRideDetails: userRequestDetails,
-                              ))
+                              Consumer<RiderGoogleMapProvider>(
+                                builder: (BuildContext context, provider,_) { 
+                                  return NotificationDialogBox(
+                                  userRideDetails: userRequestDetails, provider: provider,
+                                );
+                                 },
+                              
+                              )),
                       //double originLng =
                     }
                   else
