@@ -117,6 +117,7 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                         info.userPhone = "09150619759";
 
                         showDialog(
+                            barrierDismissible: false,
                             context: context,
                             builder: (BuildContext context) =>
                                 Consumer<RiderGoogleMapProvider>(

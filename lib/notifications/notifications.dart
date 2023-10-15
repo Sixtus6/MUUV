@@ -113,15 +113,16 @@ class PushNotificationSystem {
                       userRequestDetails.rideRequestId = rideRequestId,
 
                       showDialog(
+                          barrierDismissible: false,
                           context: context,
                           builder: (BuildContext context) =>
                               Consumer<RiderGoogleMapProvider>(
-                                builder: (BuildContext context, provider,_) { 
+                                builder: (BuildContext context, provider, _) {
                                   return NotificationDialogBox(
-                                  userRideDetails: userRequestDetails, provider: provider,
-                                );
-                                 },
-                              
+                                    userRideDetails: userRequestDetails,
+                                    provider: provider,
+                                  );
+                                },
                               )),
                       //double originLng =
                     }
