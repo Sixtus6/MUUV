@@ -109,7 +109,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                             Audio('assets/music/waterdrip.mp3'),
                           );
                         } catch (e) {
-                          print([e]);
+                          print(e);
                         }
                       },
                       child: Text(
