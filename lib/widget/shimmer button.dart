@@ -1,18 +1,6 @@
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 
-class ShimmerEffect extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey.shade300,
-      highlightColor: Colors.grey.shade300,
-      child: Container(
-        color: Colors.grey.shade300,
-      ),
-    );
-  }
-}
 
 class InkButton extends StatelessWidget {
   final Function onPressed;
@@ -46,3 +34,18 @@ class InkButton extends StatelessWidget {
     );
   }
 }
+
+
+class ShimmerEffect extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey.shade300,
+      highlightColor: Colors.grey.shade300,
+      child: Container(
+        color: Colors.grey.shade300,
+      ),
+    );
+  }
+}
+
