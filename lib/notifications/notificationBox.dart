@@ -1,5 +1,6 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/model/userRequestRideInfo.dart';
@@ -25,9 +26,24 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
       // shape: RoundedRectangleBorder(),
       backgroundColor: Colors.transparent,
       elevation: 0,
-      child: Container(
-        color: ColorConfig.white,
-        padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(7)),
+      child: Padding(
+        padding: EdgeInsets.only(
+            top: SizeConfigs.getPercentageWidth(38),
+            bottom: SizeConfigs.getPercentageWidth(38)),
+        child: Container(
+          decoration: BoxDecoration(
+            color: ColorConfig.white,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(7)),
+          child: Column(
+            children: [
+              Lottie.asset(
+                "assets/lottie/car5.json",
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
