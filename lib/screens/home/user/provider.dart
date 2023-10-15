@@ -115,8 +115,6 @@ class UserGoogleMapProvider with ChangeNotifier {
   StreamSubscription<Position>? get streamSubscriptionPosition =>
       _streamSubscriptionPosition;
 
-  
-
   DatabaseReference? _referenceRideRequest;
   DatabaseReference? get referenceRideRequest => _referenceRideRequest;
 
@@ -136,8 +134,6 @@ class UserGoogleMapProvider with ChangeNotifier {
 
   String _userRideRequestStatus = "";
   String get userRideRequestStatus => _userRideRequestStatus;
-
-
 
   late AssetsAudioPlayer _audioPlayer;
   AssetsAudioPlayer get audioPlayer => _audioPlayer;
@@ -173,7 +169,6 @@ class UserGoogleMapProvider with ChangeNotifier {
     _geolocator = Geolocator();
     _audioPlayer = AssetsAudioPlayer();
     _checkAndRequestPermissions();
-  
   }
 
   setpickLocation(LatLng? newLocation) {
@@ -684,7 +679,7 @@ class UserGoogleMapProvider with ChangeNotifier {
     }
 
     await retriveOnlineDriverInfo(_onlineNearbyAvailableDriverList);
-    print("DriverList" + _driverList.toString());
+    dev.log("DriverList" + _driverList.toString());
 
     for (var i = 0; i < driverList.length; i++) {
       //SendNotification to drivers
@@ -694,11 +689,11 @@ class UserGoogleMapProvider with ChangeNotifier {
     toast("Ride Request Sent");
     //Show searcing for drivers container
 
-    FirebaseDatabase.instance
+    await FirebaseDatabase.instance
         .ref()
         .child("All Ride Requests")
         .child(referenceRideRequest!.key!)
-        .child("driverId")
+        .child("driverID")
         .onValue
         .listen((event) {
       print("EventSnapshot:  ${event.snapshot.value}");
@@ -740,7 +735,7 @@ class UserGoogleMapProvider with ChangeNotifier {
     DatabaseReference ref = FirebaseDatabase.instance.ref().child("drivers");
     for (var i = 0; i < onlineNearbyAvailableDriverList.length; i++) {
       await ref
-          .child(onlineNearbyAvailableDriverList[i].driverId.toString())
+          .child(onlineNearbyAvailableDriverList[i].driverID.toString())
           .once()
           .then((dataSnapShot) {
         var driverKeyInfo = dataSnapShot.snapshot.value;

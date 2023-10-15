@@ -109,7 +109,7 @@ Future<dynamic> BottomModal(
               ),
             )
           : Container(
-              height: SizeConfigs.getPercentageWidth(75),
+              height: SizeConfigs.getPercentageWidth(85),
               child: Column(
                 children: [
                   AppBar(
@@ -176,14 +176,14 @@ Future<dynamic> BottomModal(
                                       title: 'Home Adress',
                                     ),
                                     ProfileContainer(
-                                      data: provider
-                                                  .userPickUpLocation!.locationName!
+                                      data: provider.userPickUpLocation!
+                                                  .locationName!
                                                   .toString()
                                                   .length <
                                               40
                                           ? "Loading......"
-                                          : provider
-                                                  .userPickUpLocation!.locationName!
+                                          : provider.userPickUpLocation!
+                                                  .locationName!
                                                   .substring(0, 40) +
                                               ".....",
                                       image: 'assets/icon/fromloc.png',
@@ -193,22 +193,20 @@ Future<dynamic> BottomModal(
                                   ],
                                 ),
                               )),
-
-                                   SizeConfigs.getPercentageWidth(2).toInt().height,
-                    CustomButton(
-                        h: 11,
-                        w: 22,
-                        img: '',
-                        text: 'Logout',
-                        ontap: () async {
-                        
-                          await removeKey("user").then(
-                              (value) => print("removed data from caxhe"));
-                          toast("You've been logged out as a User");
-                          OnboardingScreen().launch(context,
-                              pageRouteAnimation: PageRouteAnimation.Fade,
-                              isNewTask: true);
-                        }),
+                          SizeConfigs.getPercentageWidth(2).toInt().height,
+                          CustomButton(
+                              h: 11,
+                              w: 22,
+                              img: '',
+                              text: 'Logout',
+                              ontap: () async {
+                                await removeKey("user").then((value) =>
+                                    print("removed data from caxhe"));
+                                toast("You've been logged out as a User");
+                                OnboardingScreen().launch(context,
+                                    pageRouteAnimation: PageRouteAnimation.Fade,
+                                    isNewTask: true);
+                              }),
                         ],
                       );
 

@@ -40,7 +40,6 @@ class _UserHomePageState extends State<UserHomePage> {
               builder: (context, provider, _) {
                 print(provider);
                 provider.createActiveNearbyIconMarker(context);
-
                 // ignore: unnecessary_null_comparison
                 if (provider.controller != null) {
                   return GoogleMap(

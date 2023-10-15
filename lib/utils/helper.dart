@@ -122,7 +122,7 @@ sendNotificationToDriverNow(String deviceRegistrationToken,
   String destination = userDropOffAddress;
   Map<String, String> headerNotification = {
     "Content-Type": 'application/json',
-    "Authorization": KeyConfig.fireBaseApiKey 
+    "Authorization": KeyConfig.fireBaseApiKey
   };
 
   Map bodyNotification = {
@@ -144,8 +144,11 @@ sendNotificationToDriverNow(String deviceRegistrationToken,
     "to": deviceRegistrationToken,
   };
 
-  var responseNotification = http.post(
-      Uri.parse("https://fcm.googleapi.com/fcm/send"),
-      headers: headerNotification,
-      body: jsonEncode(officialNotification));
+  var responseNotification = http
+      .post(Uri.parse("https://fcm.googleapis.com/fcm/send"),
+          headers: headerNotification, body: jsonEncode(officialNotification))
+      .then((value) => (value) {
+            print(
+                "request sent--------------------------------------------------------------#");
+          });
 }
