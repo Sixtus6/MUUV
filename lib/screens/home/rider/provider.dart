@@ -192,7 +192,7 @@ class RiderGoogleMapProvider with ChangeNotifier {
     ref.onValue.listen((event) {});
   }
 
-  updateDriversLocationAtRealTime() {
+  updateDriversLocationAtRealTime() { 
     _streamSubscriptionPosition =
         Geolocator.getPositionStream().listen((Position position) {
       //_isDriverActive == true;
