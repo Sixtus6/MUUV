@@ -2,6 +2,37 @@ import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 
 
+
+import 'package:flutter/material.dart';
+
+class ShimmerInkButton extends StatelessWidget {
+  final bool isLoading;
+  final Function onPressed;
+  final String label;
+
+  ShimmerInkButton({required this.isLoading, required this.onPressed, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        isLoading ? ShimmerEffect() : InkButton(onPressed: onPressed, label: label),
+        isLoading
+            ? Center(
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    color: Colors.transparent,
+                  ),
+                ),
+              )
+            : SizedBox.shrink(),
+      ],
+    );
+  }
+}
+
+
 class InkButton extends StatelessWidget {
   final Function onPressed;
   final String label;
