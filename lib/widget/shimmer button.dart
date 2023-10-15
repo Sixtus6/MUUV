@@ -15,11 +15,7 @@ class ShimmerActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
-           
-          )
+        ? Container()
         : ElevatedButton(
             onPressed: onPressed,
             child: Text(
@@ -39,27 +35,14 @@ class ShimmerActionButton extends StatelessWidget {
 //               ),
 //             ),
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Shimmer Action Button Example'),
-        ),
-        body: Center(
-          child: ShimmerActionButton(
-            isLoading: true, // Set to true to display shimmer effect
-            onPressed: () {
-              // Handle button press
-              print('Button pressed!');
-            },
-            label: 'Press me',
-          ),
-        ),
-      ),
-    );
-  }
-}
+// Shimmer.fromColors(
+//             baseColor: Colors.grey[300]!,
+//             highlightColor: Colors.grey[100]!,
+//             child: ElevatedButton(
+//               onPressed: onPressed,
+//               child: Text(
+//                 label,
+//                 style: TextStyle(color: Colors.amber),
+//               ),
+//             ),
+//           )
