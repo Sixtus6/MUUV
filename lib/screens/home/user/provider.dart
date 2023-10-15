@@ -561,9 +561,9 @@ class UserGoogleMapProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  saveRideRequest() {
+  saveRideRequest(context) {
     _referenceRideRequest =
-        FirebaseDatabase.instance.ref().child("All Ride Request").push();
+        FirebaseDatabase.instance.ref().child("All Ride Requests").push();
     var originLocation = _userPickUpLocation;
     var destinationLocation = _userDropOffLocation;
 
@@ -592,6 +592,9 @@ class UserGoogleMapProvider with ChangeNotifier {
 
     _tripRidesRequestStream =
         _referenceRideRequest!.onValue.listen((event) async {
+      dev.log(
+          ["this is users requestStream:", event.snapshot.value].toString());
+      print(["this is users requestStream:", event.snapshot.value]);
       if (event.snapshot.value == null) {
         return;
       }
@@ -655,11 +658,11 @@ class UserGoogleMapProvider with ChangeNotifier {
     });
 
     _onlineNearbyAvailableDriverList = GeoFireAssistant.activeNearDriversList;
-    //searchNearestOnlineDrivers()
+    searchNearestOnlineDrivers(context);
     notifyListeners();
   }
 
-  searchNearestOnlineDrivers(String selectedVehicleType, context) async {
+  searchNearestOnlineDrivers(context) async {
     if (_onlineNearbyAvailableDriverList.length == 0) {
       _referenceRideRequest!.remove();
       _polylineSet.clear();

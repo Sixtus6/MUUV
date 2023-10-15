@@ -106,7 +106,7 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                             : toast("Please wait");
                       },
                       child: Container(
-                        decoration: BoxDecoration(
+                                           decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.7),
                           borderRadius: BorderRadius.all(Radius.circular(3)),
                           boxShadow: const [
