@@ -85,6 +85,7 @@ flutter:
   assets:
     - assets/lottie/
     - assets/icon/
+    - assets/music/
     # - assets/images/logo/
     # - assets/images/splash/
 
