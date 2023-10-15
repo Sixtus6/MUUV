@@ -119,8 +119,13 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                         showDialog(
                             context: context,
                             builder: (BuildContext context) =>
-                                NotificationDialogBox(
-                                  userRideDetails: info,
+                                Consumer<RiderGoogleMapProvider>(
+                                  builder: (BuildContext context, provider, _) {
+                                    return NotificationDialogBox(
+                                      userRideDetails: info,
+                                      provider: provider,
+                                    );
+                                  },
                                 ));
                         // print("object");
                         // provider.rider != null

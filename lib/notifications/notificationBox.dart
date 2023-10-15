@@ -12,11 +12,9 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 class NotificationDialogBox extends StatefulWidget {
-
-
   NotificationDialogBox({this.userRideDetails, required this.provider});
   RiderGoogleMapProvider provider;
-    UserRequestRideInfo? userRideDetails;
+  UserRequestRideInfo? userRideDetails;
   @override
   State<NotificationDialogBox> createState() => _NotificationDialogBoxState();
 }
@@ -100,7 +98,9 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.green)),
-                      onPressed: () {},
+                      onPressed: () {
+                        provider.isDriverActive.toString();
+                      },
                       child: Text(
                         "Accept",
                         style: TextStyle(color: Colors.white),
