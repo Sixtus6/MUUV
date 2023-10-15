@@ -103,7 +103,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                       onPressed: () async {
                         await provider.audioPlayer
                             .open(Audio('assets/music/waterdrip.mp3'));
-                        await provider.audioPlayer.play();
+                        // await provider.audioPlayer.play();
                       },
                       child: Text(
                         "Accept",

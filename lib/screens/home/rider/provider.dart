@@ -75,7 +75,7 @@ class RiderGoogleMapProvider with ChangeNotifier {
 
   Direction? _driverPickUpLocation;
 
-  late AssetsAudioPlayer _audioPlayer;
+  AssetsAudioPlayer _audioPlayer = AssetsAudioPlayer();
   AssetsAudioPlayer get audioPlayer => _audioPlayer;
 
   StreamSubscription<Position>? _streamSubscriptionPosition;
@@ -196,11 +196,12 @@ class RiderGoogleMapProvider with ChangeNotifier {
     ref.set("idle");
     ref.onValue.listen((event) {});
   }
+
   resetAudioPlayer() {
     _audioPlayer = AssetsAudioPlayer();
   }
 
-  updateDriversLocationAtRealTime() { 
+  updateDriversLocationAtRealTime() {
     _streamSubscriptionPosition =
         Geolocator.getPositionStream().listen((Position position) {
       //_isDriverActive == true;
@@ -237,6 +238,5 @@ class RiderGoogleMapProvider with ChangeNotifier {
     _geolocator = Geolocator();
     _pnotification = PushNotificationSystem();
     _checkAndRequestPermissions();
-       _audioPlayer = AssetsAudioPlayer();
   }
 }
