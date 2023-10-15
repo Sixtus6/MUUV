@@ -45,12 +45,19 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                 ).withSize(
                     height: SizeConfigs.getPercentageWidth(40),
                     width: double.infinity),
+                SizeConfigs.getPercentageWidth(2).toInt().height,
                 Text("New Ride Request",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: ColorConfig.secondary,
-                    ))
+                    )),
+                SizeConfigs.getPercentageWidth(5).toInt().height,
+                Divider(
+                  height: SizeConfigs.getPercentageWidth(1),
+                  thickness: 2,
+                  color: ColorConfig.primary,
+                ),
               ],
             ),
           ),
