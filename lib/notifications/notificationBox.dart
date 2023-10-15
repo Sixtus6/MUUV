@@ -106,8 +106,8 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                         try {
                           print(provider.audioPlayer);
                           await provider.audioPlayer.open(
-                              Audio('assets/music/waterdrip.mp3'),
-                              autoStart: true);
+                            Audio('assets/music/waterdrip.mp3'),
+                          );
                         } catch (e) {
                           print([e]);
                         }
