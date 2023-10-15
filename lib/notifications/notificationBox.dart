@@ -63,19 +63,17 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                 CustomModalContainer(
                     image: "assets/icon/fromloc.png",
                     address: widget.userRideDetails!.originAddress!.length > 35
-                        ? widget.userRideDetails!.originAddress!
-                                .substring(0, 35) +
-                            "...."
+                        ? "${widget.userRideDetails!.originAddress!
+                                .substring(0, 35)}...."
                         : widget.userRideDetails!.originAddress.toString(),
                     header: "From"),
                 SizeConfigs.getPercentageWidth(3).toInt().height,
                 CustomModalContainer(
                     image: "assets/icon/toloc.png",
                     address: widget.userRideDetails!.originAddress!.length > 35
-                        ? widget.userRideDetails!.originAddress!
-                                .substring(0, 35) +
-                            "...."
-                        : widget.userRideDetails!.originAddress.toString(),
+                        ? "${widget.userRideDetails!.originAddress!
+                                .substring(0, 35)}...."
+                        : widget.userRideDetails!.destinationAddress.toString(),
                     header: "To"),
                 SizeConfigs.getPercentageWidth(5).toInt().height,
                 Divider(
