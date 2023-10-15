@@ -90,9 +90,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.red)),
-                      onPressed: () async {
-                        await provider.audioPlayer.play();
-                      },
+                      onPressed: () async {},
                       child: Text(
                         "Decline",
                         style: TextStyle(color: Colors.white),
@@ -102,12 +100,13 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.green)),
-                      onPressed: () async {
+                      onPressed: () {
                         try {
                           print(provider.audioPlayer);
-                          await provider.audioPlayer.open(
+                          provider.audioPlayer.open(
                             Audio('assets/music/waterdrip.mp3'),
                           );
+                          provider.audioPlayer.play();
                         } catch (e) {
                           print(e);
                         }
