@@ -80,7 +80,9 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                   thickness: 2,
                   color: ColorConfig.primary,
                 ),
+                SizeConfigs.getPercentageWidth(5).toInt().height,
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     ElevatedButton(
                       style: ButtonStyle(
@@ -95,7 +97,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                     ElevatedButton(
                       style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.red)),
+                              MaterialStateProperty.all<Color>(Colors.green)),
                       onPressed: () {},
                       child: Text(
                         "Decline",
