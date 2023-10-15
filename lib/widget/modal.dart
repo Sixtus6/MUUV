@@ -193,6 +193,22 @@ Future<dynamic> BottomModal(
                                   ],
                                 ),
                               )),
+
+                                   SizeConfigs.getPercentageWidth(2).toInt().height,
+                    CustomButton(
+                        h: 11,
+                        w: 22,
+                        img: '',
+                        text: 'Logout',
+                        ontap: () async {
+                        
+                          await removeKey("user").then(
+                              (value) => print("removed data from caxhe"));
+                          toast("You've been logged out as a User");
+                          OnboardingScreen().launch(context,
+                              pageRouteAnimation: PageRouteAnimation.Fade,
+                              isNewTask: true);
+                        }),
                         ],
                       );
 
