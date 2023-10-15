@@ -1,6 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:muuv/config/color.dart';
+import 'package:muuv/config/size.dart';
 import 'package:muuv/model/userRequestRideInfo.dart';
 import 'package:muuv/screens/home/rider/provider.dart';
 import 'package:muuv/screens/home/user/provider.dart';
@@ -21,10 +22,13 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
     final provider =
         Provider.of<RiderGoogleMapProvider>(context, listen: false);
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24),),
-      backgroundColor: Colors.red,
+      shape: RoundedRectangleBorder(),
+      backgroundColor: Colors.transparent,
       elevation: 0,
-      child: Container(),
+      child: Container(
+        color: ColorConfig.white,
+        padding: EdgeInsets.all(SizeConfigs.getPercentageWidth(7)),
+      ),
     );
   }
 
