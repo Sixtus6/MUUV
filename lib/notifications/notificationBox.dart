@@ -6,6 +6,7 @@ import 'package:muuv/config/size.dart';
 import 'package:muuv/model/userRequestRideInfo.dart';
 import 'package:muuv/screens/home/rider/provider.dart';
 import 'package:muuv/screens/home/user/provider.dart';
+import 'package:muuv/widget/customModal.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -52,6 +53,30 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                       fontWeight: FontWeight.bold,
                       color: ColorConfig.secondary,
                     )),
+                SizeConfigs.getPercentageWidth(5).toInt().height,
+                Divider(
+                  height: SizeConfigs.getPercentageWidth(1),
+                  thickness: 2,
+                  color: ColorConfig.primary,
+                ),
+                SizeConfigs.getPercentageWidth(5).toInt().height,
+                CustomModalContainer(
+                    image: "assets/icon/fromloc.png",
+                    address: widget.userRideDetails!.originAddress!.length > 35
+                        ? widget.userRideDetails!.originAddress!
+                                .substring(0, 35) +
+                            "...."
+                        : widget.userRideDetails!.originAddress.toString(),
+                    header: "From"),
+                SizeConfigs.getPercentageWidth(3).toInt().height,
+                CustomModalContainer(
+                    image: "assets/icon/toloc.png",
+                    address: widget.userRideDetails!.originAddress!.length > 35
+                        ? widget.userRideDetails!.originAddress!
+                                .substring(0, 35) +
+                            "...."
+                        : widget.userRideDetails!.originAddress.toString(),
+                    header: "To"),
                 SizeConfigs.getPercentageWidth(5).toInt().height,
                 Divider(
                   height: SizeConfigs.getPercentageWidth(1),

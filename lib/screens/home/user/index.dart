@@ -7,6 +7,7 @@ import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/widget/constant.dart';
+import 'package:muuv/widget/customModal.dart';
 import 'package:muuv/widget/loader.dart';
 import 'package:muuv/widget/modal.dart';
 import 'package:muuv/widget/placetitle.dart';
