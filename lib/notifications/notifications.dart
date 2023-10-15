@@ -66,7 +66,6 @@ class PushNotificationSystem {
         .onValue
         .listen((event) {
       if (event.snapshot.value == "waiting" ||
-          event.snapshot.value == "waiting" ||
           event.snapshot.value == provider.user!.uid) {
         FirebaseDatabase.instance
             .ref()
