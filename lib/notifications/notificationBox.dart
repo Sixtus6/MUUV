@@ -22,7 +22,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
     final provider =
         Provider.of<RiderGoogleMapProvider>(context, listen: false);
     return Dialog(
-      shape: RoundedRectangleBorder(),
+      // shape: RoundedRectangleBorder(),
       backgroundColor: Colors.transparent,
       elevation: 0,
       child: Container(
