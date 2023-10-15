@@ -18,21 +18,26 @@ class ShimmerActionButton extends StatelessWidget {
         ? Shimmer.fromColors(
             baseColor: Colors.grey[300]!,
             highlightColor: Colors.grey[100]!,
-            child: Container(
-              height: 50.0,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-            ),
+           
           )
         : ElevatedButton(
             onPressed: onPressed,
-            child: Text(label),
+            child: Text(
+              label,
+              //  style: TextStyle(color: Colors.amber),
+            ),
           );
   }
 }
+
+//  child: Container(
+//               height: 50.0,
+//               width: double.infinity,
+//               decoration: BoxDecoration(
+//                 color: Colors.grey[300],
+//                 borderRadius: BorderRadius.circular(8.0),
+//               ),
+//             ),
 
 void main() => runApp(MyApp());
 
