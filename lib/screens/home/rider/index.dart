@@ -128,12 +128,12 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                         //             );
                         //           },
                         //         )
-                                
+
                         //         );
-                        // print("object");
-                        // provider.rider != null
-                        //     ? BottomModalRider(context, provider, false)
-                        //     : toast("Please wait");
+                        print("object");
+                        provider.rider != null
+                            ? BottomModalRider(context, provider, false)
+                            : toast("Please wait");
                       },
                       child: Container(
                         decoration: BoxDecoration(
