@@ -112,12 +112,12 @@ class PushNotificationSystem {
                       userRequestDetails.userPhone = userPhone,
                       userRequestDetails.rideRequestId = rideRequestId,
 
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) =>
-                                NotificationDialogBox(
-                                  userRideDetails: userRequestDetails,
-                                ))
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              NotificationDialogBox(
+                                userRideDetails: userRequestDetails,
+                              ))
                       //double originLng =
                     }
                   else

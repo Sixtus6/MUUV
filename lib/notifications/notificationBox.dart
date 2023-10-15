@@ -39,7 +39,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
           child: Column(
             children: [
               Lottie.asset(
-                "assets/lottie/car5.json",
+                "assets/lottie/car2.json",
               ),
             ],
           ),
