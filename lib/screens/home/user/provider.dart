@@ -218,10 +218,10 @@ class UserGoogleMapProvider with ChangeNotifier {
   Future<void> locateUserPosition() async {
     dev.log("locate");
     try {
-      if (_userCurrentPosition == null) {
-        print("this is null so waiting");
-        return;
-      }
+      // if (_userCurrentPosition == null) {
+      //   dev.log("this is null so waiting");
+      //   return;
+      // }
       Position cPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       _userCurrentPosition = cPosition;
