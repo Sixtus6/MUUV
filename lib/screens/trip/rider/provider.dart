@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class RiderTripGoogleMapProvider with ChangeNotifier {
@@ -18,4 +19,10 @@ class RiderTripGoogleMapProvider with ChangeNotifier {
 
   Set<Polyline> _polylineSet = {};
   Set<Polyline> get polylineSet => _polylineSet;
+
+  List<LatLng> _pLinePositionCoordinateList = [];
+  List<LatLng> get pLinePositionCoordinateList => _pLinePositionCoordinateList;
+
+  PolylinePoints _polylinePoints = PolylinePoints();
+    PolylinePoints get polylinePoints => _polylinePoints;
 }
