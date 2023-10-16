@@ -17,6 +17,8 @@ import 'package:muuv/notifications/notifications.dart';
 import 'package:muuv/utils/helper.dart';
 import 'dart:developer' as dev;
 
+import 'package:nb_utils/nb_utils.dart';
+
 class RiderGoogleMapProvider with ChangeNotifier {
   Completer<GoogleMapController> _controllerCompleter = Completer();
 
@@ -235,6 +237,39 @@ class RiderGoogleMapProvider with ChangeNotifier {
     // Future.delayed(Duration(milliseconds: 2000), () {
     //   SystemChannels.platform.invokeListMethod("SystemNavigator.pop");
     // });
+  }
+
+
+  pauseLiveLocationUpdates() {
+    _streamSubscriptionPosition!.pause();
+    Geofire.removeLocation(_rider!.uid);
+  }
+
+  acceptRideRequest() {
+    FirebaseDatabase.instance
+        .ref()
+        .child("drivers")
+        .child(_rider!.uid)
+        .child("newRideStatus")
+        .once()
+        .then((snap) {
+      if (snap.snapshot.value == "idle") {
+        FirebaseDatabase.instance
+            .ref()
+            .child("drivers")
+            .child(_rider!.uid)
+            .child("newRidestatus")
+            .set("accepted");
+        pauseLiveLocationUpdates();
+
+        //TODO: Lauch new screnn
+        toast("launch new screen");
+      } else {
+        toast("This ride request dosnt exist again");
+      }
+    });
+
+    notifyListeners();
   }
 
   RiderGoogleMapProvider() {
