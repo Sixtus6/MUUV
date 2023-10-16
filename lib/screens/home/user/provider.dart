@@ -761,35 +761,4 @@ class UserGoogleMapProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  pauseLiveLocationUpdates() {
-    _streamSubscriptionPosition!.pause();
-    Geofire.removeLocation(_user!.uid);
-  }
-
-  acceptRideRequest() {
-    FirebaseDatabase.instance
-        .ref()
-        .child("drivers")
-        .child(_user!.uid)
-        .child("newRideStatus")
-        .once()
-        .then((snap) {
-      if (snap.snapshot.value == "idle") {
-        FirebaseDatabase.instance
-            .ref()
-            .child("drivers")
-            .child(_user!.uid)
-            .child("newRidestatus")
-            .set("accepted");
-        pauseLiveLocationUpdates();
-
-        //TODO: Lauch new screnn
-        toast("launch new screen");
-      } else {
-        toast("This ride request dosnt exist again");
-      }
-    });
-
-    notifyListeners();
-  }
 }
