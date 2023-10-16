@@ -13,6 +13,9 @@ class RiderTripGoogleMapProvider with ChangeNotifier {
   Set<Marker> _markerSet = {};
   Set<Marker> get markerSet => _markerSet;
 
-    Set<Circle> _circleSet = {};
+  Set<Circle> _circleSet = {};
   Set<Circle> get circleSet => _circleSet;
+
+  Set<Polyline> _polylineSet = {};
+  Set<Polyline> get polylineSet => _polylineSet;
 }
