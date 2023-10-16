@@ -14,6 +14,7 @@ import 'package:muuv/model/direction.dart';
 import 'package:muuv/model/driverdata.dart';
 import 'package:muuv/model/rider.dart';
 import 'package:muuv/notifications/notifications.dart';
+import 'package:muuv/screens/trip/rider/index.dart';
 import 'package:muuv/utils/helper.dart';
 import 'dart:developer' as dev;
 
@@ -239,13 +240,12 @@ class RiderGoogleMapProvider with ChangeNotifier {
     // });
   }
 
-
   pauseLiveLocationUpdates() {
     _streamSubscriptionPosition!.pause();
     Geofire.removeLocation(_rider!.uid);
   }
 
-  acceptRideRequest() {
+  acceptRideRequest(context, dynamic userRideDetails) {
     FirebaseDatabase.instance
         .ref()
         .child("drivers")
@@ -261,7 +261,9 @@ class RiderGoogleMapProvider with ChangeNotifier {
             .child("newRidestatus")
             .set("accepted");
         pauseLiveLocationUpdates();
-
+        RiderTripScreen(
+          userRideDetails: userRideDetails,
+        ).launch(context);
         //TODO: Lauch new screnn
         toast("launch new screen");
       } else {
