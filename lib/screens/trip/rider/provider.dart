@@ -6,8 +6,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class RiderTripGoogleMapProvider with ChangeNotifier {
+  RiderTripGoogleMapProvider() {
+    _geolocator = Geolocator();
+    _polylinePoints = PolylinePoints();
+  }
 
-  
   Completer<GoogleMapController> _controllerCompleter = Completer();
 
   final CameraPosition _kGooglePlex =
@@ -26,12 +29,12 @@ class RiderTripGoogleMapProvider with ChangeNotifier {
   List<LatLng> _pLinePositionCoordinateList = [];
   List<LatLng> get pLinePositionCoordinateList => _pLinePositionCoordinateList;
 
-  PolylinePoints _polylinePoints = PolylinePoints();
-    PolylinePoints get polylinePoints => _polylinePoints;
+  late PolylinePoints _polylinePoints;
+  PolylinePoints get polylinePoints => _polylinePoints;
 
   late Geolocator _geolocator;
   Geolocator get geolocator => _geolocator;
 
-     BitmapDescriptor? _iconAnimatedMarker;
+  BitmapDescriptor? _iconAnimatedMarker;
   BitmapDescriptor? get iconAnimatedMarker => _iconAnimatedMarker;
 }
