@@ -31,15 +31,15 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
         },
         child: Consumer<RiderGoogleMapProvider>(
           builder: (BuildContext context, provider, _) {
-            provider.pnotification!.initializeCloudMessaging(context);
-            provider.pnotification!.generateAndGetToken();
+            // provider.pnotification!.initializeCloudMessaging(context);
+            // provider.pnotification!.generateAndGetToken();
             return Stack(children: [
               provider.controller != null
                   ? GoogleMap(
                       onMapCreated: (controller) {
                         provider.setController(controller);
                         provider.setnewGoogleMapController(controller);
-                        provider.locateDriverPosition();
+                        provider.locateDriverPosition(context);
                       },
                       // onCameraMove: (CameraPosition? position) {
                       //   //    print("moving ${provider.pickLocation}");
@@ -124,12 +124,10 @@ class _RiderHomeScreenState extends State<RiderHomePage> {
                         //           builder: (BuildContext context, provider, _) {
                         //             return NotificationDialogBox(
                         //               userRideDetails: info,
-                        //               provider: provider,
+                        //               //  provider: provider,
                         //             );
                         //           },
-                        //         )
-
-                        //         );
+                        //         ));
                         print("object");
                         provider.rider != null
                             ? BottomModalRider(context, provider, false)

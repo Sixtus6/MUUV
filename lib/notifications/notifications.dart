@@ -63,6 +63,15 @@ class PushNotificationSystem {
     UserRequestRideInfo userRequestDetails = UserRequestRideInfo();
     final provider =
         Provider.of<RiderGoogleMapProvider>(context, listen: false);
+
+    UserRequestRideInfo info = UserRequestRideInfo();
+    info.destinationAddress = "GreenField";
+    info.destinationLatLng = LatLng(5.033626099999999, 5.033626099999999);
+    info.originLatLng = LatLng(5.033626099999999, 5.033626099999999);
+    info.originAddress = "31 Dominic Utuk Ave, 520103, Uyo, Akwa Ibom, Nigeria";
+    info.rideRequestId = "NgliGI3RbCDG_WMJKbg";
+    info.userName = "Sixtus";
+    info.userPhone = "09150619759";
     FirebaseDatabase.instance
         .ref()
         .child("All Ride Requests")
@@ -111,18 +120,16 @@ class PushNotificationSystem {
                       userRequestDetails.userName = username,
                       userRequestDetails.userPhone = userPhone,
                       userRequestDetails.rideRequestId = rideRequestId,
+                      userRequestDetails.destinationAddress =destinationOriginAddress,
+                      dev.log(userRequestDetails.userName!),
 
                       showDialog(
                           barrierDismissible: false,
                           context: context,
                           builder: (BuildContext context) =>
-                              Consumer<RiderGoogleMapProvider>(
-                                builder: (BuildContext context, provider, _) {
-                                  return NotificationDialogBox(
-                                    userRideDetails: userRequestDetails,
-                                    provider: provider,
-                                  );
-                                },
+                              NotificationDialogBox(
+                                userRideDetails: userRequestDetails,
+                                // provider: provider,
                               )),
                       //double originLng =
                     }

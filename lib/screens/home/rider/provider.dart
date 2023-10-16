@@ -15,6 +15,7 @@ import 'package:muuv/model/driverdata.dart';
 import 'package:muuv/model/rider.dart';
 import 'package:muuv/notifications/notifications.dart';
 import 'package:muuv/utils/helper.dart';
+import 'dart:developer' as dev;
 
 class RiderGoogleMapProvider with ChangeNotifier {
   Completer<GoogleMapController> _controllerCompleter = Completer();
@@ -126,7 +127,10 @@ class RiderGoogleMapProvider with ChangeNotifier {
     return addressCordinate;
   }
 
-  Future<void> locateDriverPosition() async {
+  Future<void> locateDriverPosition(context) async {
+    dev.log("locate user position");
+    _pnotification!.initializeCloudMessaging(context);
+    _pnotification!.generateAndGetToken();
     try {
       Position cPosition = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
@@ -142,13 +146,13 @@ class RiderGoogleMapProvider with ChangeNotifier {
 
       String driverAddress =
           await searchAddressViaCordinates(_driverCurrentPosition!);
-      print(["this is user curren position", driverAddress]);
+      print(["this is rider curren position", driverAddress]);
       RiderModel? riderData = await getRiderFromPrefs();
       _rider = riderData;
       _readCurrentDriverInformation();
       notifyListeners();
     } catch (e) {
-      print('Error locating user position: $e');
+      print('Error locating rider position: $e');
     }
   }
 

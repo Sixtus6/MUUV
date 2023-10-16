@@ -12,8 +12,10 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 class NotificationDialogBox extends StatefulWidget {
-  NotificationDialogBox({this.userRideDetails, required this.provider});
-  RiderGoogleMapProvider provider;
+  NotificationDialogBox({
+    this.userRideDetails,
+  });
+
   UserRequestRideInfo? userRideDetails;
   @override
   State<NotificationDialogBox> createState() => _NotificationDialogBoxState();
@@ -137,5 +139,4 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
       ]),
     );
   }
-
 }
