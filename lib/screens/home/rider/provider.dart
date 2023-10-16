@@ -264,7 +264,7 @@ class RiderGoogleMapProvider with ChangeNotifier {
         pauseLiveLocationUpdates();
         RiderTripScreen(
           userRideDetails: userRideDetails,
-        ).launch(context);
+        ).launch(context, isNewTask: true);
         //TODO: Lauch new screnn
         toast("launch new screen");
       } else {
