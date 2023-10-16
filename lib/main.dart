@@ -9,6 +9,7 @@ import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/screens/mainscreen.dart';
 //import 'package:muuv/screens/rider/index.dart';
 import 'package:muuv/screens/rider/provider.dart';
+import 'package:muuv/screens/trip/rider/provider.dart';
 import 'package:muuv/screens/user/provider.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
@@ -45,9 +46,10 @@ Future<void> main() async {
             create: (_) => UserGoogleMapProvider()),
         ChangeNotifierProvider<RiderAuthProvider>(
             create: (_) => RiderAuthProvider()),
-              ChangeNotifierProvider<RiderGoogleMapProvider>(
+        ChangeNotifierProvider<RiderGoogleMapProvider>(
             create: (_) => RiderGoogleMapProvider()),
-        //    ChangeNotifierProvider<UserRideInfo>(create: (_) => UserRideInfo())
+        ChangeNotifierProvider<RiderTripGoogleMapProvider>(
+            create: (_) => RiderTripGoogleMapProvider())
       ],
       child: MyApp(),
     ),

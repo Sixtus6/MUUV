@@ -12,6 +12,6 @@ class RiderTripScreen extends StatefulWidget {
 class _RiderTripScreenState extends State<RiderTripScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return  Scaffold();
   }
 }
