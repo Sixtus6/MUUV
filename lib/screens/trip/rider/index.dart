@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:muuv/model/userRequestRideInfo.dart';
+import 'package:muuv/screens/trip/rider/provider.dart';
+import 'package:provider/provider.dart';
 
 class RiderTripScreen extends StatefulWidget {
   RiderTripScreen({this.userRideDetails});
@@ -12,6 +15,32 @@ class RiderTripScreen extends StatefulWidget {
 class _RiderTripScreenState extends State<RiderTripScreen> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold();
+    return SafeArea(
+        child: Scaffold(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Consumer<RiderTripGoogleMapProvider>(
+          builder: (BuildContext context, provider, _) {
+            return Stack(
+              children: [
+                GoogleMap(
+                  initialCameraPosition: provider.kGooglePlex,
+                  markers: provider.markerSet,
+                  circles: provider.circleSet,
+                  polylines: provider.polylineSet,
+                  mapType: MapType.normal,
+                  myLocationButtonEnabled: true,
+                  onMapCreated: (GoogleMapController controller) {
+                    provider.setController(controller);
+                    },
+                )
+              ],
+            );
+          },
+        ),
+      ),
+    ));
   }
 }

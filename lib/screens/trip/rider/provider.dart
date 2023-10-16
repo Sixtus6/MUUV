@@ -46,4 +46,14 @@ class RiderTripGoogleMapProvider with ChangeNotifier {
 
   bool _isDirectionDetailsInfo = false;
   bool get isDirectionDetailsInfo => _isDirectionDetailsInfo;
+
+   GoogleMapController? _newGoogleMapController;
+  GoogleMapController? get newGoogleMapController => _newGoogleMapController;
+
+  void setController(GoogleMapController controller) {
+    _controllerCompleter.complete(controller);
+    notifyListeners();
+  }
+  Future<GoogleMapController> get controller => _controllerCompleter.future;
+
 }
