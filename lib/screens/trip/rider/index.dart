@@ -32,9 +32,10 @@ class _RiderTripScreenState extends State<RiderTripScreen> {
                   polylines: provider.polylineSet,
                   mapType: MapType.normal,
                   myLocationButtonEnabled: true,
-                  onMapCreated: (GoogleMapController controller) {
+                  onMapCreated: (controller) {
                     provider.setController(controller);
-                    },
+                    provider.setnewGoogleMapController(controller);
+                  },
                 )
               ],
             );
