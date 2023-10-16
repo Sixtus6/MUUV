@@ -37,4 +37,13 @@ class RiderTripGoogleMapProvider with ChangeNotifier {
 
   BitmapDescriptor? _iconAnimatedMarker;
   BitmapDescriptor? get iconAnimatedMarker => _iconAnimatedMarker;
+
+  Position? _onlineDriverCurrentPosition;
+  Position? get onlineDriverCurrentPosition => _onlineDriverCurrentPosition;
+
+  String _rideRequeststatus = "accepted";
+  String get rideRequeststatus => _rideRequeststatus;
+
+  bool _isDirectionDetailsInfo = false;
+  bool get isDirectionDetailsInfo => _isDirectionDetailsInfo;
 }
