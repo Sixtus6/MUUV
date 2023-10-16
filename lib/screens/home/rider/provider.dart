@@ -13,6 +13,7 @@ import 'package:muuv/key/key.dart';
 import 'package:muuv/model/direction.dart';
 import 'package:muuv/model/driverdata.dart';
 import 'package:muuv/model/rider.dart';
+import 'package:muuv/model/userRequestRideInfo.dart';
 import 'package:muuv/notifications/notifications.dart';
 import 'package:muuv/screens/trip/rider/index.dart';
 import 'package:muuv/utils/helper.dart';
@@ -245,7 +246,7 @@ class RiderGoogleMapProvider with ChangeNotifier {
     Geofire.removeLocation(_rider!.uid);
   }
 
-  acceptRideRequest(context, dynamic userRideDetails) {
+  acceptRideRequest(context, UserRequestRideInfo? userRideDetails) {
     FirebaseDatabase.instance
         .ref()
         .child("drivers")

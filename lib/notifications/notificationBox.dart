@@ -104,11 +104,8 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                               MaterialStateProperty.all<Color>(Colors.green)),
                       onPressed: () {
                         try {
-                          print(provider.audioPlayer);
-                          provider.audioPlayer.open(
-                            Audio('assets/music/waterdrip.mp3'),
-                          );
-                          provider.audioPlayer.play();
+                          provider.acceptRideRequest(
+                              context, widget.userRideDetails);
                         } catch (e) {
                           print(e);
                         }
