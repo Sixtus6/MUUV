@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:muuv/model/userRequestRideInfo.dart';
+import 'package:muuv/screens/home/rider/provider.dart';
 import 'package:muuv/screens/trip/rider/provider.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +36,10 @@ class _RiderTripScreenState extends State<RiderTripScreen> {
                   onMapCreated: (controller) {
                     provider.setController(controller);
                     provider.setnewGoogleMapController(controller);
+                     
+                    var driverCurrentPosition = LatLng(provider.driverCurrentPosition!.latitude, provider.driverCurrentPosition!.longitude)
                   },
+
                 )
               ],
             );

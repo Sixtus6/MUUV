@@ -35,6 +35,9 @@ class RiderTripGoogleMapProvider with ChangeNotifier {
   late Geolocator _geolocator;
   Geolocator get geolocator => _geolocator;
 
+   Position? _driverCurrentPosition;
+  Position? get driverCurrentPosition => _driverCurrentPosition;
+
   BitmapDescriptor? _iconAnimatedMarker;
   BitmapDescriptor? get iconAnimatedMarker => _iconAnimatedMarker;
 

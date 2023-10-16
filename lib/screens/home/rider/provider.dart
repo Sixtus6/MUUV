@@ -22,6 +22,7 @@ import 'dart:developer' as dev;
 import 'package:nb_utils/nb_utils.dart';
 
 class RiderGoogleMapProvider with ChangeNotifier {
+  
   Completer<GoogleMapController> _controllerCompleter = Completer();
 
   final CameraPosition _kGooglePlex =
