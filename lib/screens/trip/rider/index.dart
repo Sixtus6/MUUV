@@ -36,10 +36,19 @@ class _RiderTripScreenState extends State<RiderTripScreen> {
                   onMapCreated: (controller) {
                     provider.setController(controller);
                     provider.setnewGoogleMapController(controller);
-                     
-                    var driverCurrentPosition = LatLng(provider.driverCurrentPosition!.latitude, provider.driverCurrentPosition!.longitude)
-                  },
+                    final rider = Provider.of<RiderGoogleMapProvider>(context,
+                        listen: false);
+                    var driverCurrentLatLng = LatLng(
+                        rider.driverCurrentPosition!.latitude,
+                        rider.driverCurrentPosition!.longitude);
 
+                    var userPickUpLatLng = widget.userRideDetails!.originLatLng;
+                    provider.drawPolyLineFromOriginToDestination(
+                        driverCurrentLatLng, userPickUpLatLng!, context);
+                    // getDriveLocationUpdatesAtRealTime();
+
+                    //draw polyline
+                  },
                 )
               ],
             );

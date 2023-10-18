@@ -98,7 +98,7 @@ class _NotificationDialogBoxState extends State<NotificationDialogBox> {
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
-                    ElevatedButton(
+                    ElevatedButton( 
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.green)),
