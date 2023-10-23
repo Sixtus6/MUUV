@@ -7,6 +7,7 @@ import 'package:muuv/model/userRequestRideInfo.dart';
 import 'package:muuv/screens/home/rider/index.dart';
 import 'package:muuv/screens/home/rider/provider.dart';
 import 'package:muuv/screens/home/user/provider.dart';
+import 'package:muuv/screens/splash/index.dart';
 import 'package:muuv/screens/trip/rider/provider.dart';
 import 'package:muuv/widget/customModal.dart';
 import 'package:muuv/widget/modal.dart';
@@ -182,9 +183,7 @@ class _RiderTripScreenState extends State<RiderTripScreen> {
                                       MaterialStateProperty.all<Color>(
                                           Colors.red)),
                               onPressed: () async {
-                                RiderHomePage().launch(context,
-                                    pageRouteAnimation: PageRouteAnimation.Fade,
-                                    isNewTask: true);
+                                SplashScreen();
                               },
                               child: Text(
                                 "End Trip",

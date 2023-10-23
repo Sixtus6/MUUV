@@ -195,8 +195,8 @@ Future<dynamic> BottomModal(
                               )),
                           SizeConfigs.getPercentageWidth(2).toInt().height,
                           CustomButton(
-                              h: 11,
-                              w: 22,
+                              h: SizeConfigs.getPercentageWidth(3).toInt(),
+                              w: SizeConfigs.getPercentageWidth(6).toInt(),
                               img: '',
                               text: 'Logout',
                               ontap: () async {
@@ -339,8 +339,8 @@ Future<dynamic> BottomModalRider(
                         )),
                     SizeConfigs.getPercentageWidth(2).toInt().height,
                     CustomButton(
-                        h: 11,
-                        w: 22,
+                        h: SizeConfigs.getPercentageWidth(3).toInt(),
+                        w: SizeConfigs.getPercentageWidth(6).toInt(),
                         img: '',
                         text: 'Logout',
                         ontap: () async {
