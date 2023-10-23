@@ -265,7 +265,7 @@ class RiderGoogleMapProvider with ChangeNotifier {
         pauseLiveLocationUpdates();
         _controllerCompleter = Completer<GoogleMapController>();
         _newGoogleMapController = null;
-        
+        _status = "Offline";
 
         RiderTripScreen(
           userRideDetails: userRideDetails,

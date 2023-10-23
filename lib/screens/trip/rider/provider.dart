@@ -214,6 +214,8 @@ class RiderTripGoogleMapProvider with ChangeNotifier {
 
   pauseLiveLocationUpdates() {
     _streamSubscriptionDriverLivePosition!.pause();
+    _controllerCompleter = Completer<GoogleMapController>();
+    _newGoogleMapController = null;
     //  Geofire.removeLocation(_rider!.uid);
   }
 
