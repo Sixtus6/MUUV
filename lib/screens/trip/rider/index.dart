@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
 import 'package:muuv/model/userRequestRideInfo.dart';
+import 'package:muuv/screens/home/rider/index.dart';
 import 'package:muuv/screens/home/rider/provider.dart';
 import 'package:muuv/screens/home/user/provider.dart';
 import 'package:muuv/screens/trip/rider/provider.dart';
@@ -180,7 +181,11 @@ class _RiderTripScreenState extends State<RiderTripScreen> {
                                   backgroundColor:
                                       MaterialStateProperty.all<Color>(
                                           Colors.red)),
-                              onPressed: () async {},
+                              onPressed: () async {
+                                RiderHomePage().launch(context,
+                                    pageRouteAnimation: PageRouteAnimation.Fade,
+                                    isNewTask: true);
+                              },
                               child: Text(
                                 "End Trip",
                                 style: TextStyle(color: Colors.white),

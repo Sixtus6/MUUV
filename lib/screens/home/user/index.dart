@@ -275,7 +275,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             await Future.delayed(const Duration(seconds: 3));
                           } finally {
                             controller.success(); //starts success animation
-                            await Future.delayed(const Duration(seconds: 2));
+                            await Future.delayed(const Duration(seconds: 20));
                             controller.reset();
                           }
 
