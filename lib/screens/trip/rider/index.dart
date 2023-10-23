@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:muuv/config/color.dart';
 import 'package:muuv/config/size.dart';
@@ -121,7 +122,9 @@ class _RiderTripScreenState extends State<RiderTripScreen> {
                             ),
                             SizeConfigs.getPercentageWidth(2).toInt().height,
                             CustomModalContainer(
-                                ontap: () {
+                                ontap: () async {
+                                  await FlutterPhoneDirectCaller.callNumber(
+                                      widget.userRideDetails!.userPhone!);
                                   print("kkd");
                                 },
                                 call: true,
