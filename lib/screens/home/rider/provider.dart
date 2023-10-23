@@ -15,6 +15,7 @@ import 'package:muuv/model/driverdata.dart';
 import 'package:muuv/model/rider.dart';
 import 'package:muuv/model/userRequestRideInfo.dart';
 import 'package:muuv/notifications/notifications.dart';
+import 'package:muuv/screens/rider/index.dart';
 import 'package:muuv/screens/trip/rider/index.dart';
 import 'package:muuv/utils/helper.dart';
 import 'dart:developer' as dev;
@@ -22,7 +23,6 @@ import 'dart:developer' as dev;
 import 'package:nb_utils/nb_utils.dart';
 
 class RiderGoogleMapProvider with ChangeNotifier {
-  
   Completer<GoogleMapController> _controllerCompleter = Completer();
 
   final CameraPosition _kGooglePlex =
@@ -260,15 +260,16 @@ class RiderGoogleMapProvider with ChangeNotifier {
             .ref()
             .child("drivers")
             .child(_rider!.uid)
-            .child("newRidestatus")
+            .child("newRideStatus")
             .set("accepted");
         pauseLiveLocationUpdates();
         RiderTripScreen(
           userRideDetails: userRideDetails,
         ).launch(context, isNewTask: true);
         //TODO: Lauch new screnn
-        toast("launch new screen");
+        // toast("launch new screen");
       } else {
+         //  RiderScreen().launch(context, isNewTask: true);
         toast("This ride request dosnt exist again");
       }
     });

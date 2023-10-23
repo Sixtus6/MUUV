@@ -228,6 +228,18 @@ class RiderTripGoogleMapProvider with ChangeNotifier {
           icon: iconAnimatedMarker!,
           infoWindow: InfoWindow(title: "This is your position"));
 
+
+  createDriverIconMarker(context) {
+    if (_iconAnimatedMarker == null) {
+      ImageConfiguration imageConfiguration =
+          createLocalImageConfiguration(context, size: Size(2, 2));
+      BitmapDescriptor.fromAssetImage(imageConfiguration, "assets/icon/car.png")
+          .then((value) {
+        _iconAnimatedMarker = value;
+      });
+    }
+  }
+
       CameraPosition cameraPosition =
           CameraPosition(target: latLngLiveDriverPosition, zoom: 18);
       _newGoogleMapController!
@@ -245,7 +257,9 @@ class RiderTripGoogleMapProvider with ChangeNotifier {
       FirebaseDatabase.instance
           .ref()
           .child("All Ride Request")
-          .child(userRideRequestDetails!.rideRequestId).child("driverLocation").set(driverLatLngDataMap);
+          .child(userRideRequestDetails!.rideRequestId)
+          .child("driverLocation")
+          .set(driverLatLngDataMap);
     });
 
     notifyListeners();

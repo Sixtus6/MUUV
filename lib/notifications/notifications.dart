@@ -141,7 +141,7 @@ class PushNotificationSystem {
                 });
       } else {
         toast("This Ride Request has been cancelled ");
-        Navigator.pop(context);
+       /// Navigator.pop(context);
       }
     });
   }

@@ -24,6 +24,7 @@ class _RiderTripScreenState extends State<RiderTripScreen> {
         },
         child: Consumer<RiderTripGoogleMapProvider>(
           builder: (BuildContext context, provider, _) {
+            //    provider.createDriverIconMarker(context, widget.userRideDetails);
             return Stack(
               children: [
                 GoogleMap(
@@ -33,6 +34,7 @@ class _RiderTripScreenState extends State<RiderTripScreen> {
                   polylines: provider.polylineSet,
                   mapType: MapType.normal,
                   myLocationButtonEnabled: true,
+                  myLocationEnabled: true,
                   onMapCreated: (controller) {
                     provider.setController(controller);
                     provider.setnewGoogleMapController(controller);
@@ -45,7 +47,8 @@ class _RiderTripScreenState extends State<RiderTripScreen> {
                     var userPickUpLatLng = widget.userRideDetails!.originLatLng;
                     provider.drawPolyLineFromOriginToDestination(
                         driverCurrentLatLng, userPickUpLatLng!, context);
-                    // getDriveLocationUpdatesAtRealTime();
+                    provider.getDriverLocatonRealTime(
+                        context, widget.userRideDetails!);
 
                     //draw polyline
                   },
