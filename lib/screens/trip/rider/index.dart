@@ -124,7 +124,8 @@ class _RiderTripScreenState extends State<RiderTripScreen> {
                             CustomModalContainer(
                                 ontap: () async {
                                   await FlutterPhoneDirectCaller.callNumber(
-                                      widget.userRideDetails!.userPhone!);
+                                      widget.userRideDetails!.userPhone!
+                                          .toString());
                                   print("kkd");
                                 },
                                 call: true,
@@ -172,6 +173,18 @@ class _RiderTripScreenState extends State<RiderTripScreen> {
                                   : 'Destination',
                               header: 'Destination',
                               image: "assets/icon/toloc.png",
+                            ),
+
+                            ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.red)),
+                              onPressed: () async {},
+                              child: Text(
+                                "End Trip",
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ],
                         ),
