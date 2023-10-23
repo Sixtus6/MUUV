@@ -55,6 +55,7 @@ dependencies:
   firebase_database: ^10.2.7
   firebase_messaging: ^14.6.9
   assets_audio_player: ^3.1.1
+  flutter_phone_direct_caller: ^2.1.1
 
   # location: ^5.0.3
 
