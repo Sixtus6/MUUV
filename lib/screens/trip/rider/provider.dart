@@ -212,6 +212,11 @@ class RiderTripGoogleMapProvider with ChangeNotifier {
     }
   }
 
+  pauseLiveLocationUpdates() {
+    _streamSubscriptionDriverLivePosition!.pause();
+    //  Geofire.removeLocation(_rider!.uid);
+  }
+
   getDriverLocatonRealTime(context, var userRideRequestDetails) {
     LatLng oldLatLng = LatLng(0, 0);
     final rider = Provider.of<RiderGoogleMapProvider>(context, listen: false);

@@ -263,13 +263,17 @@ class RiderGoogleMapProvider with ChangeNotifier {
             .child("newRideStatus")
             .set("accepted");
         pauseLiveLocationUpdates();
+        _controllerCompleter = Completer<GoogleMapController>();
+        _newGoogleMapController = null;
+        
+
         RiderTripScreen(
           userRideDetails: userRideDetails,
         ).launch(context, isNewTask: true);
         //TODO: Lauch new screnn
         // toast("launch new screen");
       } else {
-         //  RiderScreen().launch(context, isNewTask: true);
+        //  RiderScreen().launch(context, isNewTask: true);
         toast("This ride request dosnt exist again");
       }
     });

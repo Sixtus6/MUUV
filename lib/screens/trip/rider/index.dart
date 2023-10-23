@@ -183,7 +183,9 @@ class _RiderTripScreenState extends State<RiderTripScreen> {
                                       MaterialStateProperty.all<Color>(
                                           Colors.red)),
                               onPressed: () async {
-                                SplashScreen();
+                                provider.pauseLiveLocationUpdates();
+                                const RiderHomePage()
+                                    .launch(context, isNewTask: true);
                               },
                               child: Text(
                                 "End Trip",
