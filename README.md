@@ -1,6 +1,6 @@
-# muuv
+# MUUV
 
-A new Flutter project.
+A cutting-edge ride-hailing Flutter app with a stunning user interface. Effortlessly select your destination, book a ride, and relax as a driver arrives promptly to take you where you need to go. Enjoy a stress-free journey, tracked in real-time, all designed for your ease and comfort.
 
 ## Getting Started
 
